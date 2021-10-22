@@ -1,0 +1,8 @@
+
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "armormod:block/scrap_block_top",
+    "side": "armormod:block/scrap_block_side"
+  }
+}
