@@ -1,0 +1,21 @@
+{
+  "item.hexerei.armor_scrap": "Armor Scrap",
+  "item.hexerei.firestone": "Firestone",
+  "block.hexerei.scrap_block": "Scrap Block",
+  "block.hexerei.mixing_cauldron": "Mixing Cauldron",
+  "item.hexerei.warhammer": "Warhammer",
+  "item.hexerei.quicksilver_bucket": "Quicksilver Bucket",
+  "item.hexerei.milk_bottle": "Bottle of Milk",
+  "item.hexerei.quicksilver_bottle": "Bottle of Quicksilver",
+  "item.hexerei.lava_bottle": "Bottle of Lava",
+  "item.hexerei.orc_helmet": "Orc Helmet",
+  "item.hexerei.orc_helmet": "Orc Chestplate",
+  "item.hexerei.orc_helmet": "Orc Leggings",
+  "item.hexerei.orc_helmet": "Orc Boots",
+  "screen.hexerei.mixing_cauldron": "Mixing Cauldron",
+  "tooltip.hexerei.bottle_lava": "Hold \u00A7eSHIFT\u00A7r for more Information",
+  "tooltip.hexerei.bottle_lava_shift": "Careful! glass wont hold the lava for long, also may not be a smart idea to ingest",
+  "itemGroup.armorModTab": "Armor Mod"
+
+
+}
