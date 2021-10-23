@@ -40,7 +40,7 @@ public class ModBlocks {
 
     private static <T extends Block> void registerBlockItem(String name, RegistryObject<T> block) {
         ModItems.ITEMS.register(name, () -> new BlockItem(block.get(),
-                new Item.Properties().group(ModItemGroup.ARMOR_GROUP)));
+                new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
     }
 
     public static void register(IEventBus eventBus) {
