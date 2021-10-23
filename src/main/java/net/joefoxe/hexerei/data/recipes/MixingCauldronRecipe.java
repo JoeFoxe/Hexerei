@@ -26,7 +26,7 @@ import java.util.Objects;
 
 public class MixingCauldronRecipe implements IMixingCauldronRecipe{
 
-
+    //I didnt full implement weather yet, I had it in then took it out in replace for the liquid type. still debaiting on if I should add it back. maybe add another enum to the weather for ANY?
     public enum Weather {
         CLEAR,
         RAIN,
@@ -64,11 +64,6 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
             recipeItems.get(6).test(inv.getStackInSlot(6)) &&
             recipeItems.get(7).test(inv.getStackInSlot(7)))
         {
-//            BlockState blockStateAtPos = worldIn.getBlockState(new BlockPos(??????));
-//
-//                if(blockStateAtPos.get(MixingCauldron.FLUID) == this.liquid) {
-//                    return true;
-//                }
             return true;
         }
         return false;
@@ -117,6 +112,8 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
         }
     }
 
+
+    // for Serializing the recipe into/from a json
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>>
             implements IRecipeSerializer<MixingCauldronRecipe> {
 

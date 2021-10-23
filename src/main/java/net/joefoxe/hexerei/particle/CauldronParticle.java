@@ -35,44 +35,62 @@ import java.util.Random;
 @OnlyIn(Dist.CLIENT)
 public class CauldronParticle extends SpriteTexturedParticle {
 
-    /*
-     * Just like all other SpriteTexturedParticles this class is more or less copied, take a look at existing
-     * particles and add change some numbers around until you get what you need!
-     */
+    // thanks to understanding simibubi's code from the Create mod for rendering particles I was able to render my own :D
     public static final Vector3d[] CUBE = {
-            // TOP
-            new Vector3d(0.5, 0.1, -0.5), new Vector3d(0.5, 0.1, 0.5), new Vector3d(-0.5, 0.1, 0.5), new Vector3d(-0.5, 0.1, -0.5),
+            // top render
+            new Vector3d(0.5, 0.1, -0.5),
+            new Vector3d(0.5, 0.1, 0.5),
+            new Vector3d(-0.5, 0.1, 0.5),
+            new Vector3d(-0.5, 0.1, -0.5),
 
-            // BOTTOM
-            new Vector3d(-0.5, -0.1, -0.5), new Vector3d(-0.5, -0.1, 0.5), new Vector3d(0.5, -0.1, 0.5), new Vector3d(0.5, -0.1, -0.5),
+            // bottom render
+            new Vector3d(-0.5, -0.1, -0.5),
+            new Vector3d(-0.5, -0.1, 0.5),
+            new Vector3d(0.5, -0.1, 0.5),
+            new Vector3d(0.5, -0.1, -0.5),
 
-            // FRONT
-            new Vector3d(-0.5, -0.1, 0.5), new Vector3d(-0.5, 0.1, 0.5), new Vector3d(0.5, 0.1, 0.5), new Vector3d(0.5, -0.1, 0.5),
+            // front render
+            new Vector3d(-0.5, -0.1, 0.5),
+            new Vector3d(-0.5, 0.1, 0.5),
+            new Vector3d(0.5, 0.1, 0.5),
+            new Vector3d(0.5, -0.1, 0.5),
 
-            // BACK
-            new Vector3d(0.5, -0.1, -0.5), new Vector3d(0.5, 0.1, -0.5), new Vector3d(-0.5, 0.1, -0.5), new Vector3d(-0.5, -0.1, -0.5),
+            // back render
+            new Vector3d(0.5, -0.1, -0.5),
+            new Vector3d(0.5, 0.1, -0.5),
+            new Vector3d(-0.5, 0.1, -0.5),
+            new Vector3d(-0.5, -0.1, -0.5),
 
-            // LEFT
-            new Vector3d(-0.5, -0.1, -0.5), new Vector3d(-0.5, 0.1, -0.5), new Vector3d(-0.5, 0.1, 0.5), new Vector3d(-0.5, -0.1, 0.5),
+            // left render
+            new Vector3d(-0.5, -0.1, -0.5),
+            new Vector3d(-0.5, 0.1, -0.5),
+            new Vector3d(-0.5, 0.1, 0.5),
+            new Vector3d(-0.5, -0.1, 0.5),
 
-            // RIGHT
-            new Vector3d(0.5, -0.1, 0.5), new Vector3d(0.5, 0.1, 0.5), new Vector3d(0.5, 0.1, -0.5), new Vector3d(0.5, -0.1, -0.5) };
+            // right render
+            new Vector3d(0.5, -0.1, 0.5),
+            new Vector3d(0.5, 0.1, 0.5),
+            new Vector3d(0.5, 0.1, -0.5),
+            new Vector3d(0.5, -0.1, -0.5)
+    };
 
     public static final Vector3d[] CUBE_NORMALS = {
             // modified normals for the sides
-            new Vector3d(0, 0.1, 0), new Vector3d(0, -0.5, 0), new Vector3d(0, 0, 0.5), new Vector3d(0, 0, 0.5), new Vector3d(0, 0, 0.5),
+            new Vector3d(0, 0.1, 0),
+            new Vector3d(0, -0.5, 0),
             new Vector3d(0, 0, 0.5),
-
-            /*
-             * new Vector3d(0, 1, 0), new Vector3d(0, -1, 0), new Vector3d(0, 0, 1), new Vector3d(0, 0,
-             * -1), new Vector3d(-1, 0, 0), new Vector3d(1, 0, 0)
-             */
+            new Vector3d(0, 0, 0.5),
+            new Vector3d(0, 0, 0.5),
+            new Vector3d(0, 0, 0.5),
     };
 
     private static final IParticleRenderType renderType = new IParticleRenderType() {
         @Override
         public void beginRender(BufferBuilder bufferBuilder, TextureManager textureManager) {
             RenderSystem.disableTexture();
+
+
+            // HELPER FOR RENDERING THE PARTICLE CAN CHANGE FOR RENDERING TYPES
 
             // transparent, additive blending
             RenderSystem.depthMask(false);
@@ -142,6 +160,7 @@ public class CauldronParticle extends SpriteTexturedParticle {
 
     @Override
     public void tick() {
+        // motion for the particle
         if (this.hot && this.age > 0) {
             if (this.prevPosY == this.posY) {
                 billowing = true;
@@ -167,12 +186,13 @@ public class CauldronParticle extends SpriteTexturedParticle {
 
     @Override
     public void renderParticle(IVertexBuilder buffer, ActiveRenderInfo renderInfo, float partialTicks) {
+
+
         Vector3d projectedView = renderInfo.getProjectedView();
         float lerpedX = (float) (MathHelper.lerp(partialTicks, this.prevPosX, this.posX) - projectedView.getX());
         float lerpedY = (float) (MathHelper.lerp(partialTicks, this.prevPosY, this.posY) - projectedView.getY());
         float lerpedZ = (float) (MathHelper.lerp(partialTicks, this.prevPosZ, this.posZ) - projectedView.getZ());
 
-        // int light = getBrightnessForRender(p_225606_3_);
         int light = 15728880;// 15<<20 && 15<<4
         double ageMultiplier = 1 - Math.pow(age, 3) / Math.pow(this.maxAge, 3);
 
@@ -183,7 +203,7 @@ public class CauldronParticle extends SpriteTexturedParticle {
                 vec = vec
                         .rotateYaw(this.rotation)
                         .scale(scale * ageMultiplier)
-                        //.mul(1, 0.25 + 0.55 * (age/4f), 1)
+                        //.mul(1, 0.25 + 0.55 * (age/4f), 1) //scale non uniform based off age (maybe)
                         .add(lerpedX, lerpedY, lerpedZ);
 
                 Vector3d normal = CUBE_NORMALS[i];
@@ -219,6 +239,7 @@ public class CauldronParticle extends SpriteTexturedParticle {
 
             BlockState blockStateAtPos = worldIn.getBlockState(new BlockPos(x, y-0.5, z));
 
+            //set the particle color based off the fluid in the cauldron below
             if(blockStateAtPos.getBlock() == ModBlocks.MIXING_CAULDRON.get()){
                 if(blockStateAtPos.get(MixingCauldron.FLUID) == LiquidType.WATER) {
                     float colorOffset = (random.nextFloat() * 0.1f);
@@ -232,7 +253,7 @@ public class CauldronParticle extends SpriteTexturedParticle {
                     float colorOffset = (random.nextFloat() * 0.15f);
                     cauldronParticle.setColor(0.12f + colorOffset, 0.12f + colorOffset, 0.12f + colorOffset);
                 }
-            }// .24 - .72
+            }
 
 
             cauldronParticle.setAlphaF(2.0f);

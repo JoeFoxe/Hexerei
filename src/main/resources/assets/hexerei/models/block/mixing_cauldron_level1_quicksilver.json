@@ -767,8 +767,8 @@
 		},
 		"translucent": {
 			"textures": {
-				"1": "armormod:block/mixing_cauldron_side",
-				"2": "armormod:block/quicksilver_still"
+				"1": "hexerei:block/mixing_cauldron_side",
+				"2": "hexerei:block/quicksilver_still"
 			},
 			"elements": [
 

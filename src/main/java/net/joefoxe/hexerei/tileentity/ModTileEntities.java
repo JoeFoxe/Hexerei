@@ -14,7 +14,6 @@ public class ModTileEntities {
 
     public static RegistryObject<TileEntityType<MixingCauldronTile>> MIXING_CAULDRON_TILE = TILE_ENTITIES.register("mixing_cauldron_entity", () -> TileEntityType.Builder.create(MixingCauldronTile::new, ModBlocks.MIXING_CAULDRON.get()).build(null));
 
-
     public static void register(IEventBus eventBus) {
         TILE_ENTITIES.register(eventBus);
     }

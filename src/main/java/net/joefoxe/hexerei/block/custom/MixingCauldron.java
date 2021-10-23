@@ -3,23 +3,19 @@ package net.joefoxe.hexerei.block.custom;
 import net.joefoxe.hexerei.block.ModBlocks;
 import net.joefoxe.hexerei.container.MixingCauldronContainer;
 import net.joefoxe.hexerei.item.ModItems;
-import net.joefoxe.hexerei.particle.CauldronParticleData;
 import net.joefoxe.hexerei.particle.ModParticleTypes;
 import net.joefoxe.hexerei.state.properties.LiquidType;
 import net.joefoxe.hexerei.tileentity.MixingCauldronTile;
 import net.joefoxe.hexerei.tileentity.ModTileEntities;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.*;
-import net.minecraft.loot.LootContext;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.PotionUtils;
@@ -42,17 +38,12 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nullable;
-import java.awt.*;
-import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -61,19 +52,12 @@ public class MixingCauldron extends Block {
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_0_3;
     public static final EnumProperty<LiquidType> FLUID = EnumProperty.create("fluid", LiquidType.class);
     public static final IntegerProperty CRAFT_DELAY = IntegerProperty.create("delay", 0, MixingCauldronTile.craftDelayMax);
+    public static boolean emitParticlesForCraft;
 
     @SuppressWarnings("deprecation")
     @Override
     public BlockRenderType getRenderType(BlockState iBlockState) {
         return BlockRenderType.MODEL;
-    }
-
-    @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity entity, ItemStack itemstack) {
-        super.onBlockPlacedBy(world, pos, state, entity, itemstack);
-
-        //this.setFillLevel(world, pos, state, 0, LiquidType.EMPTY);
-
     }
 
     @Nullable
@@ -82,7 +66,7 @@ public class MixingCauldron extends Block {
         return this.getDefaultState().with(LEVEL, 0).with(FLUID, LiquidType.EMPTY).with(CRAFT_DELAY, 0);
     }
 
-
+    // hitbox
     public static final VoxelShape SHAPE = Stream.of(
             Block.makeCuboidShape(0, 3, 0, 16, 16, 2),
             Block.makeCuboidShape(1, 13, -0.5, 15, 14, 0),
@@ -167,8 +151,7 @@ public class MixingCauldron extends Block {
         } else {
             int i = state.get(LEVEL);
             Item item = itemstack.getItem();
-            if (item == Items.WATER_BUCKET) {
-                if ((state.get(FLUID) == LiquidType.WATER || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote) {
+            if (item == Items.WATER_BUCKET && ((state.get(FLUID) == LiquidType.WATER || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote)) {
 
                     player.addStat(Stats.FILL_CAULDRON);
                     this.setFillLevel(worldIn, pos, state, 3, LiquidType.WATER);
@@ -179,11 +162,9 @@ public class MixingCauldron extends Block {
                         player.dropItem(new ItemStack(Items.BUCKET), false);
                     }
                     worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                }
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
-            } else if (item == Items.LAVA_BUCKET) {
-                if ((state.get(FLUID) == LiquidType.LAVA || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote) {
+            } else if (item == Items.LAVA_BUCKET && ((state.get(FLUID) == LiquidType.LAVA || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote)) {
 
                     player.addStat(Stats.FILL_CAULDRON);
                     this.setFillLevel(worldIn, pos, state, 3, LiquidType.LAVA);
@@ -194,11 +175,9 @@ public class MixingCauldron extends Block {
                         player.dropItem(new ItemStack(Items.BUCKET), false);
                     }
                     worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                }
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
-            } else if (item == Items.MILK_BUCKET) {
-                if ((state.get(FLUID) == LiquidType.MILK || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote) {
+            } else if (item == Items.MILK_BUCKET && ((state.get(FLUID) == LiquidType.MILK || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote)) {
 
                     player.addStat(Stats.FILL_CAULDRON);
                     this.setFillLevel(worldIn, pos, state, 3, LiquidType.MILK);
@@ -209,11 +188,9 @@ public class MixingCauldron extends Block {
                         player.dropItem(new ItemStack(Items.BUCKET), false);
                     }
                     worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_FILL_FISH, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                }
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
-            } else if (item == ModItems.QUICKSILVER_BUCKET.get()) {
-                if ((state.get(FLUID) == LiquidType.QUICKSILVER || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote) {
+            } else if (item == ModItems.QUICKSILVER_BUCKET.get() && ((state.get(FLUID) == LiquidType.QUICKSILVER || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote)) {
 
                     player.addStat(Stats.FILL_CAULDRON);
                     this.setFillLevel(worldIn, pos, state, 3, LiquidType.QUICKSILVER);
@@ -224,11 +201,10 @@ public class MixingCauldron extends Block {
                         player.dropItem(new ItemStack(Items.BUCKET), false);
                     }
                     worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                }
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
-            } else if (item == Items.BUCKET) {
-                if (i == 3 && !worldIn.isRemote) {
+            } else if (item == Items.BUCKET && i == 3) {
+                if (!worldIn.isRemote) {
                     if(state.get(FLUID) == LiquidType.WATER) {
                         worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                         itemstack.shrink(1);
@@ -272,8 +248,8 @@ public class MixingCauldron extends Block {
                 }
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
-            } else if (item == Items.GLASS_BOTTLE) {
-                if (i > 0 && !worldIn.isRemote) {
+            } else if (i > 0 && item == Items.GLASS_BOTTLE) {
+                if (!worldIn.isRemote) {
                     if(state.get(FLUID) == LiquidType.WATER) {
                         ItemStack itemstack4 = PotionUtils.addPotionToItemStack(new ItemStack(Items.POTION), Potions.WATER);
                         player.addStat(Stats.USE_CAULDRON);
@@ -398,7 +374,20 @@ public class MixingCauldron extends Block {
                     this.setFillLevel(worldIn, pos, state, i + 1, LiquidType.QUICKSILVER);
                 }
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
+            } else if(!worldIn.isRemote()) { // If
+                TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+                if(tileEntity instanceof MixingCauldronTile) {
+                    INamedContainerProvider containerProvider = createContainerProvider(worldIn, pos);
+
+                    NetworkHooks.openGui(((ServerPlayerEntity)player), containerProvider, tileEntity.getPos());
+
+                } else {
+                    throw new IllegalStateException("Our Container provider is missing!");
+                }
             }
+
+
         }
 
         return ActionResultType.SUCCESS;
@@ -406,15 +395,10 @@ public class MixingCauldron extends Block {
 
     public void setFillLevel(World worldIn, BlockPos pos, BlockState state, int level, LiquidType type) {
         worldIn.setBlockState(pos, state.with(LEVEL, Integer.valueOf(MathHelper.clamp(level, 0, 3))).with(FLUID, type), 2);
-        //worldIn.setBlockState(pos, state.with(FLUID_TYPE, type), 2);
-        //worldIn.updateComparatorOutputLevel(pos, this);
-
-        //System.out.println("FILLED");
     }
 
     public static void setCraftDelay(World worldIn, BlockPos pos, BlockState state, int delay) {
         worldIn.setBlockState(pos, state.with(CRAFT_DELAY, delay), 2);
-
     }
 
     public MixingCauldron(Properties properties) {
@@ -423,11 +407,10 @@ public class MixingCauldron extends Block {
     }
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-
-        //builder.add(FLUID_TYPE);
         builder.add(LEVEL, FLUID, CRAFT_DELAY);
     }
 
+    // drop blocks in inventory of the tile entity
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
         MixingCauldronTile te = (MixingCauldronTile) worldIn.getTileEntity(pos);
@@ -455,10 +438,8 @@ public class MixingCauldron extends Block {
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
 
-        // get slots and animate particles based off number of items in the cauldron
+        // get slots and animate particles based off number of items in the cauldron and based off the level and fluid type
         int num = ((MixingCauldronTile)world.getTileEntity(pos)).getNumberOfItems();
-        //int delay = ((MixingCauldronTile)world.getTileEntity(pos)).getCraftDelay();
-        //System.out.println(state.get(CRAFT_DELAY));
 
         world.addParticle(ParticleTypes.FLAME, pos.getX() + Math.round(rand.nextDouble()), pos.getY() + 1.2d, pos.getZ() + Math.round(rand.nextDouble()) , (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.035d ,(rand.nextDouble() - 0.5d) / 50d);
         world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, state), pos.getX() + Math.round(rand.nextDouble()), pos.getY() + 1.2d, pos.getZ() + Math.round(rand.nextDouble()) , (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 2d ,(rand.nextDouble() - 0.5d) / 50d);
@@ -468,7 +449,8 @@ public class MixingCauldron extends Block {
             for(int i = 0; i < state.get(LEVEL); i++) {
                 if(rand.nextDouble() > 0.5f)
                     world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.004d, (rand.nextDouble() - 0.5d) / 50d);
-            }for(int i = 0; i < num; i++) {
+            }
+            for(int i = 0; i < num; i++) {
                 if(rand.nextDouble() > 0.5f)
                     world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.004d, (rand.nextDouble() - 0.5d) / 50d);
             }
@@ -477,27 +459,30 @@ public class MixingCauldron extends Block {
                     world.addParticle(ParticleTypes.BUBBLE, pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.005d, (rand.nextDouble() - 0.5d) / 50d);
             }
         }
-
+        if(emitParticlesForCraft)
+        {
+            //ffs please clean this up
+            //maybe
+            for(int i = 0; i < 3; i++) {
+                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, world.getBlockState(pos)), pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 20d, (rand.nextDouble() + 0.5d) * 2d, (rand.nextDouble() - 0.5d) / 20d);
+                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, world.getBlockState(pos)), pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 20d, (rand.nextDouble() + 0.5d) * 2d, (rand.nextDouble() - 0.5d) / 20d);
+                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, world.getBlockState(pos)), pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 20d, (rand.nextDouble() + 0.5d) * 2d, (rand.nextDouble() - 0.5d) / 20d);
+                world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.045d ,(rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.045d ,(rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
+            }
+            emitParticlesForCraft = false;
+        }
 
         super.animateTick(state, world, pos, rand);
     }
 
-
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void onBlockClicked(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
-
-        if(!worldIn.isRemote())
-        {
-            System.out.println("Left clicked a block");
-        }
-    }
-
-    @Override
-    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-        //Firestone.lightEntityOnFire(entityIn, 5);
-        super.onEntityWalk(worldIn, pos, entityIn);
+    public static void emitCraftCompletedParticles() {
+        emitParticlesForCraft = true;
     }
 
 

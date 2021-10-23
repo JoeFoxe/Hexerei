@@ -14,6 +14,7 @@ import java.util.Map;
 
 public class ModModels {
 
+    // for rendering the transparency for the mixing cauldron when containing water
     public static void setupRenderLayers() {
         RenderTypeLookup.setRenderLayer(ModBlocks.MIXING_CAULDRON.get(), ModModels::isMixingCauldronValidLayer);
     }

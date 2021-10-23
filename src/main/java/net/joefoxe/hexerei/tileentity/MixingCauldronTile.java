@@ -22,6 +22,8 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.particles.BlockParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -44,6 +46,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
+import java.util.Random;
 
 public class MixingCauldronTile extends LockableLootTileEntity implements ITickableTileEntity, IClearable, INamedContainerProvider {
 
@@ -260,19 +263,18 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getRecipeOutput();
             //ask for delay
-            if(iRecipe.getLiquid() == (this.world.getBlockState(this.pos).get(MixingCauldron.FLUID))) {
+            if(iRecipe.getLiquid() == (this.world.getBlockState(this.pos).get(MixingCauldron.FLUID)) && inv.getStackInSlot(8) == ItemStack.EMPTY) {
                 this.crafting = true;
 
                 if(this.craftDelay >= this.craftDelayMax) {
+                    Random rand = new Random();
                     craftTheItem(output);
                     markDirty();
-                }
+                    //this.craftDelay = 1;
+                    // SEND MESSAGE TO BLOCK TO EMIT PARTICLES
+                    MixingCauldron.emitCraftCompletedParticles();
+               }
             }
-//            System.out.println(craftDelay);
-//            System.out.println(getCraftDelay());
-            //this.world.setBlockState(pos, this.world.getBlockState(this.pos).with(MixingCauldron.CRAFT_DELAY, this.craftDelay), 2);
-//            System.out.println(this.craftDelay);
-//            System.out.println("----");
 
 
         });
@@ -281,18 +283,9 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
         if(this.craftDelay >= 1)
             this.craftDelay--;
         this.crafting = false;
-        if(this.craftDelay > 0) {
+        if(this.craftDelay > 0)
             this.world.setBlockState(pos, this.world.getBlockState(this.pos).with(MixingCauldron.CRAFT_DELAY, Integer.valueOf(MathHelper.clamp(this.craftDelay - 1, 0, MixingCauldronTile.craftDelayMax))), 2);
-            System.out.println(this.world.getBlockState(this.pos).get(MixingCauldron.CRAFT_DELAY));
-        }
 
-//        System.out.println(this.craftDelay);
-//        System.out.println("--2--");
-
-
-
-
-        //MixingCauldron.setCraftDelay(this.world, this.pos, world.getBlockState(this.pos), this.craftDelay);
 
     }
 

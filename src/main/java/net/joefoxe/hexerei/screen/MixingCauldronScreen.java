@@ -25,6 +25,9 @@ public class MixingCauldronScreen extends ContainerScreen<MixingCauldronContaine
 
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+
+        //Rendering the cauldron item on the top of the screen
+
         Minecraft minecraft = Minecraft.getInstance();
 
         minecraft.getTextureManager().bindTexture(GUI);

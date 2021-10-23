@@ -54,7 +54,6 @@ public class Hexerei
         // Register the setup method for modloading
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-
         ModItems.register(eventBus);
         ModBlocks.register(eventBus);
         ModFluids.register(eventBus);

@@ -24,7 +24,7 @@ public class ModBlockColors {
 
 
     // dynamic grass block colors
-    public static final IBlockColor WATERS_COLOR = setDynamicBlockColorProvider(1, 0.5);
+    public static final IBlockColor WATER_COLOR = setDynamicBlockColorProvider(1, 0.5);
 
 
     @SubscribeEvent
@@ -35,7 +35,7 @@ public class ModBlockColors {
 
 
 
-        blockColors.register(WATERS_COLOR,
+        blockColors.register(WATER_COLOR,
                 ModBlocks.MIXING_CAULDRON.get()
         );
 

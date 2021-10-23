@@ -509,18 +509,10 @@ public class OrcArmorModel <T extends LivingEntity> extends ArmorModel<T> {
         RightBoot.setTextureOffset(29, 103).addBox(-2.4F, 5.5F, -2.99F, 5.0F, 7.0F, 6.0F, 0.0F, false);
     }
 
-
+    // THIS IS THE RENDERING OF THE ARMOR FOR SLOTS THIS IS NEEDED IN EACH JAVA FILE
     @Override
     public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-//        Body.render(matrixStack, buffer, packedLight, packedOverlay);
-//        if (this.slot == EquipmentSlotType.CHEST) {
-//            matrixStack.push();
-//            this.Body.copyModelAngles(this.bipedBody);
-//            this.Body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-//            this.Body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-//            this.Body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-//            matrixStack.pop();
-//        }
+
         matrixStack.push();
         if (this.slot == EquipmentSlotType.HEAD) {
             this.Head.copyModelAngles(this.bipedHead);
@@ -557,6 +549,8 @@ public class OrcArmorModel <T extends LivingEntity> extends ArmorModel<T> {
         modelRenderer.rotateAngleZ = z;
     }
 
+
+    // This is also needed
     @SuppressWarnings("unchecked")
     public static <A extends BipedModel<?>> A getModel(EquipmentSlotType slot, LivingEntity entity) {
         boolean illager = entity instanceof AbstractIllagerEntity ||

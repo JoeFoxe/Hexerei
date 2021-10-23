@@ -30,16 +30,4 @@ public class ModParticleTypes {
 
     public static final RegistryObject<BasicParticleType> CAULDRON = PARTICLES.register("cauldron_particle", () -> new BasicParticleType(true));
 
-//    @SubscribeEvent
-//    public static void onIParticleTypeRegistration(RegistryEvent.Register<ParticleType<?>> iParticleTypeRegisterEvent) {
-//        cauldronParticleType = new CauldronParticleType();
-//        cauldronParticleType.setRegistryName("hexerei:cauldron_particle");
-//        iParticleTypeRegisterEvent.getRegistry().register(cauldronParticleType);
-//    }
-
-    @SubscribeEvent
-    public static void onCommonSetupEvent(FMLCommonSetupEvent event) {
-        // not actually required for this example....
-    }
-
 }

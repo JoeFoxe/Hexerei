@@ -5,7 +5,6 @@ import net.joefoxe.hexerei.fluid.ModFluids;
 import net.joefoxe.hexerei.item.custom.BottleLavaItem;
 import net.joefoxe.hexerei.item.custom.BottleMilkItem;
 import net.joefoxe.hexerei.item.custom.BottleQuicksilverItem;
-import net.joefoxe.hexerei.item.custom.Firestone;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -35,27 +34,6 @@ public class ModItems {
 
     public static final RegistryObject<Item> MILK_BOTTLE = ITEMS.register("milk_bottle",
             () -> new BottleMilkItem(new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
-
-    public static final RegistryObject<Item> FIRESTONE = ITEMS.register("firestone",
-            () -> new Firestone(new Item.Properties().group(ModItemGroup.HEXEREI_GROUP).maxDamage(8)));
-
-    public static final RegistryObject<Item> SCRAP_BOOTS = ITEMS.register("scrap_boots",
-            () -> new ArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.FEET,
-                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
-
-    public static final RegistryObject<Item> SCRAP_LEGGINGS = ITEMS.register("scrap_leggings",
-            () -> new ArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.LEGS,
-                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
-
-    public static final RegistryObject<Item> SCRAP_CHESTPLATE = ITEMS.register("scrap_chestplate",
-            () -> new ArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.CHEST,
-                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
-
-    public static final RegistryObject<Item> SCRAP_HELMET = ITEMS.register("scrap_helmet",
-            () -> new ArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.HEAD,
-                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
-
-
 
     public static final RegistryObject<Item> ORC_HELMET = ITEMS.register("orc_helmet",
             () -> new OrcArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.HEAD,

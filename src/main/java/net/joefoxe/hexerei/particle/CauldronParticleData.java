@@ -37,9 +37,6 @@ public class CauldronParticleData implements IParticleData {
         return tint;
     }
 
-    /**
-     * @return get diameter of particle in metres
-     */
     public double getDiameter() {
         return diameter;
     }

@@ -6,7 +6,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-
+//This is necessary for setting up the rendering for the armor models (I still need to move it to a centralized file. or move other registry events over here
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class RegistryEvents {
 
@@ -14,7 +14,5 @@ public class RegistryEvents {
     public static void onModelRegister(ModelRegistryEvent event) {
         ModModels.setupRenderLayers();
     }
-
-
 
 }

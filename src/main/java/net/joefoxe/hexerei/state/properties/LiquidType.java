@@ -2,6 +2,7 @@ package net.joefoxe.hexerei.state.properties;
 
 import net.minecraft.util.IStringSerializable;
 
+// types of fluid inside the cauldron because im not sure how to implement a fluid tank yet. SOON will change the cauldron to hold any kind of fluid
 public enum LiquidType implements IStringSerializable {
     WATER("water"),
     LAVA("lava"),

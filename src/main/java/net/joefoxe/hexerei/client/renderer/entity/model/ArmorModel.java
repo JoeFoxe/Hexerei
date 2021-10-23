@@ -59,12 +59,5 @@ public class ArmorModel <T extends LivingEntity> extends BipedModel<T> {
         }
 
         matrixStack.pop();
-
-//        if (this.slotType == EquipmentSlotType.CHEST) {
-//            Body.copyModelAngles(this.Body);
-//            Body.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
-//            matrixStack.pop();
-//
-//        }
     }
 }

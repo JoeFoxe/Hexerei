@@ -30,6 +30,10 @@ public class MixingCauldronRenderer extends TileEntityRenderer<MixingCauldronTil
                        IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
 
+            // Rendering for the items inside the cauldron
+
+            //Mixing the items
+            float craftPercent = tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(MixingCauldron.CRAFT_DELAY)/(float)MixingCauldronTile.craftDelayMax;
 
             for(int i = 0; i < 8; i++)
             {
@@ -39,18 +43,21 @@ public class MixingCauldronRenderer extends TileEntityRenderer<MixingCauldronTil
                     matrixStackIn.translate(0.5D, 1.5D, 0.5D);
                     float currentTime = tileEntityIn.getWorld().getGameTime() + partialTicks;
 
+                    //rotation offset when crafting
+                    double itemRotationOffset = 0.8 * i + (craftPercent * (20f * craftPercent));
                     if(tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(MixingCauldron.LEVEL) > 0) {
                         matrixStackIn.translate(
-                                0D + Math.sin(0.8 * i) / 3.5,
+                                0D + Math.sin(itemRotationOffset) / (3.5f + ((craftPercent * craftPercent) * 10.0f)),
                                 -1.15D + (0.20 * (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(MixingCauldron.LEVEL) + (Math.sin(Math.PI * (currentTime) / 30 + (i * 20)) / 10))),
-                                0D + Math.cos(0.8 * i) / 3.5);
+                                0D + Math.cos(itemRotationOffset)  / (3.5f + ((craftPercent * craftPercent) * 10.0f)));
                         matrixStackIn.rotate(Vector3f.YP.rotationDegrees((float)((45 * i) -1f + (2 * Math.sin((degrees + i * 20) / 40)))));
-                        matrixStackIn.rotate(Vector3f.XP.rotationDegrees((float)(82.5f + (5 * Math.cos((degrees + i * 22) / 40)))  + tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(MixingCauldron.CRAFT_DELAY)));
+                        matrixStackIn.rotate(Vector3f.XP.rotationDegrees((float)(82.5f + (5 * Math.cos((degrees + i * 22) / 40)))));
                         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees((float)(-2.5f + (5 * Math.cos((degrees + i * 24) / 40))) ));
+                        matrixStackIn.scale(1 - (craftPercent * 0.5f), 1 - (craftPercent * 0.5f), 1 - (craftPercent * 0.5f));
                     } else {
-                        matrixStackIn.translate(0D + Math.sin(0.8 * i) / 3.5,-1.15D,0D + Math.cos(0.8 * i) / 3.5);
+                        matrixStackIn.translate(0D + Math.sin(itemRotationOffset) / 3.5,-1.15D,0D + Math.cos(itemRotationOffset) / 3.5);
                         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(45 * i));
-                        matrixStackIn.rotate(Vector3f.XP.rotationDegrees((float)(85f) + tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(MixingCauldron.CRAFT_DELAY)));
+                        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(85f ) );
                         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f ));
                     }
 
@@ -61,11 +68,42 @@ public class MixingCauldronRenderer extends TileEntityRenderer<MixingCauldronTil
 
 
             }
+            // output item
+            ItemStack item2 = new ItemStack(tileEntityIn.getItemInSlot(8));
+            if (!item2.isEmpty()) {
+
+                matrixStackIn.push();
+                matrixStackIn.translate(0.5D, 1.5D, 0.5D);
+                float currentTime = tileEntityIn.getWorld().getGameTime() + partialTicks;
+
+                if(tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(MixingCauldron.LEVEL) > 0) {
+                    matrixStackIn.translate(
+                            0D ,
+                            -1.15D + (0.20 * (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(MixingCauldron.LEVEL) + (Math.sin(Math.PI * (currentTime) / 30 + 20) / 10))),
+                            0D );
+                    matrixStackIn.rotate(Vector3f.YP.rotationDegrees((float)((45) -1f + (2 * Math.sin((degrees + 20) / 40))) - ((craftPercent * craftPercent) * 720f)));
+                    matrixStackIn.rotate(Vector3f.XP.rotationDegrees((float)(82.5f + (5 * Math.cos((degrees + 22) / 40)))));
+                    matrixStackIn.rotate(Vector3f.ZP.rotationDegrees((float)(-2.5f + (5 * Math.cos((degrees + 24) / 40)))));
+                } else {
+                    matrixStackIn.translate(0D + Math.sin(0.8) / 3.5,-1.15D,0D + Math.cos(0.8) / 3.5);
+                    matrixStackIn.rotate(Vector3f.YP.rotationDegrees(45 - ((craftPercent * craftPercent) * 720f)));
+                    matrixStackIn.rotate(Vector3f.XP.rotationDegrees(85f));
+                    matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
+                }
+
+                matrixStackIn.scale(0.4f, 0.4f, 0.4f);
+                renderItem(item2, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
+                matrixStackIn.pop();
+
+
+            }
+
+            //gives the wobble
             degrees++;
 
 
     }
-
+    // THIS IS WHAT I WAS LOOKING FOR FOREVER AHHHHH
     private void renderItem(ItemStack stack, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn,
                             int combinedLightIn) {
         Minecraft.getInstance().getItemRenderer().renderItem(stack, ItemCameraTransforms.TransformType.FIXED, combinedLightIn,
