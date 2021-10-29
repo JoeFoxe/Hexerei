@@ -52,7 +52,7 @@ public class MixingCauldron extends Block {
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_0_3;
     public static final EnumProperty<LiquidType> FLUID = EnumProperty.create("fluid", LiquidType.class);
     public static final IntegerProperty CRAFT_DELAY = IntegerProperty.create("delay", 0, MixingCauldronTile.craftDelayMax);
-    public static boolean emitParticlesForCraft;
+    public int emitParticles;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -192,15 +192,28 @@ public class MixingCauldron extends Block {
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
             } else if (item == ModItems.QUICKSILVER_BUCKET.get() && ((state.get(FLUID) == LiquidType.QUICKSILVER || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote)) {
 
-                    player.addStat(Stats.FILL_CAULDRON);
-                    this.setFillLevel(worldIn, pos, state, 3, LiquidType.QUICKSILVER);
-                    itemstack.shrink(1);
-                    if (itemstack.isEmpty()) {
-                        player.setHeldItem(handIn, new ItemStack(Items.BUCKET));
-                    } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET))) {
-                        player.dropItem(new ItemStack(Items.BUCKET), false);
-                    }
-                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                player.addStat(Stats.FILL_CAULDRON);
+                this.setFillLevel(worldIn, pos, state, 3, LiquidType.QUICKSILVER);
+                itemstack.shrink(1);
+                if (itemstack.isEmpty()) {
+                    player.setHeldItem(handIn, new ItemStack(Items.BUCKET));
+                } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET))) {
+                    player.dropItem(new ItemStack(Items.BUCKET), false);
+                }
+                worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_FILL_LAVA, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+                return ActionResultType.func_233537_a_(worldIn.isRemote);
+            } else if (item == ModItems.BLOOD_BUCKET.get() && ((state.get(FLUID) == LiquidType.BLOOD || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote)) {
+
+                player.addStat(Stats.FILL_CAULDRON);
+                this.setFillLevel(worldIn, pos, state, 3, LiquidType.BLOOD);
+                itemstack.shrink(1);
+                if (itemstack.isEmpty()) {
+                    player.setHeldItem(handIn, new ItemStack(Items.BUCKET));
+                } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET))) {
+                    player.dropItem(new ItemStack(Items.BUCKET), false);
+                }
+                worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_HONEY_BOTTLE_DRINK, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
             } else if (item == Items.BUCKET && i == 3) {
@@ -238,8 +251,17 @@ public class MixingCauldron extends Block {
                         this.setFillLevel(worldIn, pos, state, 0, LiquidType.EMPTY);
                         if (itemstack.isEmpty()) {
                             player.setHeldItem(handIn, new ItemStack(ModItems.QUICKSILVER_BUCKET.get()));
-                    } else if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.QUICKSILVER_BUCKET.get()))) {
+                        } else if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.QUICKSILVER_BUCKET.get()))) {
                             player.dropItem(new ItemStack(ModItems.QUICKSILVER_BUCKET.get()), false);
+                        }
+                    } else if(state.get(FLUID) == LiquidType.BLOOD) {
+                        worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_HONEY_BOTTLE_DRINK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        itemstack.shrink(1);
+                        this.setFillLevel(worldIn, pos, state, 0, LiquidType.EMPTY);
+                        if (itemstack.isEmpty()) {
+                            player.setHeldItem(handIn, new ItemStack(ModItems.BLOOD_BUCKET.get()));
+                        } else if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.BLOOD_BUCKET.get()))) {
+                            player.dropItem(new ItemStack(ModItems.BLOOD_BUCKET.get()), false);
                         }
                     }
 
@@ -291,6 +313,17 @@ public class MixingCauldron extends Block {
                             player.setHeldItem(handIn, itemstack7);
                         } else if (!player.inventory.addItemStackToInventory(itemstack7)) {
                             player.dropItem(itemstack7, false);
+                        } else if (player instanceof ServerPlayerEntity) {
+                            ((ServerPlayerEntity) player).sendContainerToPlayer(player.container);
+                        }
+                    } else if(state.get(FLUID) == LiquidType.BLOOD) {
+                        ItemStack itemstack8 = new ItemStack(ModItems.BLOOD_BOTTLE.get());
+                        player.addStat(Stats.USE_CAULDRON);
+                        itemstack.shrink(1);
+                        if (itemstack.isEmpty()) {
+                            player.setHeldItem(handIn, itemstack8);
+                        } else if (!player.inventory.addItemStackToInventory(itemstack8)) {
+                            player.dropItem(itemstack8, false);
                         } else if (player instanceof ServerPlayerEntity) {
                             ((ServerPlayerEntity) player).sendContainerToPlayer(player.container);
                         }
@@ -374,6 +407,23 @@ public class MixingCauldron extends Block {
                     this.setFillLevel(worldIn, pos, state, i + 1, LiquidType.QUICKSILVER);
                 }
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
+            } else if (item == ModItems.BLOOD_BOTTLE.get() && (state.get(FLUID) == LiquidType.BLOOD || state.get(FLUID) == LiquidType.EMPTY) && i < 3) {
+                if (!worldIn.isRemote) {
+
+                    ItemStack itemstack3 = new ItemStack(Items.GLASS_BOTTLE);
+                    player.addStat(Stats.USE_CAULDRON);
+                    itemstack.shrink(1);
+                    if (itemstack.isEmpty()) {
+                        player.setHeldItem(handIn, itemstack3);
+                    } else if (!player.inventory.addItemStackToInventory(itemstack3)) {
+                        player.dropItem(itemstack3, false);
+                    } else if (player instanceof ServerPlayerEntity) {
+                        ((ServerPlayerEntity) player).sendContainerToPlayer(player.container);
+                    }
+                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    this.setFillLevel(worldIn, pos, state, i + 1, LiquidType.BLOOD);
+                }
+                return ActionResultType.func_233537_a_(worldIn.isRemote);
             } else if(!worldIn.isRemote()) { // If
                 TileEntity tileEntity = worldIn.getTileEntity(pos);
 
@@ -395,6 +445,13 @@ public class MixingCauldron extends Block {
 
     public void setFillLevel(World worldIn, BlockPos pos, BlockState state, int level, LiquidType type) {
         worldIn.setBlockState(pos, state.with(LEVEL, Integer.valueOf(MathHelper.clamp(level, 0, 3))).with(FLUID, type), 2);
+    }
+
+    public void subtractLevel(World worldIn, BlockPos pos) {
+
+        worldIn.setBlockState(pos, worldIn.getBlockState(pos)
+                .with(LEVEL, Integer.valueOf(MathHelper.clamp(worldIn.getBlockState(pos).get(LEVEL) - 1, 0, 3)))
+                .with(FLUID, worldIn.getBlockState(pos).get(LEVEL) - 1 > 0 ? worldIn.getBlockState(pos).get(FLUID) : LiquidType.EMPTY), 2);
     }
 
     public static void setCraftDelay(World worldIn, BlockPos pos, BlockState state, int delay) {
@@ -426,7 +483,6 @@ public class MixingCauldron extends Block {
             worldIn.addEntity(new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() - 0.5f, pos.getZ() + 0.5f, h.getStackInSlot(6)));
             worldIn.addEntity(new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() - 0.5f, pos.getZ() + 0.5f, h.getStackInSlot(7)));
             worldIn.addEntity(new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() - 0.5f, pos.getZ() + 0.5f, h.getStackInSlot(8)));
-            worldIn.addEntity(new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() - 0.5f, pos.getZ() + 0.5f, h.getStackInSlot(8)));
             if (!player.abilities.isCreativeMode)
                 worldIn.addEntity(new ItemEntity(worldIn, pos.getX() + 0.5f, pos.getY() - 0.5f, pos.getZ() + 0.5f, new ItemStack(ModBlocks.MIXING_CAULDRON.get().asItem())));
         });
@@ -456,13 +512,18 @@ public class MixingCauldron extends Block {
             }
             if(state.get(FLUID) == LiquidType.WATER || state.get(FLUID) == LiquidType.MILK)
             {
-                    world.addParticle(ParticleTypes.BUBBLE, pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.005d, (rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ParticleTypes.BUBBLE, pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.005d, (rand.nextDouble() - 0.5d) / 50d);
+            }else if(state.get(FLUID) == LiquidType.BLOOD)
+            {
+                if(rand.nextInt(20) == 0)
+                world.addParticle(ModParticleTypes.BLOOD.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 75d, (rand.nextDouble() + 0.5d) * 0.0005d, (rand.nextDouble() - 0.5d) / 75d);
             }
         }
-        if(emitParticlesForCraft)
+        if(state.get(CRAFT_DELAY) >= MixingCauldronTile.craftDelayMax * 0.80)
         {
             //ffs please clean this up
             //maybe
+            //also maybe figure out a way to spawn the particles as the craft is completed and not on an animate tick as they are random it appears
             for(int i = 0; i < 3; i++) {
                 world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, world.getBlockState(pos)), pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 20d, (rand.nextDouble() + 0.5d) * 2d, (rand.nextDouble() - 0.5d) / 20d);
                 world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, world.getBlockState(pos)), pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 20d, (rand.nextDouble() + 0.5d) * 2d, (rand.nextDouble() - 0.5d) / 20d);
@@ -475,16 +536,28 @@ public class MixingCauldron extends Block {
                 world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
                 world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
             }
-            emitParticlesForCraft = false;
+
+
+        }
+        if(this.emitParticles > 0)
+        {
+            for(int i = 0; i < 3; i++) {
+                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, world.getBlockState(pos)), pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 20d, (rand.nextDouble() + 0.5d) * 2d, (rand.nextDouble() - 0.5d) / 20d);
+                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, world.getBlockState(pos)), pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 20d, (rand.nextDouble() + 0.5d) * 2d, (rand.nextDouble() - 0.5d) / 20d);
+                world.addParticle(new BlockParticleData(ParticleTypes.BLOCK, world.getBlockState(pos)), pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 20d, (rand.nextDouble() + 0.5d) * 2d, (rand.nextDouble() - 0.5d) / 20d);
+                world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.045d ,(rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ParticleTypes.SMOKE, pos.getX() + 0.5f, pos.getY() + 1.2d, pos.getZ() + 0.5f, (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.045d ,(rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
+                world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.024d, (rand.nextDouble() - 0.5d) / 50d);
+            }
+            this.emitParticles--;
         }
 
         super.animateTick(state, world, pos, rand);
     }
-
-    public static void emitCraftCompletedParticles() {
-        emitParticlesForCraft = true;
-    }
-
 
     private INamedContainerProvider createContainerProvider(World worldIn, BlockPos pos) {
         return new INamedContainerProvider() {
@@ -501,10 +574,23 @@ public class MixingCauldron extends Block {
         };
     }
 
+    public void setEmitParticles(int emitParticles) {
+        this.emitParticles = emitParticles;
+    }
+
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return ModTileEntities.MIXING_CAULDRON_TILE.get().create();
+        TileEntity te = ModTileEntities.MIXING_CAULDRON_TILE.get().create();
+        return te;
+    }
+
+    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof MixingCauldronTile) {
+            ((MixingCauldronTile)tileentity).onEntityCollision(entityIn);
+        }
+
     }
 
     @Override

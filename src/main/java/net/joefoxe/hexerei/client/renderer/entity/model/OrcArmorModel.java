@@ -1,30 +1,18 @@
 package net.joefoxe.hexerei.client.renderer.entity.model;
 
-// Made with Blockbench 3.9.2
-// Exported for Minecraft version 1.15 - 1.16 with MCP mappings
-// Paste this class into your mod and generate all required imports
-
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.monster.AbstractIllagerEntity;
 import net.minecraft.entity.monster.ZombieVillagerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
 import java.util.Map;
-
-
-// Made with Blockbench 3.9.2
-// Exported for Minecraft version 1.15 - 1.16 with MCP mappings
-// Paste this class into your mod and generate all required imports
 
 
 public class OrcArmorModel <T extends LivingEntity> extends ArmorModel<T> {

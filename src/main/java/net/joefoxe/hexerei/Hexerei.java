@@ -2,13 +2,19 @@ package net.joefoxe.hexerei;
 
 import net.joefoxe.hexerei.block.ModBlocks;
 import net.joefoxe.hexerei.client.renderer.color.ModBlockColors;
+import net.joefoxe.hexerei.client.renderer.entity.ModEntityTypes;
+import net.joefoxe.hexerei.client.renderer.entity.render.BuffZombieRenderer;
+import net.joefoxe.hexerei.client.renderer.entity.render.PigeonRenderer;
+import net.joefoxe.hexerei.container.CofferContainer;
 import net.joefoxe.hexerei.container.ModContainers;
 import net.joefoxe.hexerei.data.recipes.ModRecipeTypes;
 import net.joefoxe.hexerei.fluid.ModFluids;
 import net.joefoxe.hexerei.item.ModItems;
 import net.joefoxe.hexerei.particle.ModParticleTypes;
+import net.joefoxe.hexerei.screen.CofferScreen;
 import net.joefoxe.hexerei.screen.MixingCauldronScreen;
 import net.joefoxe.hexerei.tileentity.ModTileEntities;
+import net.joefoxe.hexerei.tileentity.renderer.CofferRenderer;
 import net.joefoxe.hexerei.tileentity.renderer.MixingCauldronRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -19,6 +25,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockDisplayReader;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,6 +34,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -62,6 +70,8 @@ public class Hexerei
         ModRecipeTypes.register(eventBus);
         ModParticleTypes.PARTICLES.register(eventBus);
 
+        ModEntityTypes.register(eventBus);
+
         eventBus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
         eventBus.addListener(this::enqueueIMC);
@@ -90,17 +100,26 @@ public class Hexerei
             RenderTypeLookup.setRenderLayer(ModFluids.QUICKSILVER_FLOWING.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModFluids.QUICKSILVER_BLOCK.get(), RenderType.getTranslucent());
 
+            RenderTypeLookup.setRenderLayer(ModFluids.BLOOD_FLUID.get(), RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(ModFluids.BLOOD_FLOWING.get(), RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(ModFluids.BLOOD_BLOCK.get(), RenderType.getTranslucent());
+
             ScreenManager.registerFactory(ModContainers.MIXING_CAULDRON_CONTAINER.get(), MixingCauldronScreen::new);
+            ScreenManager.registerFactory(ModContainers.COFFER_CONTAINER.get(), CofferScreen::new);
 
             ClientRegistry.bindTileEntityRenderer(ModTileEntities.MIXING_CAULDRON_TILE.get(), MixingCauldronRenderer::new);
+            ClientRegistry.bindTileEntityRenderer(ModTileEntities.COFFER_TILE.get(), CofferRenderer::new);
         });
+
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.BUFF_ZOMBIE.get(), BuffZombieRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PIGEON.get(), PigeonRenderer::new);
 
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
     {
         // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+        InterModComms.sendTo("hexerei", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
     }
 
     private void processIMC(final InterModProcessEvent event)
@@ -118,6 +137,9 @@ public class Hexerei
         return MOD_ID + ":" + name;
     }
 
+    public static ResourceLocation asResource(String path) {
+        return new ResourceLocation("hexerei", path);
+    }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)

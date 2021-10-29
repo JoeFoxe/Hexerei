@@ -1,6 +1,7 @@
 package net.joefoxe.hexerei.block;
 
 import net.joefoxe.hexerei.Hexerei;
+import net.joefoxe.hexerei.block.custom.Coffer;
 import net.joefoxe.hexerei.block.custom.MixingCauldron;
 import net.joefoxe.hexerei.item.ModItemGroup;
 import net.joefoxe.hexerei.item.ModItems;
@@ -32,9 +33,35 @@ public class ModBlocks {
             () -> new MixingCauldron(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(8f).setLightLevel(state -> 6 + 3 * state.get(MixingCauldron.LEVEL))));
 
 
+
+    // SIGILS
+    public static final RegistryObject<Block> BLOOD_SIGIL = registerBlockNoItem("blood_sigil",
+            () -> new Block(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(5f)));
+
+
+
+    public static final RegistryObject<Block> COFFER = registerBlock("coffer",
+            () -> new Coffer(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(8f)));
+
+    public static final RegistryObject<Block> COFFER_LID = registerBlockNoItem("coffer_lid",
+            () -> new Coffer(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(8f)));
+
+    public static final RegistryObject<Block> COFFER_CONTAINER = registerBlockNoItem("coffer_container",
+            () -> new Coffer(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(8f)));
+
+    public static final RegistryObject<Block> COFFER_HINGE = registerBlockNoItem("coffer_hinge",
+            () -> new Coffer(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(8f)));
+
+
+
     private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
         registerBlockItem(name, toReturn);
+        return toReturn;
+    }
+
+    private static <T extends Block>RegistryObject<T> registerBlockNoItem(String name, Supplier<T> block) {
+        RegistryObject<T> toReturn = BLOCKS.register(name, block);
         return toReturn;
     }
 

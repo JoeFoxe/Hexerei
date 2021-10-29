@@ -18,6 +18,7 @@ public class ModParticleUtil {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerParticles(ParticleFactoryRegisterEvent event) {
         Minecraft.getInstance().particles.registerFactory(ModParticleTypes.CAULDRON.get(), CauldronParticle.Factory::new);
+        Minecraft.getInstance().particles.registerFactory(ModParticleTypes.BLOOD.get(), BloodParticle.Factory::new);
     }
 
 

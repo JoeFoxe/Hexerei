@@ -1,6 +1,7 @@
 package net.joefoxe.hexerei.container;
 
 import net.joefoxe.hexerei.block.ModBlocks;
+import net.joefoxe.hexerei.item.ModItems;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -32,6 +33,7 @@ public class MixingCauldronContainer extends Container {
         //add slots for mixing cauldron
         if(tileEntity != null) {
             tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
+                addSlot(new SlotItemHandler(h, 9, -4, 36));
                 addSlot(new SlotItemHandler(h, 0, 80, 5));
                 addSlot(new SlotItemHandler(h, 1, 102, 14));
                 addSlot(new SlotItemHandler(h, 2, 111, 36));
@@ -100,7 +102,7 @@ public class MixingCauldronContainer extends Container {
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 9;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
+    private static final int TE_INVENTORY_SLOT_COUNT = 10;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
@@ -108,6 +110,7 @@ public class MixingCauldronContainer extends Container {
         if (sourceSlot == null || !sourceSlot.getHasStack()) return ItemStack.EMPTY;  //EMPTY_ITEM
         ItemStack sourceStack = sourceSlot.getStack();
         ItemStack copyOfSourceStack = sourceStack.copy();
+
 
         // Check if the slot clicked is one of the vanilla container slots
         if (index < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {

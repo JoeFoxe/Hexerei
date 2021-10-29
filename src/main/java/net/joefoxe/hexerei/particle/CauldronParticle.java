@@ -253,6 +253,10 @@ public class CauldronParticle extends SpriteTexturedParticle {
                     float colorOffset = (random.nextFloat() * 0.15f);
                     cauldronParticle.setColor(0.12f + colorOffset, 0.12f + colorOffset, 0.12f + colorOffset);
                 }
+                if(blockStateAtPos.get(MixingCauldron.FLUID) == LiquidType.BLOOD) {
+                    float colorOffset = (random.nextFloat() * 0.25f);
+                    cauldronParticle.setColor(0.12f + colorOffset, 0.0f, 0.0f);
+                }
             }
 
 

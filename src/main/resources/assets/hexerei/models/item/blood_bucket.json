@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "hexerei:item/firestone"
+    "layer0": "hexerei:item/blood_bucket"
   }
 }

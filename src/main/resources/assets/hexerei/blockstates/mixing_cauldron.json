@@ -38,6 +38,18 @@
     },
     "level=3,fluid=quicksilver": {
       "model": "hexerei:block/mixing_cauldron_level3_quicksilver"
+    },
+    "level=1,fluid=blood": {
+      "model": "hexerei:block/mixing_cauldron_level1_blood"
+    },
+    "level=2,fluid=blood": {
+      "model": "hexerei:block/mixing_cauldron_level2_blood"
+    },
+    "level=3,fluid=blood": {
+      "model": "hexerei:block/mixing_cauldron_level3_blood"
+    },
+    "default": {
+      "model": "hexerei:block/mixing_cauldron"
     }
   }
 }

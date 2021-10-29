@@ -29,5 +29,6 @@ public class ModParticleTypes {
     public static final DeferredRegister<ParticleType<?>> PARTICLES = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, Hexerei.MOD_ID);
 
     public static final RegistryObject<BasicParticleType> CAULDRON = PARTICLES.register("cauldron_particle", () -> new BasicParticleType(true));
+    public static final RegistryObject<BasicParticleType> BLOOD = PARTICLES.register("blood_particle", () -> new BasicParticleType(true));
 
 }

@@ -22,6 +22,14 @@ public class ModContainers {
                 return new MixingCauldronContainer(windowId, world, pos, inv, inv.player);
             })));
 
+    public static final RegistryObject<ContainerType<CofferContainer>> COFFER_CONTAINER
+            = CONTAINERS.register("coffer_container",
+            () -> IForgeContainerType.create(((windowId, inv, data) -> {
+                BlockPos pos = data.readBlockPos();
+                World world = inv.player.getEntityWorld();
+                return new CofferContainer(windowId, world, pos, inv, inv.player);
+            })));
+
     public static void register(IEventBus eventBus) {
         CONTAINERS.register(eventBus);
     }

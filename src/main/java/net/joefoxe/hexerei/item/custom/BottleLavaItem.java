@@ -57,6 +57,7 @@ public class BottleLavaItem extends Item {
         }
     }
 
+
     @Override
     public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if(Screen.hasShiftDown()) {

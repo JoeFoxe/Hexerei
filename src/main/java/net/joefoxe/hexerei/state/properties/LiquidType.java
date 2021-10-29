@@ -8,6 +8,7 @@ public enum LiquidType implements IStringSerializable {
     LAVA("lava"),
     EMPTY("empty"),
     QUICKSILVER("quicksilver"),
+    BLOOD("blood"),
     MILK("milk");
 
     private final String name;
