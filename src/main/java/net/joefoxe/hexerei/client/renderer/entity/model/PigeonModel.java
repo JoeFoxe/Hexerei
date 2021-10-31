@@ -67,8 +67,13 @@ public class PigeonModel<T extends PigeonEntity> extends EntityModel<T> {
                                   float netHeadYaw, float headPitch) {
         this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
         this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
-        this.rightWing.rotateAngleY = MathHelper.cos(limbSwing * 2.6662F + (float)Math.PI) * 2.4F * limbSwingAmount;
-        this.leftWing.rotateAngleY = MathHelper.cos(limbSwing * 2.6662F) * 2.4F * limbSwingAmount;
+        if(entityIn.getMotion().getY() > 0) {
+            this.rightWing.rotateAngleY = MathHelper.cos(ageInTicks * 2.6662F + (float) Math.PI) * 2.4F * ageInTicks;
+            this.leftWing.rotateAngleY = MathHelper.cos(ageInTicks * 2.6662F) * 2.4F * ageInTicks;
+        } else {
+            this.rightWing.rotateAngleY = 0;
+            this.leftWing.rotateAngleY = 0;
+        }
     }
 
     @Override

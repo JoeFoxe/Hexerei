@@ -1,5 +1,6 @@
 package net.joefoxe.hexerei.item;
 
+import net.joefoxe.hexerei.block.ModBlocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
@@ -10,7 +11,7 @@ public class ModItemGroup {
         @Override
         public ItemStack createIcon()
         {
-            return new ItemStack(ModItems.ARMOR_SCRAP.get());
+            return new ItemStack(ModBlocks.MIXING_CAULDRON.get());
         }
     };
 }

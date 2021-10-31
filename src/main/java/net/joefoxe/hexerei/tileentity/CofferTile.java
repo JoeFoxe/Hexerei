@@ -64,6 +64,7 @@ public class CofferTile extends LockableLootTileEntity implements ITickableTileE
     protected NonNullList<ItemStack> items = NonNullList.withSize(8, ItemStack.EMPTY);
 
     public int degreesOpened;
+    public int buttonToggled;
     public static final int lidOpenAmount = 112;
 
     public ITextComponent customName;
@@ -71,6 +72,7 @@ public class CofferTile extends LockableLootTileEntity implements ITickableTileE
     public CofferTile(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
 
+        buttonToggled = 0;
     }
 
     public void readInventory(CompoundNBT compound) {
@@ -241,6 +243,13 @@ public class CofferTile extends LockableLootTileEntity implements ITickableTileE
     }
     public void setDegreesOpened(int degrees) {
         this.degreesOpened =  degrees;
+    }
+
+    public int getButtonToggled() {
+        return this.buttonToggled;
+    }
+    public void setButtonToggled(int degrees) {
+        this.buttonToggled =  degrees;
     }
 
     public CompoundNBT saveToNbt(CompoundNBT compound) {

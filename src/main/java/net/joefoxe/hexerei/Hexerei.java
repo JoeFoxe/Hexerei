@@ -104,6 +104,11 @@ public class Hexerei
             RenderTypeLookup.setRenderLayer(ModFluids.BLOOD_FLOWING.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModFluids.BLOOD_BLOCK.get(), RenderType.getTranslucent());
 
+            RenderTypeLookup.setRenderLayer(ModBlocks.CRYSTAL_BALL.get(), RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.HERB_DRYING_RACK_FULL.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.CANDELABRA.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.SAGE.get(), RenderType.getCutout());
+
             ScreenManager.registerFactory(ModContainers.MIXING_CAULDRON_CONTAINER.get(), MixingCauldronScreen::new);
             ScreenManager.registerFactory(ModContainers.COFFER_CONTAINER.get(), CofferScreen::new);
 

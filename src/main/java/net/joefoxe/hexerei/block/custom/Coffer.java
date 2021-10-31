@@ -9,16 +9,15 @@ import net.joefoxe.hexerei.state.properties.LiquidType;
 import net.joefoxe.hexerei.tileentity.CofferTile;
 import net.joefoxe.hexerei.tileentity.MixingCauldronTile;
 import net.joefoxe.hexerei.tileentity.ModTileEntities;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
@@ -30,6 +29,7 @@ import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -47,7 +47,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -61,10 +63,11 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Stream;
 
-public class Coffer extends Block implements ITileEntity<CofferTile> {
+public class Coffer extends Block implements ITileEntity<CofferTile>, IWaterLoggable {
 
 
     public static final IntegerProperty ANGLE = IntegerProperty.create("angle", 0, 180);
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -75,7 +78,8 @@ public class Coffer extends Block implements ITileEntity<CofferTile> {
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(HorizontalBlock.HORIZONTAL_FACING, context.getPlacementHorizontalFacing()).with(ANGLE, 0);
+        FluidState fluidstate = context.getWorld().getFluidState(context.getPos());
+        return this.getDefaultState().with(HorizontalBlock.HORIZONTAL_FACING, context.getPlacementHorizontalFacing()).with(ANGLE, 0).with(WATERLOGGED, Boolean.valueOf(fluidstate.getFluid() == Fluids.WATER));
     }
 
     // hitbox REMEMBER TO DO THIS
@@ -116,13 +120,13 @@ public class Coffer extends Block implements ITileEntity<CofferTile> {
     }
 
     public Coffer(Properties properties) {
-
         super(properties.notSolid());
+        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)));
     }
 
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(HorizontalBlock.HORIZONTAL_FACING, ANGLE);
+        builder.add(HorizontalBlock.HORIZONTAL_FACING, ANGLE, WATERLOGGED);
     }
 
     public void setAngle(World worldIn, BlockPos pos, BlockState state, int angle) {
@@ -141,9 +145,38 @@ public class Coffer extends Block implements ITileEntity<CofferTile> {
         if (world instanceof ServerWorld) {
             ItemStack cloneItemStack = getItem(world, pos, state);
             world.destroyBlock(pos, false);
-            if (world.getBlockState(pos) != state && !world.isRemote())
-                player.inventory.placeItemBackInInventory(world, cloneItemStack);
+            if (world.getBlockState(pos) != state && !world.isRemote()) {
+                if(player.getHeldItem(Hand.MAIN_HAND).getItem() == Items.AIR)
+                    player.setHeldItem(Hand.MAIN_HAND,cloneItemStack);
+                else
+                    player.inventory.placeItemBackInInventory(world, cloneItemStack);
+            }
+
         }
+    }
+
+    @Override
+    public void onBlockExploded(BlockState state, World world, BlockPos pos, Explosion explosion) {
+        super.onBlockExploded(state, world, pos, explosion);
+
+        if (world instanceof ServerWorld) {
+            ItemStack cloneItemStack = getItem(world, pos, state);
+            if (world.getBlockState(pos) != state && !world.isRemote()) {
+                world.addEntity(new ItemEntity(world, pos.getX() + 0.5f, pos.getY() - 0.5f, pos.getZ() + 0.5f, cloneItemStack));
+            }
+
+        }
+    }
+
+
+    @Override
+    public FluidState getFluidState(BlockState state) {
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+    }
+
+    @Override
+    public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
+        return !state.get(WATERLOGGED);
     }
 
     @Override

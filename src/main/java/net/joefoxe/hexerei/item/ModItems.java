@@ -1,6 +1,7 @@
 package net.joefoxe.hexerei.item;
 
 import net.joefoxe.hexerei.Hexerei;
+import net.joefoxe.hexerei.block.ModBlocks;
 import net.joefoxe.hexerei.client.renderer.entity.ModEntityTypes;
 import net.joefoxe.hexerei.fluid.ModFluids;
 import net.joefoxe.hexerei.item.custom.BottleLavaItem;
@@ -45,6 +46,11 @@ public class ModItems {
 
     public static final RegistryObject<Item> BLOOD_SIGIL = ITEMS.register("blood_sigil",
             () -> new Item(new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
+
+    public static final RegistryObject<Item> SAGE = ITEMS.register("sage",
+            () -> new BlockItem(ModBlocks.SAGE.get(), new Item.Properties()
+                    //.food(new Food.Builder().hunger(1).saturation(0.1f).fastToEat().build())
+                    .group(ModItemGroup.HEXEREI_GROUP)));
 
 
 

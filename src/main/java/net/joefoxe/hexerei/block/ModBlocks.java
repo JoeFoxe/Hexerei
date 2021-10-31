@@ -1,14 +1,10 @@
 package net.joefoxe.hexerei.block;
 
 import net.joefoxe.hexerei.Hexerei;
-import net.joefoxe.hexerei.block.custom.Coffer;
-import net.joefoxe.hexerei.block.custom.MixingCauldron;
+import net.joefoxe.hexerei.block.custom.*;
 import net.joefoxe.hexerei.item.ModItemGroup;
 import net.joefoxe.hexerei.item.ModItems;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.CauldronBlock;
-import net.minecraft.block.SeaPickleBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -32,14 +28,30 @@ public class ModBlocks {
     public static final RegistryObject<Block> MIXING_CAULDRON = registerBlock("mixing_cauldron",
             () -> new MixingCauldron(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(8f).setLightLevel(state -> 6 + 3 * state.get(MixingCauldron.LEVEL))));
 
+    public static final RegistryObject<Block> PESTLE_AND_MORTAR = registerBlock("pestle_and_mortar",
+            () -> new PestleAndMortar(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(0).hardnessAndResistance(2f)));
 
+    public static final RegistryObject<Block> CRYSTAL_BALL = registerBlock("crystal_ball",
+            () -> new CrystalBall(AbstractBlock.Properties.create(Material.IRON).harvestLevel(0).hardnessAndResistance(2f).setLightLevel(state -> 9)));
+
+    public static final RegistryObject<Block> HERB_DRYING_RACK_FULL = registerBlock("herb_drying_rack_full",
+            () -> new HerbDryingRack(AbstractBlock.Properties.create(Material.WOOD).harvestLevel(0).hardnessAndResistance(2f)));
+
+    public static final RegistryObject<Block> CANDELABRA = registerBlock("candelabra",
+            () -> new Candelabra(AbstractBlock.Properties.create(Material.IRON).harvestLevel(1).hardnessAndResistance(2f)));
+
+    public static final RegistryObject<Block> BOOK_OF_SHADOWS_ALTAR = registerBlock("book_of_shadows_altar",
+            () -> new Altar(AbstractBlock.Properties.create(Material.WOOD).harvestTool(ToolType.AXE).harvestLevel(0).hardnessAndResistance(2f)));
+
+    public static final RegistryObject<Block> SAGE = BLOCKS.register("sage_crop",
+            () -> new SageBlock(AbstractBlock.Properties.from(Blocks.WHEAT)));
 
     // SIGILS
     public static final RegistryObject<Block> BLOOD_SIGIL = registerBlockNoItem("blood_sigil",
             () -> new Block(AbstractBlock.Properties.create(Material.ROCK).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(5f)));
 
 
-
+    // COFFER
     public static final RegistryObject<Block> COFFER = registerBlock("coffer",
             () -> new Coffer(AbstractBlock.Properties.create(Material.IRON).harvestLevel(2).harvestTool(ToolType.PICKAXE).setRequiresTool().hardnessAndResistance(8f)));
 

@@ -11,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.IntReferenceHolder;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -79,14 +81,29 @@ public class CofferContainer extends Container {
         trackInt(new IntReferenceHolder() {
             @Override
             public void set(int value) {
-                ((CofferTile)tileEntity).setDegreesOpened(value);
+                ((CofferTile)tileEntity).setButtonToggled(value);
             }
             @Override
             public int get() {
-                return ((CofferTile)tileEntity).getDegreesOpened();
+                return ((CofferTile)tileEntity).getButtonToggled();
             }
         });
 
+
+
+    }
+
+
+    public void playSound() {
+        this.tileEntity.getWorld().playSound((PlayerEntity)null, this.tileEntity.getPos(), SoundEvents.UI_BUTTON_CLICK, SoundCategory.BLOCKS, 1.0F, 1.0F);;
+    }
+
+    public int getToggled() {
+        return ((CofferTile)tileEntity).getButtonToggled();
+    }
+
+    public void setToggled(int value) {
+        ((CofferTile)tileEntity).setButtonToggled(value);
     }
 
     @Override
