@@ -4,7 +4,6 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.joefoxe.hexerei.Hexerei;
 import net.joefoxe.hexerei.client.renderer.entity.custom.BuffZombieEntity;
-import net.joefoxe.hexerei.client.renderer.entity.custom.CrowEntity;
 import net.joefoxe.hexerei.client.renderer.entity.custom.PigeonEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -37,11 +36,6 @@ public class ModEntityTypes {
                                     EntityClassification.CREATURE).size(0.4f, 0.3f)
                             .build(new ResourceLocation(Hexerei.MOD_ID, "pigeon").toString()));
 
-    public static final RegistryObject<EntityType<CrowEntity>> CROW =
-            ENTITY_TYPES.register("crow",
-                    () -> EntityType.Builder.create(CrowEntity::new,
-                                    EntityClassification.CREATURE).size(0.45f, 0.45f)
-                            .build(new ResourceLocation(Hexerei.MOD_ID, "crow").toString()));
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
@@ -50,12 +44,6 @@ public class ModEntityTypes {
     private static final EntityType registerEntity(EntityType.Builder builder, String entityName) {
         ResourceLocation nameLoc = new ResourceLocation(Hexerei.MOD_ID, entityName);
         return (EntityType) builder.build(entityName).setRegistryName(nameLoc);
-    }
-
-    @SubscribeEvent
-    public static void initializeAttributes(EntityAttributeCreationEvent event) {
-        event.put(CROW.get(), CrowEntity.bakeAttributes().create());
-
     }
 
     public static Predicate<LivingEntity> buildPredicateFromTag(ITag entityTag){

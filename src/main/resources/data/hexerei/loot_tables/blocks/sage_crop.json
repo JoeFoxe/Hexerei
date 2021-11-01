@@ -18,11 +18,11 @@
                   }
                 }
               ],
-              "name": "hexerei:sage"
+              "name": "hexerei:sage_seed"
             },
             {
               "type": "minecraft:item",
-              "name": "hexerei:sage"
+              "name": "hexerei:sage_seed"
             }
           ]
         }
@@ -44,7 +44,7 @@
               }
             }
           ],
-          "name": "hexerei:sage"
+          "name": "hexerei:sage_seed"
         }
       ],
       "conditions": [
