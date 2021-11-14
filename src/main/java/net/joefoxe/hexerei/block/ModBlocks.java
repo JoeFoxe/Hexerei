@@ -3,6 +3,7 @@ package net.joefoxe.hexerei.block;
 import net.joefoxe.hexerei.Hexerei;
 import net.joefoxe.hexerei.block.custom.*;
 import net.joefoxe.hexerei.block.custom.trees.MahoganyTree;
+import net.joefoxe.hexerei.block.custom.trees.WillowTree;
 import net.joefoxe.hexerei.item.ModItemGroup;
 import net.joefoxe.hexerei.item.ModItems;
 import net.minecraft.block.*;
@@ -173,8 +174,8 @@ public class ModBlocks {
     public static final RegistryObject<Block> WILLOW_LEAVES = registerBlock("willow_leaves",
             () -> new LeavesBlock(AbstractBlock.Properties.from(Blocks.OAK_LEAVES).tickRandomly().sound(SoundType.PLANT).notSolid().setSuffocates(Properties::never).setBlocksVision(Properties::never)));
 
-//    public static final RegistryObject<Block> WILLOW_SAPLING = registerBlock("willow_sapling",
-//            () -> new SaplingBlock(new WillowTree(), AbstractBlock.Properties.from(Blocks.OAK_SAPLING)));
+    public static final RegistryObject<Block> WILLOW_SAPLING = registerBlock("willow_sapling",
+            () -> new SaplingBlock(new WillowTree(), AbstractBlock.Properties.from(Blocks.OAK_SAPLING)));
 
 
 

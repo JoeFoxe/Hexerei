@@ -20,15 +20,26 @@ public class ModTreeGeneration {
     public static void generateTrees(final BiomeLoadingEvent event) {
         RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
+        if(event.getName().toString().matches("hexerei:willow_swamp") ) {
+            List<Supplier<ConfiguredFeature<?, ?>>> base =
+                    event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
-        if(types.contains(BiomeDictionary.Type.PLAINS)) {
+            base.add(() -> ModConfiguredFeatures.WILLOW
+                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+                    .withPlacement(Placement.COUNT_EXTRA.configure(
+                            new AtSurfaceWithExtraConfig(1, 0.25f, 2))));
+
+        }
+        if(types.contains(BiomeDictionary.Type.JUNGLE)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base =
                     event.getGeneration().getFeatures(GenerationStage.Decoration.VEGETAL_DECORATION);
 
             base.add(() -> ModConfiguredFeatures.MAHOGANY
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                     .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1, 0.25f, 2))));
+                            new AtSurfaceWithExtraConfig(0, 0.25f, 2))));
+
         }
+
     }
 }

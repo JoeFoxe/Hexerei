@@ -93,11 +93,11 @@ public class WitchHutStructure extends Structure<NoFeatureConfig> {
 
 
             this.recalculateStructureSize();
-
-            LogManager.getLogger().log(Level.DEBUG, "WitchHut at " +
-                    this.components.get(0).getBoundingBox().minX + " " +
-                    this.components.get(0).getBoundingBox().minY + " " +
-                    this.components.get(0).getBoundingBox().minZ);
+//
+//            LogManager.getLogger().log(Level.DEBUG, "WitchHut at " +
+//                    this.components.get(0).getBoundingBox().minX + " " +
+//                    this.components.get(0).getBoundingBox().minY + " " +
+//                    this.components.get(0).getBoundingBox().minZ);
         }
     }
 

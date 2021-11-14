@@ -22,6 +22,9 @@ import net.joefoxe.hexerei.screen.MixingCauldronScreen;
 import net.joefoxe.hexerei.tileentity.ModTileEntities;
 import net.joefoxe.hexerei.tileentity.renderer.*;
 import net.joefoxe.hexerei.util.*;
+import net.joefoxe.hexerei.world.biome.ModBiomes;
+import net.joefoxe.hexerei.world.gen.ModBiomeGeneration;
+import net.joefoxe.hexerei.world.gen.ModFeatures;
 import net.joefoxe.hexerei.world.processor.MangroveTreeLegProcessor;
 import net.joefoxe.hexerei.world.processor.WitchHutLegProcessor;
 import net.joefoxe.hexerei.world.structure.ModStructures;
@@ -92,7 +95,9 @@ public class Hexerei
         ModContainers.register(eventBus);
         ModRecipeTypes.register(eventBus);
         ModParticleTypes.PARTICLES.register(eventBus);
+        ModFeatures.register(eventBus);
         ModStructures.register(eventBus);
+        ModBiomes.register(eventBus);
 
         SerializersHexerei.SERIALIZERS.register(eventBus);
         PigeonSkills.SKILLS.register(eventBus);
@@ -131,6 +136,8 @@ public class Hexerei
         ModEntityTypes.addEntityAttributes();
 
         event.enqueueWork(() -> {
+            ModBiomeGeneration.generateBiomes();
+
             AxeItem.BLOCK_STRIPPING_MAP = new ImmutableMap.Builder<Block, Block>().putAll(AxeItem.BLOCK_STRIPPING_MAP)
                     .put(ModBlocks.MAHOGANY_LOG.get(), ModBlocks.STRIPPED_MAHOGANY_LOG.get())
                     .put(ModBlocks.MAHOGANY_WOOD.get(), ModBlocks.STRIPPED_MAHOGANY_WOOD.get())
