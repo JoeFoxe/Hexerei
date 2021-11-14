@@ -6,7 +6,7 @@
 		"0": "hexerei:block/mixing_cauldron",
 		"1": "hexerei:block/mixing_cauldron_side",
 		"3": "hexerei:block/mixing_cauldron_fire",
-		"particle": "block/cauldron_side"
+		"particle": "hexerei:particle/cauldron_particle"
 	},
 	"elements": [
 		{

@@ -1,20 +1,7 @@
 
 {
   "variants": {
-    "facing=east": {
-      "model": "hexerei:block/crystal_ball",
-      "y": 270
-    },
-    "facing=north": {
-      "model": "hexerei:block/crystal_ball",
-      "y": 180
-    },
-    "facing=south": {
-      "model": "hexerei:block/crystal_ball"
-    },
-    "facing=west": {
-      "model": "hexerei:block/crystal_ball",
-      "y": 90
-    }
+    "": { "model": "hexerei:block/blank" }
   }
 }
+

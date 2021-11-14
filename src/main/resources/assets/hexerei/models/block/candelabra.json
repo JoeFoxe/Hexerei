@@ -5,7 +5,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "hexerei:block/candelabra",
-		"particle": "hexerei:block/candelabra"
+		"particle": "hexerei:particle/cauldron_particle"
 	},
 	"elements": [
 		{

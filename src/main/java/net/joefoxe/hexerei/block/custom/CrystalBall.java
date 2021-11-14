@@ -1,5 +1,9 @@
 package net.joefoxe.hexerei.block.custom;
 
+import net.joefoxe.hexerei.block.ITileEntity;
+import net.joefoxe.hexerei.tileentity.CofferTile;
+import net.joefoxe.hexerei.tileentity.CrystalBallTile;
+import net.joefoxe.hexerei.tileentity.ModTileEntities;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -8,6 +12,7 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -23,11 +28,12 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
-public class CrystalBall extends Block implements IWaterLoggable {
+public class CrystalBall extends Block implements ITileEntity<CrystalBallTile>, IWaterLoggable {
 
 
     public static final IntegerProperty ANGLE = IntegerProperty.create("angle", 0, 180);
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty PLAYER_NEAR = BooleanProperty.create("player_near");
 
     @SuppressWarnings("deprecation")
     @Override
@@ -45,7 +51,7 @@ public class CrystalBall extends Block implements IWaterLoggable {
     // hitbox REMEMBER TO DO THIS
     public static final VoxelShape SHAPE = Stream.of(
             Block.makeCuboidShape(5.5, 0, 5.5, 10.5, 4, 10.5),
-            Block.makeCuboidShape(4.5, 5.5, 4.5, 11.5, 12.5, 11.5)
+            Block.makeCuboidShape(5.5, 6, 5.5, 10.5, 12, 10.5)
     ).reduce((v1, v2) -> VoxelShapes.combineAndSimplify(v1, v2, IBooleanFunction.OR)).get();
 
 
@@ -76,13 +82,13 @@ public class CrystalBall extends Block implements IWaterLoggable {
 
     public CrystalBall(Properties properties) {
         super(properties.notSolid());
-        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)));
+        this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)).with(PLAYER_NEAR, Boolean.valueOf(false)));
     }
 
     @SuppressWarnings("deprecation")
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(HorizontalBlock.HORIZONTAL_FACING, ANGLE, WATERLOGGED);
+        builder.add(HorizontalBlock.HORIZONTAL_FACING, ANGLE, WATERLOGGED, PLAYER_NEAR);
     }
 
     public void setAngle(World worldIn, BlockPos pos, BlockState state, int angle) {
@@ -91,6 +97,14 @@ public class CrystalBall extends Block implements IWaterLoggable {
 
     public int getAngle(World worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos).get(ANGLE);
+    }
+
+    public void setPlayerNear(World worldIn, BlockPos pos, BlockState state, boolean near) {
+        worldIn.setBlockState(pos, state.with(PLAYER_NEAR, near));
+    }
+
+    public boolean getPlayerNear(World worldIn, BlockPos pos) {
+        return worldIn.getBlockState(pos).get(PLAYER_NEAR);
     }
 
     @SuppressWarnings("deprecation")
@@ -150,20 +164,20 @@ public class CrystalBall extends Block implements IWaterLoggable {
 //        };
 //    }
 //
-//    @Nullable
-//    @Override
-//    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-//        TileEntity te = ModTileEntities.COFFER_TILE.get().create();
-//        return te;
-//    }
-//
-//    @Override
-//    public boolean hasTileEntity(BlockState state) {
-//        return true;
-//    }
-//
-//    @Override
-//    public Class<CofferTile> getTileEntityClass() {
-//        return CofferTile.class;
-//    }
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        TileEntity te = ModTileEntities.CRYSTAL_BALL_TILE.get().create();
+        return te;
+    }
+
+    @Override
+    public boolean hasTileEntity(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public Class<CrystalBallTile> getTileEntityClass() {
+        return CrystalBallTile.class;
+    }
 }

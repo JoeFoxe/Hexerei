@@ -1,0 +1,64 @@
+{
+  "name": "hexerei:mangrove_tree/start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "hexerei:mangrove_tree1",
+        "processors": "hexerei:mangrove_tree/mangrove_tree_legs",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "hexerei:mangrove_tree2",
+        "processors": "hexerei:mangrove_tree/mangrove_tree_legs",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "hexerei:mangrove_tree3",
+        "processors": "hexerei:mangrove_tree/mangrove_tree_legs",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "hexerei:mangrove_tree4",
+        "processors": "hexerei:mangrove_tree/mangrove_tree_legs",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "hexerei:mangrove_tree5",
+        "processors": "hexerei:mangrove_tree/mangrove_tree_legs",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "hexerei:mangrove_tree6",
+        "processors": "hexerei:mangrove_tree/mangrove_tree_legs",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
+
+
+
+

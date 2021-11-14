@@ -35,6 +35,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -134,6 +135,17 @@ public class CofferTile extends LockableLootTileEntity implements ITickableTileE
     public void clear() {
         super.clear();
         this.items.clear();
+    }
+
+    @Override
+    public double getMaxRenderDistanceSquared() {
+        return 4096D;
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        AxisAlignedBB aabb = super.getRenderBoundingBox().grow(5, 5, 5);
+        return aabb;
     }
 
     @Override

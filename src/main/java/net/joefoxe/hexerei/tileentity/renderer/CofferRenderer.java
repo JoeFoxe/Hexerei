@@ -158,7 +158,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
 
         // item row 1
         matrixStackIn.push();
-        matrixStackIn.translate(4.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -167,7 +167,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(6D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -176,7 +176,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(7.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -212,7 +212,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(9.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -221,7 +221,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(11D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -230,7 +230,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(12.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -241,7 +241,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         // item row 2
 
         matrixStackIn.push();
-        matrixStackIn.translate(4.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -250,7 +250,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(6D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -259,7 +259,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(7.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -268,7 +268,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(9.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -277,7 +277,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(11D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -286,7 +286,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(12.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -297,7 +297,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         // item row 3
 
         matrixStackIn.push();
-        matrixStackIn.translate(4.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -306,7 +306,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(6D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -315,7 +315,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(7.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -324,7 +324,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(9.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -333,7 +333,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(11D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -342,7 +342,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(12.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -353,7 +353,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         // item row 4
 
         matrixStackIn.push();
-        matrixStackIn.translate(4.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -362,7 +362,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(6D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -371,7 +371,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(7.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -380,7 +380,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(9.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -389,7 +389,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(11D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -398,7 +398,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(12.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -408,7 +408,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
 
         // item row 5
         matrixStackIn.push();
-        matrixStackIn.translate(4.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -417,7 +417,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(6D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -426,7 +426,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(7.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -462,7 +462,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(9.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -471,7 +471,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(11D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -480,7 +480,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(12.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -499,7 +499,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -510,7 +510,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(6D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -521,7 +521,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -565,7 +565,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -576,7 +576,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(11D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -587,7 +587,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -600,7 +600,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -611,7 +611,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(6D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -622,7 +622,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -633,7 +633,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -644,7 +644,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(11D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -655,7 +655,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -668,7 +668,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -679,7 +679,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(6D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -690,7 +690,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -701,7 +701,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -712,7 +712,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(11D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -723,7 +723,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -736,7 +736,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -747,7 +747,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(6D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -758,7 +758,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -769,7 +769,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -780,7 +780,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(11D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -791,7 +791,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -803,7 +803,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -814,7 +814,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(6D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -825,7 +825,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -870,7 +870,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -881,7 +881,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(11D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -892,7 +892,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -911,7 +911,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -922,7 +922,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(6D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -933,7 +933,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -977,7 +977,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -988,7 +988,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(11D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -999,7 +999,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1012,7 +1012,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1023,7 +1023,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(6D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1034,7 +1034,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1045,7 +1045,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1056,7 +1056,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(11D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1067,7 +1067,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1080,7 +1080,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1091,7 +1091,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(6D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1102,7 +1102,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1113,7 +1113,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1124,7 +1124,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(11D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1135,7 +1135,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1148,7 +1148,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1159,7 +1159,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(6D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1170,7 +1170,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1181,7 +1181,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1192,7 +1192,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(11D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1203,7 +1203,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1215,7 +1215,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1226,7 +1226,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(6D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1237,7 +1237,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1282,7 +1282,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1293,7 +1293,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(11D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1304,7 +1304,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(0D / 16D, 0D / 16D, 16D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1323,7 +1323,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1334,7 +1334,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(6D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1345,7 +1345,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1389,7 +1389,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1400,7 +1400,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(11D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1411,7 +1411,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 6.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 6.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1424,7 +1424,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1435,7 +1435,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(6D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1446,7 +1446,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1457,7 +1457,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1468,7 +1468,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(11D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1479,7 +1479,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 7.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 7.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1492,7 +1492,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1503,7 +1503,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(6D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1514,7 +1514,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1525,7 +1525,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1536,7 +1536,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(11D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1547,7 +1547,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 8.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 8.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1560,7 +1560,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1571,7 +1571,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(6D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1582,7 +1582,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1593,7 +1593,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1604,7 +1604,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(11D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1615,7 +1615,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 9.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 9.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1627,7 +1627,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(4.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(4.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1638,7 +1638,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(6D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(6D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1649,7 +1649,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(7.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(7.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1694,7 +1694,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(9.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(9.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1705,7 +1705,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(11D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(11D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));
@@ -1716,7 +1716,7 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
         matrixStackIn.push();
         matrixStackIn.translate(16D / 16D, 0D / 16D, 0D / 16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(270));
-        matrixStackIn.translate(12.5D/16D, 0.15D, 10.5D/16D);
+        matrixStackIn.translate(12.5D/16D-0.5D/16D, 0.15D, 10.5D/16D);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(22.5f));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(-15f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-2.5f));

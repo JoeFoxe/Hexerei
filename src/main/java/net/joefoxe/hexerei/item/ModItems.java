@@ -3,11 +3,9 @@ package net.joefoxe.hexerei.item;
 import net.joefoxe.hexerei.Hexerei;
 import net.joefoxe.hexerei.block.ModBlocks;
 import net.joefoxe.hexerei.client.renderer.entity.ModEntityTypes;
+import net.joefoxe.hexerei.client.renderer.entity.custom.BroomEntity;
 import net.joefoxe.hexerei.fluid.ModFluids;
-import net.joefoxe.hexerei.item.custom.BottleLavaItem;
-import net.joefoxe.hexerei.item.custom.BottleMilkItem;
-import net.joefoxe.hexerei.item.custom.BottleQuicksilverItem;
-import net.joefoxe.hexerei.item.custom.ModSpawnEggItem;
+import net.joefoxe.hexerei.item.custom.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -47,6 +45,9 @@ public class ModItems {
     public static final RegistryObject<Item> BLOOD_SIGIL = ITEMS.register("blood_sigil",
             () -> new Item(new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
 
+    public static final RegistryObject<Item> BROOM = ITEMS.register("broom",
+            () -> new BroomItem(new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
+
 
     public static final RegistryObject<Item> SAGE = ITEMS.register("sage",
             () -> new Item(new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
@@ -72,35 +73,51 @@ public class ModItems {
     // ARMOR ITEMS
     public static final RegistryObject<Item> ORC_HELMET = ITEMS.register("orc_helmet",
             () -> new OrcArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.HEAD,
-                    new Item.Properties().rarity(Rarity.RARE).group(ModItemGroup.HEXEREI_GROUP)));
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
 
     public static final RegistryObject<Item> ORC_CHESTPLATE = ITEMS.register("orc_chestplate",
             () -> new OrcArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.CHEST,
-                    new Item.Properties().rarity(Rarity.RARE).group(ModItemGroup.HEXEREI_GROUP)));
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
 
     public static final RegistryObject<Item> ORC_LEGGINGS = ITEMS.register("orc_leggings",
             () -> new OrcArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.LEGS,
-                    new Item.Properties().rarity(Rarity.RARE).group(ModItemGroup.HEXEREI_GROUP)));
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
 
     public static final RegistryObject<Item> ORC_BOOTS = ITEMS.register("orc_boots",
             () -> new OrcArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.FEET,
-                    new Item.Properties().rarity(Rarity.RARE).group(ModItemGroup.HEXEREI_GROUP)));
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
 
     public static final RegistryObject<Item> DRUID_HELMET = ITEMS.register("druid_helmet",
             () -> new DruidArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.HEAD,
-                    new Item.Properties().rarity(Rarity.RARE).group(ModItemGroup.HEXEREI_GROUP)));
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
 
     public static final RegistryObject<Item> DRUID_CHESTPLATE = ITEMS.register("druid_chestplate",
             () -> new DruidArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.CHEST,
-                    new Item.Properties().rarity(Rarity.RARE).group(ModItemGroup.HEXEREI_GROUP)));
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
 
     public static final RegistryObject<Item> DRUID_LEGGINGS = ITEMS.register("druid_leggings",
             () -> new DruidArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.LEGS,
-                    new Item.Properties().rarity(Rarity.RARE).group(ModItemGroup.HEXEREI_GROUP)));
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
 
     public static final RegistryObject<Item> DRUID_BOOTS = ITEMS.register("druid_boots",
             () -> new DruidArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.FEET,
-                    new Item.Properties().rarity(Rarity.RARE).group(ModItemGroup.HEXEREI_GROUP)));
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
+
+    public static final RegistryObject<Item> WITCH_HELMET = ITEMS.register("witch_helmet",
+            () -> new WitchArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.HEAD,
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
+
+    public static final RegistryObject<Item> WITCH_CHESTPLATE = ITEMS.register("witch_chestplate",
+            () -> new WitchArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.CHEST,
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
+
+//    public static final RegistryObject<Item> WITCH_LEGGINGS = ITEMS.register("witch_leggings",
+//            () -> new WitchArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.LEGS,
+//                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
+
+    public static final RegistryObject<Item> WITCH_BOOTS = ITEMS.register("witch_boots",
+            () -> new WitchArmorItem(ModArmorMaterial.ARMOR_SCRAP, EquipmentSlotType.FEET,
+                    new Item.Properties().group(ModItemGroup.HEXEREI_GROUP)));
 
 
 

@@ -3,16 +3,17 @@ package net.joefoxe.hexerei.client.renderer.entity;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import net.joefoxe.hexerei.Hexerei;
+import net.joefoxe.hexerei.client.renderer.entity.custom.BroomEntity;
 import net.joefoxe.hexerei.client.renderer.entity.custom.BuffZombieEntity;
 import net.joefoxe.hexerei.client.renderer.entity.custom.PigeonEntity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.joefoxe.hexerei.util.PigeonAttributes;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
@@ -36,9 +37,33 @@ public class ModEntityTypes {
                                     EntityClassification.CREATURE).size(0.4f, 0.3f)
                             .build(new ResourceLocation(Hexerei.MOD_ID, "pigeon").toString()));
 
+    public static final RegistryObject<EntityType<BroomEntity>> BROOM =
+            ENTITY_TYPES.register("broom",
+                    () -> EntityType.Builder.<BroomEntity>create(BroomEntity::new,
+                                    EntityClassification.MISC).size(1.175F, 0.3625F).trackingRange(10)
+                            .build(new ResourceLocation(Hexerei.MOD_ID, "broom").toString()));
+
 
     public static void register(IEventBus eventBus) {
         ENTITY_TYPES.register(eventBus);
+    }
+
+    public static void addEntityAttributes() {
+        GlobalEntityTypeAttributes.put(PIGEON.get(),
+                MobEntity.func_233666_p_()
+                        .createMutableAttribute(Attributes.MAX_HEALTH, 80.0D)
+                        .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3D)
+                        .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 1.0D)
+                        .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4.0D)
+                        .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.25D) // createMutableAttributeed
+                        .createMutableAttribute(PigeonAttributes.CRIT_CHANCE.get(), 0.01D)
+                        .createMutableAttribute(PigeonAttributes.CRIT_BONUS.get(), 1D)
+                        .create()
+        );
+    }
+
+    private static <T extends Entity> EntityType<T> register2(String key, EntityType.Builder<T> builder) {
+        return Registry.register(Registry.ENTITY_TYPE, key, builder.build(key));
     }
 
     private static final EntityType registerEntity(EntityType.Builder builder, String entityName) {

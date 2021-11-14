@@ -1,3 +1,4 @@
+/*
 package net.joefoxe.hexerei.client.renderer.entity.custom.ai;
 
 import net.joefoxe.hexerei.client.renderer.entity.custom.PigeonEntity;
@@ -77,4 +78,4 @@ public class FlightMoveController extends MovementController {
 
         return true;
     }
-}
+}*/

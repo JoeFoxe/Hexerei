@@ -1,0 +1,19 @@
+{
+  "name": "hexerei:willow_tree/start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "hexerei:willow_tree1",
+        "processors": "hexerei:willow_tree/willow_tree_legs",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}
+
+
+
+

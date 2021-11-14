@@ -1,5 +1,9 @@
 package net.joefoxe.hexerei.block.custom;
 
+import net.joefoxe.hexerei.block.ITileEntity;
+import net.joefoxe.hexerei.tileentity.BookOfShadowsAltarTile;
+import net.joefoxe.hexerei.tileentity.CrystalBallTile;
+import net.joefoxe.hexerei.tileentity.ModTileEntities;
 import net.minecraft.block.*;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -8,6 +12,7 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -23,7 +28,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.stream.Stream;
 
-public class Altar extends Block implements IWaterLoggable {
+public class Altar extends Block implements ITileEntity<BookOfShadowsAltarTile>, IWaterLoggable {
 
 
     public static final IntegerProperty ANGLE = IntegerProperty.create("angle", 0, 180);
@@ -161,20 +166,20 @@ public class Altar extends Block implements IWaterLoggable {
 //        };
 //    }
 //
-//    @Nullable
-//    @Override
-//    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-//        TileEntity te = ModTileEntities.COFFER_TILE.get().create();
-//        return te;
-//    }
-//
-//    @Override
-//    public boolean hasTileEntity(BlockState state) {
-//        return true;
-//    }
-//
-//    @Override
-//    public Class<CofferTile> getTileEntityClass() {
-//        return CofferTile.class;
-//    }
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        TileEntity te = ModTileEntities.BOOK_OF_SHADOWS_ALTAR_TILE.get().create();
+        return te;
+    }
+
+    @Override
+    public boolean hasTileEntity(BlockState state) {
+        return true;
+    }
+
+    @Override
+    public Class<BookOfShadowsAltarTile> getTileEntityClass() {
+        return BookOfShadowsAltarTile.class;
+    }
 }

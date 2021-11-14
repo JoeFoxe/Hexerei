@@ -5,7 +5,7 @@
 	"texture_size": [64, 64],
 	"textures": {
 		"0": "hexerei:block/book_of_shadows_altar",
-		"particle": "hexerei:block/book_of_shadows_altar"
+		"particle": "hexerei:particle/coffer_particle"
 	},
 	"elements": [
 		{

@@ -30,6 +30,7 @@ import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -88,8 +89,9 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
     @Override
     public void markDirty() {
         super.markDirty();
-        this.world.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(),
-                Constants.BlockFlags.BLOCK_UPDATE);
+//        if(this.world != null)
+//            this.world.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(),
+//                Constants.BlockFlags.BLOCK_UPDATE);
     }
 
     @Override
@@ -124,6 +126,17 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
     public void clear() {
         super.clear();
         this.items.clear();
+    }
+
+    @Override
+    public double getMaxRenderDistanceSquared() {
+        return 4096D;
+    }
+
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        AxisAlignedBB aabb = super.getRenderBoundingBox().grow(5, 5, 5);
+        return aabb;
     }
 
     /*

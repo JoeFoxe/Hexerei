@@ -47,9 +47,6 @@
     },
     "level=3,fluid=blood": {
       "model": "hexerei:block/mixing_cauldron_level3_blood"
-    },
-    "default": {
-      "model": "hexerei:block/mixing_cauldron"
     }
   }
 }

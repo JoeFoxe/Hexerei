@@ -16,7 +16,6 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void addEntityAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntityTypes.BUFF_ZOMBIE.get(), BuffZombieEntity.setCustomAttributes().create());
-        event.put(ModEntityTypes.PIGEON.get(), PigeonEntity.setCustomAttributes().create());
     }
 
     @SubscribeEvent

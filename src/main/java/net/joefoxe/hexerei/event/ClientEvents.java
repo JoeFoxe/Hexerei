@@ -21,7 +21,7 @@ public class ClientEvents {
         Fluid fluid = fluidState.getFluid();
 
         if (fluid.isEquivalentTo(ModFluids.BLOOD_FLUID.get())) {
-            event.setDensity(3f);
+            event.setDensity(0.75f);
             event.setCanceled(true);
             return;
         }
