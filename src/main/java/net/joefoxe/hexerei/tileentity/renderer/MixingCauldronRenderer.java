@@ -21,6 +21,8 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import org.lwjgl.system.CallbackI;
 
+import java.util.Objects;
+
 public class MixingCauldronRenderer extends TileEntityRenderer<MixingCauldronTile> {
 
     public MixingCauldronRenderer(TileEntityRendererDispatcher rendererDispatcher) {
@@ -33,9 +35,12 @@ public class MixingCauldronRenderer extends TileEntityRenderer<MixingCauldronTil
 
 
             // Rendering for the items inside the cauldron
-
+            float craftPercent = 0;
             //Mixing the items
-            float craftPercent = tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(MixingCauldron.CRAFT_DELAY)/(float)MixingCauldronTile.craftDelayMax;
+            if(Objects.requireNonNull(tileEntityIn.getWorld()).getBlockState(tileEntityIn.getPos()).hasTileEntity()) {
+                craftPercent = tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(MixingCauldron.CRAFT_DELAY) / (float) MixingCauldronTile.craftDelayMax;
+            }
+            else return;
 
             for(int i = 0; i < 8; i++)
             {

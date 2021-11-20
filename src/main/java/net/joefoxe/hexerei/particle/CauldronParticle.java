@@ -247,6 +247,9 @@ public class CauldronParticle extends SpriteTexturedParticle {
                 if(blockStateAtPos.get(MixingCauldron.FLUID) == LiquidType.MILK) {
                     float colorOffset = (random.nextFloat() * 0.05f);
                     cauldronParticle.setColor(0.85f + colorOffset, 0.85f + colorOffset, 0.85f + colorOffset);}
+                if(blockStateAtPos.get(MixingCauldron.FLUID) == LiquidType.TALLOW) {
+                    float colorOffset = (random.nextFloat() * 0.05f);
+                    cauldronParticle.setColor(0.53f + colorOffset, 0.53f + colorOffset, 0.41f + colorOffset);}
                 if(blockStateAtPos.get(MixingCauldron.FLUID) == LiquidType.LAVA) {
                     cauldronParticle.setColor(0.8f + (random.nextFloat() * 0.1f), 0.24f + (random.nextFloat() * 0.5f), (random.nextFloat() * 0.3f));}
                 if(blockStateAtPos.get(MixingCauldron.FLUID) == LiquidType.QUICKSILVER) {

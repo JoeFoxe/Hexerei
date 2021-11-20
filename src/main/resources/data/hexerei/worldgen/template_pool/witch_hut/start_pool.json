@@ -9,10 +9,39 @@
         "processors": "hexerei:witch_hut/witch_hut_legs",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
-      },
+      }
+    },
+    {
       "weight": 1,
       "element": {
         "location": "hexerei:witch_hut2",
+        "processors": "hexerei:witch_hut/witch_hut_legs",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "hexerei:witch_hut4",
+        "processors": "hexerei:witch_hut/witch_hut_legs",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "hexerei:witch_hut6",
+        "processors": "hexerei:witch_hut/witch_hut_legs",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "hexerei:witch_hut7",
         "processors": "hexerei:witch_hut/witch_hut_legs",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

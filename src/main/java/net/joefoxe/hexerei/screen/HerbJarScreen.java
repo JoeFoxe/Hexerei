@@ -46,20 +46,6 @@ public class HerbJarScreen extends ContainerScreen<HerbJarContainer> {
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 
-        Minecraft minecraft = Minecraft.getInstance();
-
-        minecraft.getTextureManager().bindTexture(GUI);
-
-        ItemRenderer itemRenderer = minecraft.getItemRenderer();
-
-        RenderSystem.disableDepthTest();
-        itemRenderer.renderItemIntoGUI(new ItemStack(ModBlocks.HERB_JAR.get().asItem()),
-                this.guiLeft + 83,
-                this.guiTop - 25);
-
-//        InventoryScreen.drawEntityOnScreen(this.guiLeft + 107, this.guiTop + 88, 20, (float)(this.guiLeft + 107 - mouseX) , (float)(this.guiTop + 88 - 30 - mouseY), this.minecraft.player);
-
-        RenderSystem.enableDepthTest();
 
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
@@ -73,7 +59,7 @@ public class HerbJarScreen extends ContainerScreen<HerbJarContainer> {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
-        RenderSystem.color4f(1f, 1f, 1f, 0.3f);
+        RenderSystem.color4f(1f, 1f, 1f, 1f);
         this.minecraft.getTextureManager().bindTexture(GUI);
         int i = this.guiLeft;
         int j = this.guiTop;
@@ -83,6 +69,19 @@ public class HerbJarScreen extends ContainerScreen<HerbJarContainer> {
         this.minecraft.getTextureManager().bindTexture(INVENTORY);
         this.blit(matrixStack, i + 3, j + 129, 0, 0, 176, 100);
 
+        Minecraft minecraft = Minecraft.getInstance();
+
+        minecraft.getTextureManager().bindTexture(GUI);
+
+        ItemRenderer itemRenderer = minecraft.getItemRenderer();
+        RenderSystem.disableDepthTest();
+        itemRenderer.renderItemIntoGUI(new ItemStack(ModBlocks.HERB_JAR.get().asItem()),
+                this.guiLeft + 83,
+                this.guiTop - 25);
+
+//        InventoryScreen.drawEntityOnScreen(this.guiLeft + 107, this.guiTop + 88, 20, (float)(this.guiLeft + 107 - mouseX) , (float)(this.guiTop + 88 - 30 - mouseY), this.minecraft.player);
+
+        RenderSystem.enableDepthTest();
 
 
     }

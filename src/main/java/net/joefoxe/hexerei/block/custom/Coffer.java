@@ -10,6 +10,8 @@ import net.joefoxe.hexerei.tileentity.CofferTile;
 import net.joefoxe.hexerei.tileentity.MixingCauldronTile;
 import net.joefoxe.hexerei.tileentity.ModTileEntities;
 import net.minecraft.block.*;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
@@ -20,11 +22,9 @@ import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.particles.BlockParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.PotionUtils;
@@ -54,11 +54,13 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -214,11 +216,61 @@ public class Coffer extends Block implements ITileEntity<CofferTile>, IWaterLogg
                     .getCompound("Inventory"));
         });
 
-
-
-
     }
 
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
+        CompoundNBT inv = stack.getOrCreateTag().getCompound("Inventory");
+        ListNBT tagList = inv.getList("Items", Constants.NBT.TAG_COMPOUND);
+        if(Screen.hasShiftDown()) {
+
+            tooltip.add(new TranslationTextComponent("\u00A7e--------------\u00A7r"));
+            for (int i = 0; i < tagList.size(); i++)
+            {
+                CompoundNBT itemTags = tagList.getCompound(i);
+
+                TranslationTextComponent itemText = new TranslationTextComponent(ItemStack.read(itemTags).getTranslationKey());
+                int countText = ItemStack.read(itemTags).getCount();
+                itemText.appendString(" x" + countText);
+
+                tooltip.add(itemText);
+            }
+            if(tagList.size() < 1)
+            {
+                tooltip.add(new TranslationTextComponent("Can be placed in the world."));
+                tooltip.add(new TranslationTextComponent("Can store items and be moved like a shulker box."));
+                tooltip.add(new TranslationTextComponent("Can be renamed."));
+                tooltip.add(new TranslationTextComponent("Punch the Coffer to pick up directly to your inventory."));
+            }
+
+        } else {
+//            tooltip.add(new TranslationTextComponent("tooltip.hexerei.coffer"));
+            tooltip.add(new TranslationTextComponent("\u00A7e--------------\u00A7r"));
+
+            for (int i = 0; i < Math.min(tagList.size(), 3); i++)
+            {
+                CompoundNBT itemTags = tagList.getCompound(i);
+
+                TranslationTextComponent itemText = new TranslationTextComponent(ItemStack.read(itemTags).getTranslationKey());
+                int countText = ItemStack.read(itemTags).getCount();
+                itemText.appendString(" x" + countText);
+
+                tooltip.add(itemText);
+            }
+            if(tagList.size() > 3) {
+                tooltip.add(new TranslationTextComponent(". . . "));
+                tooltip.add(new TranslationTextComponent(""));
+                tooltip.add(new TranslationTextComponent("Hold \u00A7eSHIFT\u00A7r to see more"));
+            }
+            else if(tagList.size() < 1)
+            {
+
+                tooltip.add(new TranslationTextComponent("tooltip.hexerei.coffer"));
+            }
+        }
+        super.addInformation(stack, world, tooltip, flagIn);
+    }
 
 
     @Override

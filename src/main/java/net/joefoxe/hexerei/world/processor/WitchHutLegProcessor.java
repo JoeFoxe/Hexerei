@@ -4,6 +4,7 @@ package net.joefoxe.hexerei.world.processor;
 import com.mojang.serialization.Codec;
 import mcp.MethodsReturnNonnullByDefault;
 import net.joefoxe.hexerei.Hexerei;
+import net.joefoxe.hexerei.block.ModBlocks;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
@@ -52,6 +53,57 @@ public class WitchHutLegProcessor extends StructureProcessor {
             BlockState currBlock = worldReader.getBlockState(mutable);
             while (mutable.getY() > 0 && (currBlock.getMaterial() == Material.AIR || currBlock.getMaterial() == Material.WATER || currBlock.getMaterial() == Material.LAVA)) {
                 currentChunk.setBlockState(mutable, Blocks.SPRUCE_LOG.getDefaultState(), false);
+                mutable.move(Direction.DOWN);
+                currBlock = worldReader.getBlockState(mutable);
+            }
+        } else if (blockInfoGlobal.state.getBlock() == Blocks.RED_STAINED_GLASS_PANE) {
+            ChunkPos currentChunkPos = new ChunkPos(blockInfoGlobal.pos);
+            IChunk currentChunk = worldReader.getChunk(currentChunkPos.x, currentChunkPos.z);
+            Random random = structurePlacementData.getRandom(blockInfoGlobal.pos);
+
+            // Always replace the glass itself with mossy cobble
+            currentChunk.setBlockState(blockInfoGlobal.pos, ModBlocks.MAHOGANY_LOG.get().getDefaultState(), false);
+            blockInfoGlobal = new Template.BlockInfo(blockInfoGlobal.pos, ModBlocks.MAHOGANY_LOG.get().getDefaultState(), blockInfoGlobal.nbt);
+
+            // Generate vertical pillar down
+            BlockPos.Mutable mutable = blockInfoGlobal.pos.down().toMutable();
+            BlockState currBlock = worldReader.getBlockState(mutable);
+            while (mutable.getY() > 0 && (currBlock.getMaterial() == Material.AIR || currBlock.getMaterial() == Material.WATER || currBlock.getMaterial() == Material.LAVA)) {
+                currentChunk.setBlockState(mutable, ModBlocks.MAHOGANY_LOG.get().getDefaultState(), false);
+                mutable.move(Direction.DOWN);
+                currBlock = worldReader.getBlockState(mutable);
+            }
+        } else if (blockInfoGlobal.state.getBlock() == Blocks.YELLOW_STAINED_GLASS_PANE) {
+            ChunkPos currentChunkPos = new ChunkPos(blockInfoGlobal.pos);
+            IChunk currentChunk = worldReader.getChunk(currentChunkPos.x, currentChunkPos.z);
+            Random random = structurePlacementData.getRandom(blockInfoGlobal.pos);
+
+            // Always replace the glass itself with mossy cobble
+            currentChunk.setBlockState(blockInfoGlobal.pos, Blocks.AIR.getDefaultState(), false);
+            blockInfoGlobal = new Template.BlockInfo(blockInfoGlobal.pos, Blocks.AIR.getDefaultState(), blockInfoGlobal.nbt);
+
+            // Generate vertical pillar down
+            BlockPos.Mutable mutable = blockInfoGlobal.pos.down().toMutable();
+            BlockState currBlock = worldReader.getBlockState(mutable);
+            while (mutable.getY() > 0 && (currBlock.getMaterial() == Material.AIR || currBlock.getMaterial() == Material.WATER || currBlock.getMaterial() == Material.LAVA)) {
+                currentChunk.setBlockState(mutable, Blocks.OAK_LOG.getDefaultState(), false);
+                mutable.move(Direction.DOWN);
+                currBlock = worldReader.getBlockState(mutable);
+            }
+        } else if (blockInfoGlobal.state.getBlock() == Blocks.PURPLE_STAINED_GLASS_PANE) {
+            ChunkPos currentChunkPos = new ChunkPos(blockInfoGlobal.pos);
+            IChunk currentChunk = worldReader.getChunk(currentChunkPos.x, currentChunkPos.z);
+            Random random = structurePlacementData.getRandom(blockInfoGlobal.pos);
+
+            // Always replace the glass itself with mossy cobble
+            currentChunk.setBlockState(blockInfoGlobal.pos, ModBlocks.WILLOW_LOG.get().getDefaultState(), false);
+            blockInfoGlobal = new Template.BlockInfo(blockInfoGlobal.pos, ModBlocks.WILLOW_LOG.get().getDefaultState(), blockInfoGlobal.nbt);
+
+            // Generate vertical pillar down
+            BlockPos.Mutable mutable = blockInfoGlobal.pos.down().toMutable();
+            BlockState currBlock = worldReader.getBlockState(mutable);
+            while (mutable.getY() > 0 && (currBlock.getMaterial() == Material.AIR || currBlock.getMaterial() == Material.WATER || currBlock.getMaterial() == Material.LAVA)) {
+                currentChunk.setBlockState(mutable, ModBlocks.WILLOW_LOG.get().getDefaultState(), false);
                 mutable.move(Direction.DOWN);
                 currBlock = worldReader.getBlockState(mutable);
             }

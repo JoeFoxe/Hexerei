@@ -28,6 +28,9 @@ public class CandleRenderer extends TileEntityRenderer<CandleTile> {
     public void render(CandleTile tileEntityIn, float partialTicks, MatrixStack matrixStackIn,
                        IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
+        if(!tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).hasTileEntity())
+            return;
+
 //        matrixStackIn.push();
 //        matrixStackIn.translate(8f/16f , 4.5f/16f, 8f/16f);
 //        matrixStackIn.translate(0f/16f , tileEntityIn.smallRingOffset/16f, 0f/16f);

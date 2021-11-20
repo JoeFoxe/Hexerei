@@ -1,0 +1,17 @@
+
+
+{
+
+  "conditions":
+  [
+    {
+      "condition": "minecraft:entity_properties",
+      "predicate": {
+        "type": "minecraft:cow"
+      },
+      "entity": "this"
+    }
+  ],
+
+  "addition": "hexerei:animal_fat"
+}

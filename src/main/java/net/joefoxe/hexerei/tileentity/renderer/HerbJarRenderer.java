@@ -3,6 +3,7 @@ package net.joefoxe.hexerei.tileentity.renderer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.joefoxe.hexerei.block.ModBlocks;
 import net.joefoxe.hexerei.block.custom.HerbJar;
+import net.joefoxe.hexerei.item.ModItems;
 import net.joefoxe.hexerei.tileentity.HerbJarTile;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.HorizontalBlock;
@@ -32,14 +33,18 @@ public class HerbJarRenderer extends TileEntityRenderer<HerbJarTile> {
     public void render(HerbJarTile tileEntityIn, float partialTicks, MatrixStack matrixStackIn,
                        IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
-        if (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(HorizontalBlock.HORIZONTAL_FACING) == Direction.NORTH)
-            renderItemsNorth(tileEntityIn, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
-        if (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(HorizontalBlock.HORIZONTAL_FACING) == Direction.WEST)
-            renderItemsWest(tileEntityIn, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
-        if (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(HorizontalBlock.HORIZONTAL_FACING) == Direction.SOUTH)
-            renderItemsSouth(tileEntityIn, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
-        if (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(HorizontalBlock.HORIZONTAL_FACING) == Direction.EAST)
-            renderItemsEast(tileEntityIn, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
+        if(tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).hasTileEntity()){
+            if (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(HorizontalBlock.HORIZONTAL_FACING) == Direction.NORTH)
+                renderItemsNorth(tileEntityIn, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
+            if (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(HorizontalBlock.HORIZONTAL_FACING) == Direction.WEST)
+                renderItemsWest(tileEntityIn, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
+            if (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(HorizontalBlock.HORIZONTAL_FACING) == Direction.SOUTH)
+                renderItemsSouth(tileEntityIn, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
+            if (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(HorizontalBlock.HORIZONTAL_FACING) == Direction.EAST)
+                renderItemsEast(tileEntityIn, partialTicks, matrixStackIn, bufferIn, combinedLightIn);
+        }
+        else
+            return;
 
         if(!tileEntityIn.itemHandler.isEmpty())
         {
@@ -50,8 +55,8 @@ public class HerbJarRenderer extends TileEntityRenderer<HerbJarTile> {
                 state = ModBlocks.HERB_JAR_MUGWORT.get().getDefaultState();
             if(tileEntityIn.itemHandler.getContents().get(0).getItem() == ModBlocks.MANDRAKE_FLOWER.get().asItem())
                 state = ModBlocks.HERB_JAR_MANDRAKE_FLOWER.get().getDefaultState();
-    //        if(tileEntityIn.itemHandler.getContents().get(0).getItem() == ModBlocks.HERB_JAR_MANDRAKE_ROOT.get().asItem())
-    //            state = ModBlocks.HERB_JAR_MANDRAKE_ROOT.get().getDefaultState();
+            if(tileEntityIn.itemHandler.getContents().get(0).getItem() == ModItems.MANDRAKE_ROOT.get())
+                state = ModBlocks.HERB_JAR_MANDRAKE_ROOT.get().getDefaultState();
             if(tileEntityIn.itemHandler.getContents().get(0).getItem() == ModBlocks.YELLOW_DOCK_BUSH.get().asItem())
                 state = ModBlocks.HERB_JAR_YELLOW_DOCK.get().getDefaultState();
 

@@ -26,6 +26,7 @@ public class ModFlowerGeneration {
             base.add(() -> ModConfiguredFeatures.MUGWORT_BUSH_CONFIG);
             base.add(() -> ModConfiguredFeatures.BELLADONNA_FLOWER_CONFIG);
             base.add(() -> ModConfiguredFeatures.YELLOW_DOCK_BUSH_CONFIG);
+            base.add(() -> ModConfiguredFeatures.LILY_PAD_CONFIG);
 
             if(event.getName().toString().matches("hexerei:willow_swamp") ) {
 
@@ -33,6 +34,7 @@ public class ModFlowerGeneration {
                 base.add(() -> ModConfiguredFeatures.MUGWORT_BUSH_CONFIG);
                 base.add(() -> ModConfiguredFeatures.BELLADONNA_FLOWER_CONFIG);
                 base.add(() -> ModConfiguredFeatures.YELLOW_DOCK_BUSH_CONFIG);
+
             }
         }
     }

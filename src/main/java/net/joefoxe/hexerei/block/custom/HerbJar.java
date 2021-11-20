@@ -9,6 +9,8 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,6 +24,7 @@ import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootContext;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -42,6 +45,7 @@ import net.minecraft.world.*;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nonnull;
@@ -102,27 +106,27 @@ public class HerbJar extends Block implements ITileEntity<HerbJarTile>, IWaterLo
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         ItemStack itemstack = player.getHeldItem(handIn);
 
-            if ((itemstack.isEmpty() && player.isSneaking()) || state.get(HorizontalBlock.HORIZONTAL_FACING).getOpposite() != hit.getFace()) {
-
-                TileEntity tileEntity = worldIn.getTileEntity(pos);
-
-                if(!worldIn.isRemote()) {
-                    if (tileEntity instanceof HerbJarTile) {
-                        INamedContainerProvider containerProvider = createContainerProvider(worldIn, pos);
-                        NetworkHooks.openGui(((ServerPlayerEntity) player), containerProvider, tileEntity.getPos());
-                    } else {
-                        throw new IllegalStateException("Our Container provider is missing!");
-                    }
-                }
-
-                return ActionResultType.SUCCESS;
-            }
+        if ((itemstack.isEmpty() && player.isSneaking()) || state.get(HorizontalBlock.HORIZONTAL_FACING).getOpposite() != hit.getFace()) {
 
             TileEntity tileEntity = worldIn.getTileEntity(pos);
 
-            if (tileEntity instanceof HerbJarTile) {
-                ((HerbJarTile)tileEntity).interactPutItemsIntoSlot(player);
+            if(!worldIn.isRemote()) {
+                if (tileEntity instanceof HerbJarTile) {
+                    INamedContainerProvider containerProvider = createContainerProvider(worldIn, pos);
+                    NetworkHooks.openGui(((ServerPlayerEntity) player), containerProvider, tileEntity.getPos());
+                } else {
+                    throw new IllegalStateException("Our Container provider is missing!");
+                }
             }
+
+            return ActionResultType.SUCCESS;
+        }
+
+        TileEntity tileEntity = worldIn.getTileEntity(pos);
+
+        if (tileEntity instanceof HerbJarTile) {
+            ((HerbJarTile)tileEntity).interactPutItemsIntoSlot(player);
+        }
 
         return ActionResultType.SUCCESS;
     }
@@ -223,6 +227,72 @@ public class HerbJar extends Block implements ITileEntity<HerbJarTile>, IWaterLo
 
         }
     }
+
+//    @Override
+//    public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+//
+//        if(Screen.hasShiftDown()) {
+//            tooltip.add(new TranslationTextComponent("tooltip.hexerei.herb_jar_shift"));
+//        } else {
+//            tooltip.add(new TranslationTextComponent("tooltip.hexerei.herb_jar"));
+//        }
+//        super.addInformation(stack, world, tooltip, flagIn);
+//    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
+        CompoundNBT inv = stack.getOrCreateTag().getCompound("Inventory");
+        ListNBT tagList = inv.getList("Items", Constants.NBT.TAG_COMPOUND);
+        if(Screen.hasShiftDown()) {
+
+            tooltip.add(new TranslationTextComponent("\u00A7e--------------\u00A7r"));
+            for (int i = 0; i < tagList.size(); i++)
+            {
+                CompoundNBT itemTags = tagList.getCompound(i);
+
+                TranslationTextComponent itemText = new TranslationTextComponent(ItemStack.read(itemTags).getTranslationKey());
+                int countText = ItemStack.read(itemTags).getCount();
+                itemText.appendString(" x" + countText);
+
+                tooltip.add(itemText);
+            }
+            if(tagList.size() < 1)
+            {
+                tooltip.add(new TranslationTextComponent("Can be placed in the world."));
+                tooltip.add(new TranslationTextComponent("Can store items and be moved like a shulker box."));
+                tooltip.add(new TranslationTextComponent("Can be renamed."));
+                tooltip.add(new TranslationTextComponent("Only holds one type of item, but can hold up to 1024."));
+            }
+
+        } else {
+            tooltip.add(new TranslationTextComponent("\u00A7e--------------\u00A7r"));
+
+            for (int i = 0; i < Math.min(tagList.size(), 1); i++)
+            {
+                CompoundNBT itemTags = tagList.getCompound(i);
+
+                TranslationTextComponent itemText = new TranslationTextComponent(ItemStack.read(itemTags).getTranslationKey());
+                int countText = ItemStack.read(itemTags).getCount();
+                itemText.appendString(" x" + countText);
+
+                tooltip.add(itemText);
+            }
+//            if(tagList.size() > 3) {
+//                tooltip.add(new TranslationTextComponent(". . . "));
+//                tooltip.add(new TranslationTextComponent(""));
+//                tooltip.add(new TranslationTextComponent("Hold \u00A7eSHIFT\u00A7r to see more"));
+//            }
+//            else
+            if(tagList.size() < 1)
+            {
+
+                tooltip.add(new TranslationTextComponent("tooltip.hexerei.herb_jar"));
+            }
+        }
+        super.addInformation(stack, world, tooltip, flagIn);
+    }
+
 
     @Override
     public ItemStack getItem(IBlockReader worldIn, BlockPos pos, BlockState state) {

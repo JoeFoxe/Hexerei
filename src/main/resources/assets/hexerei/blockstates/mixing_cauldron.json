@@ -47,6 +47,15 @@
     },
     "level=3,fluid=blood": {
       "model": "hexerei:block/mixing_cauldron_level3_blood"
+    },
+    "level=1,fluid=tallow": {
+      "model": "hexerei:block/mixing_cauldron_level1_tallow"
+    },
+    "level=2,fluid=tallow": {
+      "model": "hexerei:block/mixing_cauldron_level2_tallow"
+    },
+    "level=3,fluid=tallow": {
+      "model": "hexerei:block/mixing_cauldron_level3_tallow"
     }
   }
 }

@@ -1,5 +1,7 @@
 package net.joefoxe.hexerei.items;
 
+import net.joefoxe.hexerei.config.HexConfig;
+import net.joefoxe.hexerei.util.HexereiTags;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
@@ -35,7 +37,7 @@ public class JarHandler extends ItemStackHandler {
 //    public void onContentsChanged(int slot) {
 //        markDirty();
 //    }
-//
+
 
 
     @Override
@@ -58,6 +60,8 @@ public class JarHandler extends ItemStackHandler {
 
     @Override
     public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+//        if(HexConfig.JARS_ONLY_HOLD_HERBS.get())
+//            return stack.getItem().isIn(HexereiTags.Items.HERB_ITEM);
         return true;
     }
 

@@ -1,7 +1,10 @@
 package net.joefoxe.hexerei.container;
 
 import net.joefoxe.hexerei.block.ModBlocks;
+import net.joefoxe.hexerei.block.custom.MixingCauldron;
 import net.joefoxe.hexerei.item.ModItems;
+import net.joefoxe.hexerei.tileentity.CofferTile;
+import net.joefoxe.hexerei.tileentity.MixingCauldronTile;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -9,6 +12,7 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -47,10 +51,33 @@ public class MixingCauldronContainer extends Container {
 
         }
 
+        trackInt(new IntReferenceHolder() {
+            @Override
+            public void set(int value) {
+                ((MixingCauldronTile)tileEntity).setCraftDelay(value);
+            }
+            @Override
+            public int get() {
+                return ((MixingCauldronTile)tileEntity).getCraftDelay();
+            }
+        });
+
     }
 
     public boolean isLightningStorm() {
         return tileEntity.getWorld().isThundering();
+    }
+
+    public float getCraftPercent() {
+        if(tileEntity instanceof MixingCauldronTile)
+        {
+            MixingCauldronTile cauldronTile = (MixingCauldronTile) tileEntity;
+            if(!cauldronTile.getCrafted())
+            {
+                return (float)cauldronTile.craftDelay / (float)cauldronTile.craftDelayMax;
+            }
+        }
+        return 0;
     }
 
     @Override

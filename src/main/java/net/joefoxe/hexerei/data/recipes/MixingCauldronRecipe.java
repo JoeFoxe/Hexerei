@@ -41,15 +41,19 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
     private final NonNullList<Ingredient> recipeItems;
     private final Weather weather;
     private final LiquidType liquid;
+    private final LiquidType liquidOutput;
+    private final int fluidLevelsConsumed;
 
 
     public MixingCauldronRecipe(ResourceLocation id, ItemStack output,
-                                    NonNullList<Ingredient> recipeItems, Weather weather, LiquidType liquid) {
+                                    NonNullList<Ingredient> recipeItems, Weather weather, LiquidType liquid, LiquidType liquidOutput, int fluidLevelsConsumed) {
         this.id = id;
         this.output = output;
         this.recipeItems = recipeItems;
         this.weather = weather;
         this.liquid = liquid;
+        this.liquidOutput = liquidOutput;
+        this.fluidLevelsConsumed = fluidLevelsConsumed;
     }
 
 
@@ -91,6 +95,10 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
 
     public LiquidType getLiquid() { return this.liquid; }
 
+    public LiquidType getLiquidOutput() { return this.liquidOutput; }
+
+    public int getFluidLevelsConsumed() { return this.fluidLevelsConsumed; }
+
     public ItemStack getIcon() {
         return new ItemStack(ModBlocks.MIXING_CAULDRON.get());
     }
@@ -122,6 +130,8 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
             ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
             String weather = JSONUtils.getString(json, "weather");
             String liquid = JSONUtils.getString(json, "liquid");
+            String liquidOutput = JSONUtils.getString(json, "liquidOutput");
+            int fluidLevelsConsumed = JSONUtils.getInt(json, "fluidLevelsConsumed");
 
             JsonArray ingredients = JSONUtils.getJsonArray(json, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.withSize(8, Ingredient.EMPTY);
@@ -131,7 +141,7 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
             }
 
             return new MixingCauldronRecipe(recipeId, output,
-                    inputs, Weather.getWeatherByString(weather), LiquidType.valueOf(liquid.toUpperCase(Locale.ROOT)));
+                    inputs, Weather.getWeatherByString(weather), LiquidType.valueOf(liquid.toUpperCase(Locale.ROOT)), LiquidType.valueOf(liquidOutput.toUpperCase(Locale.ROOT)), fluidLevelsConsumed);
         }
 
         @Nullable
@@ -145,7 +155,7 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
 
             ItemStack output = buffer.readItemStack();
             return new MixingCauldronRecipe(recipeId, output,
-                    inputs, null, LiquidType.EMPTY);
+                    inputs, null, LiquidType.EMPTY, LiquidType.EMPTY, 1);
         }
 
         @Override

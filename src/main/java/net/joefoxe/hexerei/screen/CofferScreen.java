@@ -48,23 +48,6 @@ public class CofferScreen extends ContainerScreen<CofferContainer> {
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 
-        //Rendering the cauldron item on the top of the screen
-
-        Minecraft minecraft = Minecraft.getInstance();
-
-        minecraft.getTextureManager().bindTexture(GUI);
-
-        ItemRenderer itemRenderer = minecraft.getItemRenderer();
-
-        RenderSystem.disableDepthTest();
-        itemRenderer.renderItemIntoGUI(new ItemStack(ModBlocks.COFFER.get().asItem()),
-                this.guiLeft + 99,
-                this.guiTop - 25);
-
-        InventoryScreen.drawEntityOnScreen(this.guiLeft + 107, this.guiTop + 88, 20, (float)(this.guiLeft + 107 - mouseX) , (float)(this.guiTop + 88 - 30 - mouseY), this.minecraft.player);
-
-        RenderSystem.enableDepthTest();
-
 
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
@@ -91,7 +74,21 @@ public class CofferScreen extends ContainerScreen<CofferContainer> {
         this.minecraft.getTextureManager().bindTexture(INVENTORY);
         this.blit(matrixStack, i + 3, j + 129, 0, 0, 176, 100);
 
+        //Rendering the coffer item on the top of the screen
+        Minecraft minecraft = Minecraft.getInstance();
 
+        minecraft.getTextureManager().bindTexture(GUI);
+
+        ItemRenderer itemRenderer = minecraft.getItemRenderer();
+
+        RenderSystem.disableDepthTest();
+        itemRenderer.renderItemIntoGUI(new ItemStack(ModBlocks.COFFER.get().asItem()),
+                this.guiLeft + 99,
+                this.guiTop - 25);
+
+        InventoryScreen.drawEntityOnScreen(this.guiLeft + 107, this.guiTop + 88, 20, (float)(this.guiLeft + 107 - x) , (float)(this.guiTop + 88 - 30 - y), this.minecraft.player);
+
+        RenderSystem.enableDepthTest();
 
     }
 

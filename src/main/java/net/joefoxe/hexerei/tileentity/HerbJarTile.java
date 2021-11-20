@@ -1,9 +1,11 @@
 package net.joefoxe.hexerei.tileentity;
 
 import net.joefoxe.hexerei.Hexerei;
+import net.joefoxe.hexerei.config.HexConfig;
 import net.joefoxe.hexerei.container.HerbJarContainer;
 import net.joefoxe.hexerei.items.JarHandler;
 import net.joefoxe.hexerei.util.HexereiPacketHandler;
+import net.joefoxe.hexerei.util.HexereiTags;
 import net.joefoxe.hexerei.util.message.MessageCountUpdate;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
@@ -45,6 +47,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -68,7 +71,7 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
 
     public HerbJarTile(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
-        this.itemHandler = new JarHandler(1, 1024);
+        this.itemHandler = createHandler();
     }
 
     public void readInventory(CompoundNBT compound) {
@@ -88,9 +91,10 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
     @Override
     public void markDirty() {
         super.markDirty();
-//        assert this.world != null;
-//        this.world.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(),
-//                Constants.BlockFlags.BLOCK_UPDATE);
+
+        if(this.world != null)
+            this.world.notifyBlockUpdate(this.pos, this.world.getBlockState(this.getTileEntity().getPos()), this.world.getBlockState(this.getTileEntity().getPos()),
+                Constants.BlockFlags.BLOCK_UPDATE);
     }
 
     @Override
@@ -154,6 +158,7 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
 
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        assert this.world != null;
         this.read(this.world.getBlockState(this.pos) ,pkt.getNbtCompound());
     }
 
@@ -175,8 +180,8 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
     }
 
 
-    private ItemStackHandler createHandler() {
-        return new ItemStackHandler(1) {
+    private JarHandler createHandler() {
+        return new JarHandler(1,1024) {
             @Override
             protected void onContentsChanged(int slot) {
                 markDirty();
@@ -184,23 +189,12 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
+                if(HexConfig.JARS_ONLY_HOLD_HERBS.get()) {
+                    return stack.getItem().isIn(HexereiTags.Items.HERB_ITEM);
+                }
                 return true;
             }
 
-            @Override
-            public int getSlotLimit(int slot) {
-                return 1024;
-            }
-
-            @Nonnull
-            @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                if(!isItemValid(slot, stack)) {
-                    return stack;
-                }
-
-                return super.insertItem(slot, stack, simulate);
-            }
         };
     }
 
@@ -254,6 +248,12 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
     }
 
     public int putItemsIntoSlot (int slot, @Nonnull ItemStack stack, int count) {
+//        if(!world.isRemote)
+//        System.out.println(HexConfig.JARS_ONLY_HOLD_HERBS.get());
+        if(HexConfig.JARS_ONLY_HOLD_HERBS.get())
+            if(!stack.getItem().isIn(HexereiTags.Items.HERB_ITEM))
+                return 0;
+
         if (this.itemHandler.getContents().get(0).isEmpty()) {
             this.itemHandler.insertItem(0, stack.copy(), false);
 //            this.itemHandler.getStackInSlot(0).setCount(count);
@@ -262,7 +262,10 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
             return count;
         }
 
-        if (this.itemHandler.getContents().get(0).getItem() != stack.getItem())
+
+        if (!this.itemHandler.getContents().get(0).isItemEqual(stack))
+            return 0;
+        if(!ItemStack.areItemStackTagsEqual(stack, this.itemHandler.getContents().get(0)))
             return 0;
 
         int countAdded = Math.min(count, stack.getCount());
@@ -277,7 +280,7 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
 
     @OnlyIn(Dist.CLIENT)
     public void clientUpdateCount (final int slot, final int count) {
-        if (!getWorld().isRemote)
+        if (!Objects.requireNonNull(getWorld()).isRemote)
             return;
         Minecraft.getInstance().enqueue(() -> HerbJarTile.this.clientUpdateCountAsync(slot, count));
     }
@@ -310,13 +313,15 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
 
     public int interactPutItemsIntoSlot (PlayerEntity player) {
         int count;
-        if (getWorld().getGameTime() - lastClickTime < 10 && player.getUniqueID().equals(lastClickUUID))
+        if (Objects.requireNonNull(getWorld()).getGameTime() - lastClickTime < 10 && player.getUniqueID().equals(lastClickUUID))
             count = interactPutCurrentInventoryIntoSlot(0, player);
         else
             count = interactPutCurrentItemIntoSlot(0, player);
 
         lastClickTime = getWorld().getGameTime();
         lastClickUUID = player.getUniqueID();
+        if(count > 0)
+            markDirty();
 
         return count;
     }

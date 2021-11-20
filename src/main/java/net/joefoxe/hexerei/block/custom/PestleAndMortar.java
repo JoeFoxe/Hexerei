@@ -5,6 +5,8 @@ import net.joefoxe.hexerei.container.CofferContainer;
 import net.joefoxe.hexerei.tileentity.CofferTile;
 import net.joefoxe.hexerei.tileentity.ModTileEntities;
 import net.minecraft.block.*;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -43,6 +45,7 @@ import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -135,7 +138,18 @@ public class PestleAndMortar extends Block implements IWaterLoggable {
         return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
-//    @Override
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
+        if(Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.pestle_and_mortar_shift"));
+        } else {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.pestle_and_mortar"));
+        }
+        super.addInformation(stack, world, tooltip, flagIn);
+    }
+
+    //    @Override
 //    public void onBlockExploded(BlockState state, World world, BlockPos pos, Explosion explosion) {
 //        super.onBlockExploded(state, world, pos, explosion);
 //

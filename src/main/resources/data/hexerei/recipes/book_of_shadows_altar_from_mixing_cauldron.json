@@ -1,0 +1,36 @@
+{
+  "type": "hexerei:mixingcauldron",
+  "weather": "clear",
+  "liquid": "water",
+  "ingredients": [
+    {
+      "item": "hexerei:mahogany_planks"
+    },
+    {
+      "item": "hexerei:mahogany_planks"
+    },
+    {
+      "item": "hexerei:mahogany_planks"
+    },
+    {
+      "item": "hexerei:mahogany_planks"
+    },
+    {
+      "item": "hexerei:mahogany_planks"
+    },
+    {
+      "item": "hexerei:mahogany_planks"
+    },
+    {
+      "item": "hexerei:mahogany_planks"
+    },
+    {
+      "item": "hexerei:mahogany_planks"
+    }
+  ],
+  "output": {
+    "item": "hexerei:book_of_shadows_altar"
+  },
+  "liquidOutput": "water",
+  "fluidLevelsConsumed": 3
+}

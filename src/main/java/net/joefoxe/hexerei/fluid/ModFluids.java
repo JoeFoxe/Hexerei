@@ -26,10 +26,15 @@ public class ModFluids {
     public static final ResourceLocation BLOOD_STILL_RL = new ResourceLocation(Hexerei.MOD_ID + ":block/blood_still");
     public static final ResourceLocation BLOOD_FLOWING_RL = new ResourceLocation(Hexerei.MOD_ID + ":block/blood_flow");
     public static final ResourceLocation BLOOD_OVERLAY_RL = new ResourceLocation(Hexerei.MOD_ID + ":block/blood_overlay");
+    public static final ResourceLocation TALLOW_STILL_RL = new ResourceLocation(Hexerei.MOD_ID + ":block/tallow_still");
+    public static final ResourceLocation TALLOW_FLOWING_RL = new ResourceLocation(Hexerei.MOD_ID + ":block/tallow_flow");
+    public static final ResourceLocation TALLOW_OVERLAY_RL = new ResourceLocation(Hexerei.MOD_ID + ":block/tallow_overlay");
     public static final Material BLOOD = (new Material.Builder(MaterialColor.WATER)).doesNotBlockMovement().notSolid().replaceable().liquid().build();
+    public static final Material TALLOW = (new Material.Builder(MaterialColor.WATER)).doesNotBlockMovement().notSolid().replaceable().liquid().build();
 
 
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Hexerei.MOD_ID);
+
 
     public static final RegistryObject<FlowingFluid> QUICKSILVER_FLUID = FLUIDS.register("quicksilver_fluid", () -> new ForgeFlowingFluid.Source(ModFluids.QUICKSILVER_PROPERTIES));
 
@@ -40,6 +45,7 @@ public class ModFluids {
 
     public static final RegistryObject<FlowingFluidBlock> QUICKSILVER_BLOCK = ModBlocks.BLOCKS.register("quicksilver", () -> new FlowingFluidBlock(() -> ModFluids.QUICKSILVER_FLUID.get(),
             AbstractBlock.Properties.create(Material.LAVA).doesNotBlockMovement().hardnessAndResistance(100f).noDrops()));
+
 
 
     public static final RegistryObject<BloodFluid.Source> BLOOD_FLUID = FLUIDS.register("blood_fluid", () -> new BloodFluid.Source(ModFluids.BLOOD_PROPERTIES));
@@ -60,10 +66,31 @@ public class ModFluids {
             .block(() -> ModFluids.BLOOD_BLOCK.get())
             .bucket(() -> ModItems.BLOOD_BUCKET.get());
 
-
-
     public static final RegistryObject<FlowingFluidBlock> BLOOD_BLOCK = ModBlocks.BLOCKS.register("blood", () -> new FlowingFluidBlock(() -> ModFluids.BLOOD_FLUID.get(),
             AbstractBlock.Properties.create(BLOOD).doesNotBlockMovement().hardnessAndResistance(100f).noDrops()));
+
+
+
+    public static final RegistryObject<TallowFluid.Source> TALLOW_FLUID = FLUIDS.register("tallow_fluid", () -> new TallowFluid.Source(ModFluids.TALLOW_PROPERTIES));
+
+    public static final RegistryObject<TallowFluid.Flowing> TALLOW_FLOWING = FLUIDS.register("tallow_flowing", () -> new TallowFluid.Flowing(ModFluids.TALLOW_PROPERTIES));
+
+    public static final TallowFluid.Properties TALLOW_PROPERTIES = new TallowFluid.Properties(
+            () -> TALLOW_FLUID.get(), () -> TALLOW_FLOWING.get(), FluidAttributes.builder(TALLOW_STILL_RL, TALLOW_FLOWING_RL)
+            .density(1500)
+            .luminosity(15)
+            .viscosity(2000)
+            .sound(SoundEvents.ITEM_HONEY_BOTTLE_DRINK)
+            .overlay(TALLOW_OVERLAY_RL)
+            .color(0xF9FFFFFF)
+            .gaseous())
+            .slopeFindDistance(2)
+            .levelDecreasePerBlock(3)
+            .block(() -> ModFluids.TALLOW_BLOCK.get())
+            .bucket(() -> ModItems.TALLOW_BUCKET.get());
+
+    public static final RegistryObject<FlowingFluidBlock> TALLOW_BLOCK = ModBlocks.BLOCKS.register("tallow", () -> new FlowingFluidBlock(() -> ModFluids.TALLOW_FLUID.get(),
+            AbstractBlock.Properties.create(TALLOW).doesNotBlockMovement().hardnessAndResistance(100f).noDrops()));
 
 
     public static void register(IEventBus eventBus) {

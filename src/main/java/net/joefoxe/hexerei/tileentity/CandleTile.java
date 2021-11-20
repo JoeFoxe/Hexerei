@@ -70,7 +70,7 @@ public class CandleTile extends TileEntity implements ITickableTileEntity{
     public int candleMeltTimer2;
     public int candleMeltTimer3;
     public int candleMeltTimer4;
-    public int candleMeltTimerMAX = 100;
+    public int candleMeltTimerMAX = 6000;
     private boolean startupFlag;
 
     public CandleTile(TileEntityType<?> tileEntityTypeIn) {

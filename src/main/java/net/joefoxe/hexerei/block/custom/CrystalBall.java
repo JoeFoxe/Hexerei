@@ -5,9 +5,12 @@ import net.joefoxe.hexerei.tileentity.CofferTile;
 import net.joefoxe.hexerei.tileentity.CrystalBallTile;
 import net.joefoxe.hexerei.tileentity.ModTileEntities;
 import net.minecraft.block.*;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -20,12 +23,15 @@ import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class CrystalBall extends Block implements ITileEntity<CrystalBallTile>, IWaterLoggable {
@@ -83,6 +89,18 @@ public class CrystalBall extends Block implements ITileEntity<CrystalBallTile>, 
     public CrystalBall(Properties properties) {
         super(properties.notSolid());
         this.setDefaultState(this.stateContainer.getBaseState().with(WATERLOGGED, Boolean.valueOf(false)).with(PLAYER_NEAR, Boolean.valueOf(false)));
+    }
+
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
+        if(Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.crystal_ball_shift"));
+        } else {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.crystal_ball"));
+        }
+        super.addInformation(stack, world, tooltip, flagIn);
     }
 
     @SuppressWarnings("deprecation")

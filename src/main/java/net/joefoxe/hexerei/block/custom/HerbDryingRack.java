@@ -1,9 +1,12 @@
 package net.joefoxe.hexerei.block.custom;
 
 import net.minecraft.block.*;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
@@ -15,12 +18,15 @@ import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class HerbDryingRack extends Block implements IWaterLoggable {
@@ -55,6 +61,17 @@ public class HerbDryingRack extends Block implements IWaterLoggable {
     @Override
     public VoxelShape getShape(BlockState p_220053_1_, IBlockReader p_220053_2_, BlockPos p_220053_3_, ISelectionContext p_220053_4_) {
         return p_220053_1_.get(HorizontalBlock.HORIZONTAL_FACING) == Direction.NORTH || p_220053_1_.get(HorizontalBlock.HORIZONTAL_FACING) == Direction.SOUTH ? SHAPE : SHAPE_TURNED;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
+        if(Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.herb_drying_rack_shift"));
+        } else {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.herb_drying_rack"));
+        }
+        super.addInformation(stack, world, tooltip, flagIn);
     }
 
 //    @SuppressWarnings("deprecation")

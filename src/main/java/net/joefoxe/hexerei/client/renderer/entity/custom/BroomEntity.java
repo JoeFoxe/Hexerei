@@ -72,7 +72,7 @@ public class BroomEntity extends Entity {
 //    protected static final DataParameter<Float> ACCELERATION_SPEED = EntityDataManager.createKey(BroomEntity.class, DataSerializers.FLOAT);
 //    protected AccelerationDirection prevAcceleration;
 //    public float prevCurrentSpeed;
-//    public float currentSpeed;
+    public float speedMultiplier = 0.75f;
 //    protected boolean charging;
     private final float[] paddlePositions = new float[2];
     private float momentum;
@@ -908,12 +908,12 @@ public class BroomEntity extends Entity {
                 f -= 0.02F;
             }
             if(this.jumpInputDown) {
-                this.setMotion(this.getMotion().add(0, 0.15f, 0));
+                this.setMotion(this.getMotion().add(0, 0.15f * speedMultiplier, 0));
             }
             if(down) {
-                this.setMotion(this.getMotion().add(0, -0.15f, 0));
+                this.setMotion(this.getMotion().add(0, -0.15f * speedMultiplier, 0));
             }
-            this.setMotion(this.getMotion().add((double)(MathHelper.sin(-(this.rotationYaw + 90) * ((float)Math.PI / 180F)) * f), 0.0D, (double)(MathHelper.cos((this.rotationYaw + 90) * ((float)Math.PI / 180F)) * f)));
+            this.setMotion(this.getMotion().add((double)(MathHelper.sin(-(this.rotationYaw + 90) * ((float)Math.PI / 180F)) * f) * speedMultiplier, 0.0D, (double)(MathHelper.cos((this.rotationYaw + 90) * ((float)Math.PI / 180F)) * f) * speedMultiplier));
             this.setPaddleState(this.rightInputDown && !this.leftInputDown || this.forwardInputDown, this.leftInputDown && !this.rightInputDown || this.forwardInputDown);
         }
     }

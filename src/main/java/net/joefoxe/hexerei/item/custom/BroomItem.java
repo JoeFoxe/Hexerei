@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import net.joefoxe.hexerei.client.renderer.entity.custom.BroomEntity;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -16,7 +18,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class BroomItem extends Item {
     private static final Predicate<Entity> field_219989_a = EntityPredicates.NOT_SPECTATING.and(Entity::canBeCollidedWith);
@@ -69,5 +75,17 @@ public class BroomItem extends Item {
                 return ActionResult.resultPass(itemstack);
             }
         }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if(Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.broom_shift"));
+        } else {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.broom"));
+        }
+
+
+        super.addInformation(stack, world, tooltip, flagIn);
     }
 }

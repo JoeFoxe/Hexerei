@@ -28,6 +28,9 @@ public class CrystalBallRenderer extends TileEntityRenderer<CrystalBallTile> {
     public void render(CrystalBallTile tileEntityIn, float partialTicks, MatrixStack matrixStackIn,
                        IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
+        if(!tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).hasTileEntity())
+            return;
+
         matrixStackIn.push();
         matrixStackIn.translate(8f / 16f, 9f / 16f, 8f / 16f);
         matrixStackIn.translate(0f/16f , tileEntityIn.orbOffset/16f, 0f/16f);

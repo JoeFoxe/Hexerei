@@ -1,0 +1,36 @@
+{
+  "type": "hexerei:mixingcauldron",
+  "weather": "clear",
+  "liquid": "lava",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:polished_blackstone"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:polished_blackstone"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:polished_blackstone"
+    },
+    {
+      "item": "minecraft:redstone"
+    },
+    {
+      "item": "minecraft:polished_blackstone"
+    }
+  ],
+  "output": {
+    "item": "hexerei:blood_sigil"
+  },
+  "liquidOutput": "lava",
+  "fluidLevelsConsumed": 1
+}

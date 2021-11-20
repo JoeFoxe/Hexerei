@@ -27,7 +27,7 @@ public class ModTreeGeneration {
             base.add(() -> ModConfiguredFeatures.WILLOW
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                     .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1, 0.25f, 2))));
+                            new AtSurfaceWithExtraConfig(1, 0.5f, 2))));
 
         }
         if(types.contains(BiomeDictionary.Type.JUNGLE)) {

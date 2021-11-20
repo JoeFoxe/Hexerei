@@ -1,0 +1,36 @@
+{
+  "type": "hexerei:mixingcauldron",
+  "weather": "clear",
+  "liquid": "water",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:stone"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    },
+    {
+      "item": "minecraft:glass"
+    }
+  ],
+  "output": {
+    "item": "hexerei:crystal_ball"
+  },
+  "liquidOutput": "water",
+  "fluidLevelsConsumed": 1
+}

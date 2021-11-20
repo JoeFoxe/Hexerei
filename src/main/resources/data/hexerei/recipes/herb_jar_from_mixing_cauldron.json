@@ -1,0 +1,36 @@
+{
+  "type": "hexerei:mixingcauldron",
+  "weather": "clear",
+  "liquid": "lava",
+  "ingredients": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "minecraft:sand"
+    }
+  ],
+  "output": {
+    "item": "hexerei:herb_jar"
+  },
+  "liquidOutput": "lava",
+  "fluidLevelsConsumed": 1
+}

@@ -22,7 +22,9 @@ public class ModTileEntities {
 
     public static RegistryObject<TileEntityType<BookOfShadowsAltarTile>> BOOK_OF_SHADOWS_ALTAR_TILE = TILE_ENTITIES.register("book_of_shadows_altar_entity", () -> TileEntityType.Builder.create(BookOfShadowsAltarTile::new, ModBlocks.BOOK_OF_SHADOWS_ALTAR.get()).build(null));
 
-    public static RegistryObject<TileEntityType<CandleTile>> CANDLE_TILE = TILE_ENTITIES.register("candle_entity", () -> TileEntityType.Builder.create(CandleTile::new, ModBlocks.CANDLE.get(), ModBlocks.CANDLE_BLUE.get(), ModBlocks.CANDLE_BLACK.get(), ModBlocks.CANDLE_LIME.get(), ModBlocks.CANDLE_ORANGE.get(), ModBlocks.CANDLE_PINK.get(), ModBlocks.CANDLE_PURPLE.get(), ModBlocks.CANDLE_RED.get(), ModBlocks.CANDLE_TEAL.get(), ModBlocks.CANDLE_YELLOW.get()).build(null));
+    public static RegistryObject<TileEntityType<CandleTile>> CANDLE_TILE = TILE_ENTITIES.register("candle_entity", () -> TileEntityType.Builder.create(CandleTile::new, ModBlocks.CANDLE.get(), ModBlocks.CANDLE_BLUE.get(), ModBlocks.CANDLE_BLACK.get(), ModBlocks.CANDLE_LIME.get(), ModBlocks.CANDLE_ORANGE.get(), ModBlocks.CANDLE_PINK.get(), ModBlocks.CANDLE_PURPLE.get(), ModBlocks.CANDLE_RED.get(), ModBlocks.CANDLE_CYAN.get(), ModBlocks.CANDLE_YELLOW.get()).build(null));
+
+    public static RegistryObject<TileEntityType<CandleDipperTile>> CANDLE_DIPPER_TILE = TILE_ENTITIES.register("candle_dipper_entity", () -> TileEntityType.Builder.create(CandleDipperTile::new, ModBlocks.CANDLE_DIPPER.get()).build(null));
 
 
     public static void register(IEventBus eventBus) {

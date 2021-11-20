@@ -2,7 +2,6 @@ package net.joefoxe.hexerei.world.gen;
 
 import com.google.common.collect.ImmutableList;
 import net.joefoxe.hexerei.block.ModBlocks;
-import net.joefoxe.hexerei.util.HexereiAbstractTreeFeature;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.blockplacer.DoublePlantBlockPlacer;
@@ -36,6 +35,10 @@ public class ModConfiguredFeatures {
                     new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.MANDRAKE_FLOWER.get().getDefaultState()),
                             SimpleBlockPlacer.PLACER)).tries(1).build())
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(1);
+
+    public static final ConfiguredFeature<?, ?> LILY_PAD_CONFIG = register("patch_waterlilly", Feature.RANDOM_PATCH.withConfiguration((
+                    new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.LILY_PAD_BLOCK.get().getDefaultState()), SimpleBlockPlacer.PLACER)).tries(10).build())
+            .withPlacement(Features.Placements.PATCH_PLACEMENT).count(4));
 
     public static final ConfiguredFeature<?, ?> YELLOW_DOCK_BUSH_CONFIG = Feature.RANDOM_PATCH.withConfiguration((
                     new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(ModBlocks.YELLOW_DOCK_BUSH.get().getDefaultState()), new DoublePlantBlockPlacer())).tries(1).preventProjection().build())

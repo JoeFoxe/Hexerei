@@ -3,6 +3,8 @@
   "replace": false,
   "values": [
     "hexerei:blood_flowing",
-    "hexerei:blood_fluid"
+    "hexerei:blood_fluid",
+    "hexerei:tallow_flowing",
+    "hexerei:tallow_fluid"
   ]
 }

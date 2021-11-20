@@ -8,6 +8,8 @@ import net.joefoxe.hexerei.state.properties.LiquidType;
 import net.joefoxe.hexerei.tileentity.MixingCauldronTile;
 import net.joefoxe.hexerei.tileentity.ModTileEntities;
 import net.minecraft.block.*;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -44,6 +46,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -216,6 +219,19 @@ public class MixingCauldron extends Block {
                 worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_HONEY_BOTTLE_DRINK, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
+            } else if (item == ModItems.TALLOW_BUCKET.get() && ((state.get(FLUID) == LiquidType.TALLOW || state.get(FLUID) == LiquidType.EMPTY) && i < 3 && !worldIn.isRemote)) {
+
+                player.addStat(Stats.FILL_CAULDRON);
+                this.setFillLevel(worldIn, pos, state, 3, LiquidType.TALLOW);
+                itemstack.shrink(1);
+                if (itemstack.isEmpty()) {
+                    player.setHeldItem(handIn, new ItemStack(Items.BUCKET));
+                } else if (!player.inventory.addItemStackToInventory(new ItemStack(Items.BUCKET))) {
+                    player.dropItem(new ItemStack(Items.BUCKET), false);
+                }
+                worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_HONEY_BOTTLE_DRINK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+                return ActionResultType.func_233537_a_(worldIn.isRemote);
             } else if (item == Items.BUCKET && i == 3) {
                 if (!worldIn.isRemote) {
                     if(state.get(FLUID) == LiquidType.WATER) {
@@ -262,6 +278,15 @@ public class MixingCauldron extends Block {
                             player.setHeldItem(handIn, new ItemStack(ModItems.BLOOD_BUCKET.get()));
                         } else if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.BLOOD_BUCKET.get()))) {
                             player.dropItem(new ItemStack(ModItems.BLOOD_BUCKET.get()), false);
+                        }
+                    } else if(state.get(FLUID) == LiquidType.TALLOW) {
+                        worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_HONEY_BOTTLE_DRINK, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                        itemstack.shrink(1);
+                        this.setFillLevel(worldIn, pos, state, 0, LiquidType.EMPTY);
+                        if (itemstack.isEmpty()) {
+                            player.setHeldItem(handIn, new ItemStack(ModItems.TALLOW_BUCKET.get()));
+                        } else if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.TALLOW_BUCKET.get()))) {
+                            player.dropItem(new ItemStack(ModItems.TALLOW_BUCKET.get()), false);
                         }
                     }
 
@@ -318,6 +343,17 @@ public class MixingCauldron extends Block {
                         }
                     } else if(state.get(FLUID) == LiquidType.BLOOD) {
                         ItemStack itemstack8 = new ItemStack(ModItems.BLOOD_BOTTLE.get());
+                        player.addStat(Stats.USE_CAULDRON);
+                        itemstack.shrink(1);
+                        if (itemstack.isEmpty()) {
+                            player.setHeldItem(handIn, itemstack8);
+                        } else if (!player.inventory.addItemStackToInventory(itemstack8)) {
+                            player.dropItem(itemstack8, false);
+                        } else if (player instanceof ServerPlayerEntity) {
+                            ((ServerPlayerEntity) player).sendContainerToPlayer(player.container);
+                        }
+                    } else if(state.get(FLUID) == LiquidType.TALLOW) {
+                        ItemStack itemstack8 = new ItemStack(ModItems.TALLOW_BOTTLE.get());
                         player.addStat(Stats.USE_CAULDRON);
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
@@ -424,6 +460,23 @@ public class MixingCauldron extends Block {
                     this.setFillLevel(worldIn, pos, state, i + 1, LiquidType.BLOOD);
                 }
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
+            } else if (item == ModItems.TALLOW_BOTTLE.get() && (state.get(FLUID) == LiquidType.TALLOW || state.get(FLUID) == LiquidType.EMPTY) && i < 3) {
+                if (!worldIn.isRemote) {
+
+                    ItemStack itemstack3 = new ItemStack(Items.GLASS_BOTTLE);
+                    player.addStat(Stats.USE_CAULDRON);
+                    itemstack.shrink(1);
+                    if (itemstack.isEmpty()) {
+                        player.setHeldItem(handIn, itemstack3);
+                    } else if (!player.inventory.addItemStackToInventory(itemstack3)) {
+                        player.dropItem(itemstack3, false);
+                    } else if (player instanceof ServerPlayerEntity) {
+                        ((ServerPlayerEntity) player).sendContainerToPlayer(player.container);
+                    }
+                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                    this.setFillLevel(worldIn, pos, state, i + 1, LiquidType.TALLOW);
+                }
+                return ActionResultType.func_233537_a_(worldIn.isRemote);
             } else if(!worldIn.isRemote()) { // If
                 TileEntity tileEntity = worldIn.getTileEntity(pos);
 
@@ -510,13 +563,13 @@ public class MixingCauldron extends Block {
                 if(rand.nextDouble() > 0.5f)
                     world.addParticle(ModParticleTypes.CAULDRON.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.004d, (rand.nextDouble() - 0.5d) / 50d);
             }
-            if(state.get(FLUID) == LiquidType.WATER || state.get(FLUID) == LiquidType.MILK)
+            if(state.get(FLUID) == LiquidType.WATER || state.get(FLUID) == LiquidType.MILK || state.get(FLUID) == LiquidType.TALLOW)
             {
                 world.addParticle(ParticleTypes.BUBBLE, pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 50d, (rand.nextDouble() + 0.5d) * 0.005d, (rand.nextDouble() - 0.5d) / 50d);
             }else if(state.get(FLUID) == LiquidType.BLOOD)
             {
                 if(rand.nextInt(20) == 0)
-                world.addParticle(ModParticleTypes.BLOOD.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 75d, (rand.nextDouble() + 0.5d) * 0.0005d, (rand.nextDouble() - 0.5d) / 75d);
+                    world.addParticle(ModParticleTypes.BLOOD.get(), pos.getX() + 0.2d + (0.6d * rand.nextDouble()), pos.getY() + 0.95d + (0.05d * rand.nextDouble()) - ((3 - state.get(LEVEL)) * 0.15), pos.getZ() + 0.2d + (0.6d * rand.nextDouble()), (rand.nextDouble() - 0.5d) / 75d, (rand.nextDouble() + 0.5d) * 0.0005d, (rand.nextDouble() - 0.5d) / 75d);
             }
         }
         if(state.get(CRAFT_DELAY) >= MixingCauldronTile.craftDelayMax * 0.80)
@@ -591,6 +644,17 @@ public class MixingCauldron extends Block {
             ((MixingCauldronTile)tileentity).onEntityCollision(entityIn);
         }
 
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
+        if(Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.mixing_cauldron_shift"));
+        } else {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.mixing_cauldron"));
+        }
+        super.addInformation(stack, world, tooltip, flagIn);
     }
 
     @Override

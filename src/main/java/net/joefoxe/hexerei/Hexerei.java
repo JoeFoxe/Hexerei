@@ -10,6 +10,7 @@ import net.joefoxe.hexerei.client.renderer.entity.custom.ai.PigeonReviveCommand;
 import net.joefoxe.hexerei.client.renderer.entity.render.BroomRenderer;
 import net.joefoxe.hexerei.client.renderer.entity.render.BuffZombieRenderer;
 import net.joefoxe.hexerei.client.renderer.entity.render.PigeonRenderer;
+import net.joefoxe.hexerei.config.HexConfig;
 import net.joefoxe.hexerei.container.CofferContainer;
 import net.joefoxe.hexerei.container.ModContainers;
 import net.joefoxe.hexerei.data.recipes.ModRecipeTypes;
@@ -50,12 +51,15 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
@@ -119,6 +123,10 @@ public class Hexerei
         // Register the doClientStuff method for modloading
         eventBus.addListener(this::doClientStuff);
 
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, HexConfig.COMMON_CONFIG);
+
+        HexConfig.loadConfig(HexConfig.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("Hexerei-common.toml"));
+
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -170,6 +178,9 @@ public class Hexerei
             RenderTypeLookup.setRenderLayer(ModFluids.BLOOD_FLUID.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModFluids.BLOOD_FLOWING.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModFluids.BLOOD_BLOCK.get(), RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(ModFluids.TALLOW_FLUID.get(), RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(ModFluids.TALLOW_FLOWING.get(), RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(ModFluids.TALLOW_BLOCK.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.MAHOGANY_DOOR.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.MAHOGANY_TRAPDOOR.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.MAHOGANY_TRAPDOOR.get(), RenderType.getTranslucent());
@@ -184,13 +195,14 @@ public class Hexerei
             RenderTypeLookup.setRenderLayer(ModBlocks.HERB_JAR.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.HERB_DRYING_RACK_FULL.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(ModBlocks.MAHOGANY_SAPLING.get(), RenderType.getCutout());
-//            RenderTypeLookup.setRenderLayer(ModBlocks.WILLOW_SAPLING.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.WILLOW_SAPLING.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(ModBlocks.MANDRAKE_FLOWER.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(ModBlocks.BELLADONNA_FLOWER.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(ModBlocks.MUGWORT_BUSH.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(ModBlocks.YELLOW_DOCK_BUSH.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(ModBlocks.CANDELABRA.get(), RenderType.getCutout());
             RenderTypeLookup.setRenderLayer(ModBlocks.SAGE.get(), RenderType.getCutout());
+            RenderTypeLookup.setRenderLayer(ModBlocks.LILY_PAD_BLOCK.get(), RenderType.getCutout());
 
             ScreenManager.registerFactory(ModContainers.MIXING_CAULDRON_CONTAINER.get(), MixingCauldronScreen::new);
             ScreenManager.registerFactory(ModContainers.COFFER_CONTAINER.get(), CofferScreen::new);
@@ -202,6 +214,7 @@ public class Hexerei
             ClientRegistry.bindTileEntityRenderer(ModTileEntities.CRYSTAL_BALL_TILE.get(), CrystalBallRenderer::new);
             ClientRegistry.bindTileEntityRenderer(ModTileEntities.BOOK_OF_SHADOWS_ALTAR_TILE.get(), BookOfShadowsAltarRenderer::new);
             ClientRegistry.bindTileEntityRenderer(ModTileEntities.CANDLE_TILE.get(), CandleRenderer::new);
+            ClientRegistry.bindTileEntityRenderer(ModTileEntities.CANDLE_DIPPER_TILE.get(), CandleDipperRenderer::new);
 
 
 

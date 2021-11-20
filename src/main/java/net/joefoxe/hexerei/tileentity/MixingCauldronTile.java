@@ -1,6 +1,7 @@
 package net.joefoxe.hexerei.tileentity;
 
 import net.joefoxe.hexerei.Hexerei;
+import net.joefoxe.hexerei.block.custom.Candle;
 import net.joefoxe.hexerei.block.custom.MixingCauldron;
 import net.joefoxe.hexerei.container.MixingCauldronContainer;
 import net.joefoxe.hexerei.data.recipes.MixingCauldronRecipe;
@@ -46,6 +47,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.items.wrapper.CombinedInvWrapper;
+import net.minecraftforge.items.wrapper.SidedInvWrapper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -53,28 +56,33 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class MixingCauldronTile extends LockableLootTileEntity implements ITickableTileEntity, IClearable, INamedContainerProvider {
+import static net.joefoxe.hexerei.block.custom.MixingCauldron.LEVEL;
 
-    private final ItemStackHandler itemHandler = createHandler();
-    private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+public class MixingCauldronTile extends LockableLootTileEntity implements ISidedInventory ,ITickableTileEntity, IClearable, INamedContainerProvider {
+
+//    private final ItemStackHandler itemHandler = createHandler();
+//    private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
     public boolean crafting;
     public int craftDelay;
     public float degrees;
     private boolean crafted;
+    private boolean extracted = false;
     private int isColliding = 0;  // 15 is colliding, 0 is no longer colliding
     public static final int craftDelayMax = 100;
     private long tickedGameTime;
+    private NonNullList<ItemStack> items = NonNullList.withSize(10, ItemStack.EMPTY);
+
+    private static final int[] SLOTS_INPUT = new int[]{0, 1, 2, 3, 4, 5, 6, 7};
+    private static final int[] SLOTS_OUTPUT = new int[]{8};
 
     VoxelShape BLOOD_SIGIL_SHAPE = Block.makeCuboidShape(2.0D, 3.0D, 2.0D, 14.0D, 4.0D, 14.0D);
     VoxelShape HOPPER_SHAPE = Block.makeCuboidShape(2.0D, 3.0D, 2.0D, 14.0D, 4.0D, 14.0D);
 
-    protected NonNullList<ItemStack> items = NonNullList.withSize(9, ItemStack.EMPTY);
 
 
     public MixingCauldronTile(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
-
 
     @Override
     protected NonNullList<ItemStack> getItems() {
@@ -89,9 +97,16 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
     @Override
     public void markDirty() {
         super.markDirty();
-//        if(this.world != null)
-//            this.world.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(),
-//                Constants.BlockFlags.BLOCK_UPDATE);
+
+        if(this.world != null)
+            this.world.notifyBlockUpdate(this.pos, this.world.getBlockState(this.getTileEntity().getPos()), this.world.getBlockState(this.getTileEntity().getPos()),
+                    Constants.BlockFlags.BLOCK_UPDATE);
+
+    }
+
+    @Override
+    public int getInventoryStackLimit() {
+        return 1;
     }
 
     @Override
@@ -105,17 +120,109 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
 
     @Override
     public void read(BlockState state, CompoundNBT nbt) {
-        itemHandler.deserializeNBT(nbt.getCompound("inv"));
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
+        ItemStackHelper.loadAllItems(nbt, this.items);
         super.read(state, nbt);
     }
 
     @Override
     public CompoundNBT write(CompoundNBT compound) {
-        compound.put("inv", itemHandler.serializeNBT());
+        super.write(compound);
         ItemStackHelper.saveAllItems(compound, this.items);
-        return super.write(compound);
+        return compound;
+
     }
+
+
+    /**
+     * Returns the stack in the given slot.
+     */
+    @Override
+    public ItemStack getStackInSlot(int index) {
+        return index >= 0 && index < this.items.size() ? this.items.get(index) : ItemStack.EMPTY;
+    }
+
+    /**
+     * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
+     */
+    @Override
+    public ItemStack decrStackSize(int index, int count) {
+//        markDirty();
+        ItemStack itemStack = ItemStackHelper.getAndSplit(this.items, index, count);
+        if(itemStack.getCount() < 1)
+            itemStack.setCount(1);
+        return itemStack;
+    }
+
+    /**
+     * Removes a stack from the given slot and returns it.
+     */
+    @Override
+    public ItemStack removeStackFromSlot(int index) {
+
+        return ItemStackHelper.getAndRemove(this.items, index);
+    }
+
+    /**
+     * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
+     */
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        if (index >= 0 && index < this.items.size()) {
+            ItemStack itemStack = stack.copy();
+            itemStack.setCount(1);
+            this.items.set(index, itemStack);
+        }
+
+        markDirty();
+    }
+
+
+
+    public boolean isItemValidForSlot(int index, ItemStack stack) {
+
+        if (index == 8)
+            return false;
+        if (index == 9 && !stack.getItem().isIn(HexereiTags.Items.SIGILS))
+            return false;
+        return this.items.get(index).isEmpty();
+    }
+
+    public int[] getSlotsForFace(Direction side) {
+        if (side == Direction.DOWN) {
+            return SLOTS_OUTPUT;
+        } else {
+            return SLOTS_INPUT;
+        }
+    }
+
+    /**
+     * Returns true if automation can insert the given item in the given slot from the given side.
+     */
+    public boolean canInsertItem(int index, ItemStack itemStackIn, @Nullable Direction direction) {
+        return this.isItemValidForSlot(index, itemStackIn);
+    }
+
+    /**
+     * Returns true if automation can extract the given item in the given slot from the given side.
+     */
+    public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
+//        if (index == 3) {
+//            return stack.getItem() == Items.GLASS_BOTTLE;
+//        } else {
+//            return true;
+//        }
+        return true;
+    }
+
+    public int getCraftDelay() {
+        return this.craftDelay;
+    }
+    public void setCraftDelay(int delay) {
+        this.craftDelay =  delay;
+    }
+
+
 
     @Override
     protected Container createMenu(int id, PlayerInventory player) {
@@ -180,7 +287,6 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
         return this.write(new CompoundNBT());
     }
 
-
     private ItemStackHandler createHandler() {
         return new ItemStackHandler(10) {
             @Override
@@ -202,6 +308,14 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
                 return 1;
             }
 
+//            @Nonnull
+//            @Override
+//            public ItemStack extractItem(int slot, int amount, boolean simulate) {
+//                if(slot != 8)
+//                    return ItemStack.EMPTY;
+//                return super.extractItem(slot, amount, simulate);
+//            }
+
             @Nonnull
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
@@ -214,17 +328,24 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
         };
     }
 
-    @Nonnull
+    LazyOptional<? extends IItemHandler>[] handlers =
+            SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
+
     @Override
-    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return handler.cast();
+    public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+        if (!this.removed && facing != null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            if (facing == Direction.UP)
+                return handlers[0].cast();
+            else if (facing == Direction.DOWN)
+                return handlers[1].cast();
+            else
+                return handlers[2].cast();
         }
-        return super.getCapability(cap, side);
+        return super.getCapability(capability, facing);
     }
 
     public Item getItemInSlot(int slot) {
-        return this.itemHandler.getStackInSlot(slot).getItem();
+        return this.items.get(slot).getItem();
     }
 
 
@@ -232,9 +353,6 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
         return this.craftDelayMax;
     }
 
-    public int getCraftDelay() {
-        return this.craftDelay;
-    }
 
     public boolean getCrafted() {
         return this.crafted;
@@ -245,7 +363,7 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
         int num = 0;
         for(int i = 0; i < 8; i++)
         {
-            if(this.itemHandler.getStackInSlot(i) != ItemStack.EMPTY)
+            if(this.items.get(i) != ItemStack.EMPTY)
                 num++;
         }
         return num;
@@ -260,23 +378,22 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
     }
 
     public void onEntityCollision(Entity entity) {
+        BlockPos blockpos = this.getPos();
         if (entity instanceof ItemEntity) {
-            BlockPos blockpos = this.getPos();
             if (VoxelShapes.compare(VoxelShapes.create(entity.getBoundingBox().offset((double)(-blockpos.getX()), (double)(-blockpos.getY()), (double)(-blockpos.getZ()))), HOPPER_SHAPE, IBooleanFunction.AND)) {
                 if(captureItem((ItemEntity)entity))
                     ((MixingCauldron)this.getBlockState().getBlock()).setEmitParticles(2);
             }
         }else
         {
-            BlockPos blockpos = this.getPos();
             if (VoxelShapes.compare(VoxelShapes.create(entity.getBoundingBox().offset((double)(-blockpos.getX()), (double)(-blockpos.getY()), (double)(-blockpos.getZ()))), BLOOD_SIGIL_SHAPE, IBooleanFunction.AND)) {
                 if(this.isColliding <= 1 && this.getItemInSlot(9).getItem() == ModItems.BLOOD_SIGIL.get()) {
                     Random random = new Random();
                     entity.attackEntityFrom(DamageSource.MAGIC, 3.0f);
                     if(random.nextDouble() > 0.5f)
                     {
-                        if(this.getBlockState().get(MixingCauldron.FLUID) == LiquidType.EMPTY || (this.getBlockState().get(MixingCauldron.FLUID) == LiquidType.BLOOD && this.getBlockState().get(MixingCauldron.LEVEL) < 3)) {
-                            ((MixingCauldron) this.getBlockState().getBlock()).setFillLevel(world, pos, this.getBlockState(), this.getBlockState().get(MixingCauldron.LEVEL) + 1, LiquidType.BLOOD);
+                        if(this.getBlockState().get(MixingCauldron.FLUID) == LiquidType.EMPTY || (this.getBlockState().get(MixingCauldron.FLUID) == LiquidType.BLOOD && this.getBlockState().get(LEVEL) < 3)) {
+                            ((MixingCauldron) this.getBlockState().getBlock()).setFillLevel(world, pos, this.getBlockState(), this.getBlockState().get(LEVEL) + 1, LiquidType.BLOOD);
                             entity.playSound(SoundEvents.ITEM_HONEY_BOTTLE_DRINK,1.5f, 1.5f);
                             ((MixingCauldron)this.getBlockState().getBlock()).setEmitParticles(2);
 
@@ -292,6 +409,13 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
 
     }
 
+    @Nonnull
+    @Override
+    public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
+
+        return super.getCapability(cap);
+    }
+
     public boolean captureItem(ItemEntity itemEntity) {
         boolean flag = false;
         ItemStack itemstack = itemEntity.getItem().copy();
@@ -299,7 +423,8 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
         //check if there is a slot open  getFirstOpenSlot
         if (getFirstOpenSlot() >= 0)
         {
-            this.itemHandler.insertItem(getFirstOpenSlot(), itemstack, false);
+            this.setInventorySlotContents(getFirstOpenSlot(), itemstack);
+//            this.itemHandler.insertItem(getFirstOpenSlot(), itemstack, false);
             itemEntity.getItem().shrink(1);
             //((MixingCauldron)this.getBlockState().getBlock()).emitCraftCompletedParticles();
             return true;
@@ -307,9 +432,11 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
         return false;
     }
 
+
+
     public int getFirstOpenSlot(){
         for(int i = 0; i < 8; i++) {
-            if(this.itemHandler.getStackInSlot(i) == ItemStack.EMPTY)
+            if(this.items.get(i).isEmpty())
                 return i;
         }
         return -1;
@@ -317,30 +444,32 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
 
 
     public void craft(){
-        Inventory inv = new Inventory(8);
-        for (int i = 0; i < 8; i++) {
-            inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
+        Inventory inv = new Inventory(10);
+        for (int i = 0; i < 9; i++) {
+            inv.setInventorySlotContents(i, this.items.get(i));
         }
+
 
         Optional<MixingCauldronRecipe> recipe = world.getRecipeManager()
                 .getRecipe(ModRecipeTypes.MIXING_CAULDRON_RECIPE, inv, world);
 
-
         recipe.ifPresent(iRecipe -> {
             ItemStack output = iRecipe.getRecipeOutput();
             //ask for delay
-            if(iRecipe.getLiquid() == (this.world.getBlockState(this.pos).get(MixingCauldron.FLUID)) && inv.getStackInSlot(8) == ItemStack.EMPTY && this.crafted == false) {
+            if(iRecipe.getLiquid() == (this.world.getBlockState(this.pos).get(MixingCauldron.FLUID)) && (inv.getStackInSlot(8) == ItemStack.EMPTY || inv.getStackInSlot(8).getCount() == 0) && this.crafted == false && iRecipe.getFluidLevelsConsumed() <= (this.world.getBlockState(this.pos).get(MixingCauldron.LEVEL))) {
                 this.crafting = true;
 
                 if(this.craftDelay >= this.craftDelayMax) {
                     Random rand = new Random();
                     craftTheItem(output);
                     markDirty();
+                    world.setBlockState(pos, world.getBlockState(pos).with(MixingCauldron.FLUID, iRecipe.getLiquidOutput()), 3);
 
                     //for setting a cooldown on crafting so the animations can take place
                     this.crafted = true;
 
-                    ((MixingCauldron)this.world.getBlockState(this.pos).getBlock()).subtractLevel(this.world, pos);
+                    for(int i = 0; i < iRecipe.getFluidLevelsConsumed(); i++)
+                        ((MixingCauldron)this.world.getBlockState(this.pos).getBlock()).subtractLevel(this.world, pos);
 
                }
             }
@@ -360,15 +489,39 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
     }
 
     private void craftTheItem(ItemStack output) {
-        itemHandler.extractItem(0, 1, false);
-        itemHandler.extractItem(1, 1, false);
-        itemHandler.extractItem(2, 1, false);
-        itemHandler.extractItem(3, 1, false);
-        itemHandler.extractItem(4, 1, false);
-        itemHandler.extractItem(5, 1, false);
-        itemHandler.extractItem(6, 1, false);
-        itemHandler.extractItem(7, 1, false);
-        itemHandler.setStackInSlot(8, output);
+//        itemHandler.extractItem(0, 1, false);
+//        itemHandler.extractItem(1, 1, false);
+//        itemHandler.extractItem(2, 1, false);
+//        itemHandler.extractItem(3, 1, false);
+//        itemHandler.extractItem(4, 1, false);
+//        itemHandler.extractItem(5, 1, false);
+//        itemHandler.extractItem(6, 1, false);
+//        itemHandler.extractItem(7, 1, false);
+
+        if(output.getItem() == ModItems.TALLOW_IMPURITY.get())
+        {
+            Random random = new Random();
+            if(random.nextInt(5) != 0)
+                output = ItemStack.EMPTY;
+        }
+        this.setInventorySlotContents(0, ItemStack.EMPTY);
+        this.setInventorySlotContents(1, ItemStack.EMPTY);
+        this.setInventorySlotContents(2, ItemStack.EMPTY);
+        this.setInventorySlotContents(3, ItemStack.EMPTY);
+        this.setInventorySlotContents(4, ItemStack.EMPTY);
+        this.setInventorySlotContents(5, ItemStack.EMPTY);
+        this.setInventorySlotContents(6, ItemStack.EMPTY);
+        this.setInventorySlotContents(7, ItemStack.EMPTY);
+        this.setInventorySlotContents(8, output);
+//        itemHandler.setStackInSlot(0, ItemStack.EMPTY);
+//        itemHandler.setStackInSlot(1, ItemStack.EMPTY);
+//        itemHandler.setStackInSlot(2, ItemStack.EMPTY);
+//        itemHandler.setStackInSlot(3, ItemStack.EMPTY);
+//        itemHandler.setStackInSlot(4, ItemStack.EMPTY);
+//        itemHandler.setStackInSlot(5, ItemStack.EMPTY);
+//        itemHandler.setStackInSlot(6, ItemStack.EMPTY);
+//        itemHandler.setStackInSlot(7, ItemStack.EMPTY);
+//        itemHandler.setStackInSlot(8, output);
 
 
     }
@@ -379,13 +532,28 @@ public class MixingCauldronTile extends LockableLootTileEntity implements ITicka
             return;
         this.tickedGameTime = this.world.getGameTime();
         craft();
+        if(extracted)
+        {
+            extracted = false;
+            markDirty();
+        }
         this.isColliding--;
 
     }
 
     @Override
     public int getSizeInventory() {
-        return 0;
+        return this.items.size();
+    }
+
+    public boolean isEmpty() {
+        for(ItemStack itemstack : this.items) {
+            if (!itemstack.isEmpty()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }

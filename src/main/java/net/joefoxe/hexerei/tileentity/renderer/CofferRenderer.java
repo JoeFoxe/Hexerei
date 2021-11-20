@@ -27,10 +27,8 @@ public class CofferRenderer extends TileEntityRenderer<CofferTile> {
     public void render(CofferTile tileEntityIn, float partialTicks, MatrixStack matrixStackIn,
                        IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
-
-
-
-
+        if(!tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).hasTileEntity())
+            return;
 
         matrixStackIn.push();
         if (tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).get(HorizontalBlock.HORIZONTAL_FACING) == Direction.NORTH) {

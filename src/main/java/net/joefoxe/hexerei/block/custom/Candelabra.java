@@ -3,6 +3,8 @@ package net.joefoxe.hexerei.block.custom;
 import net.joefoxe.hexerei.tileentity.CandleTile;
 import net.minecraft.block.*;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -30,6 +32,8 @@ import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
@@ -38,6 +42,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -297,6 +302,17 @@ public class Candelabra extends Block implements IWaterLoggable {
     @Override
     public boolean propagatesSkylightDown(BlockState state, IBlockReader reader, BlockPos pos) {
         return !state.get(WATERLOGGED);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
+        if(Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.candelabra_shift"));
+        } else {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.candelabra"));
+        }
+        super.addInformation(stack, world, tooltip, flagIn);
     }
 
 //    @Override

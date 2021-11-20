@@ -4,25 +4,25 @@
   "liquid": "lava",
   "ingredients": [
     {
-      "item": "minecraft:diamond"
+      "item": "minecraft:netherite_ingot"
     },
     {
       "item": "minecraft:diamond"
     },
     {
-      "item": "minecraft:diamond"
+      "item": "minecraft:iron_ingot"
     },
     {
-      "item": "minecraft:diamond"
+      "item": "hexerei:mahogany_planks"
     },
     {
-      "item": "minecraft:diamond"
+      "item": "hexerei:mahogany_planks"
     },
     {
-      "item": "minecraft:diamond"
+      "item": "hexerei:mahogany_planks"
     },
     {
-      "item": "minecraft:diamond"
+      "item": "minecraft:iron_ingot"
     },
     {
       "item": "minecraft:diamond"
@@ -30,5 +30,21 @@
   ],
   "output": {
     "item": "hexerei:warhammer"
+  },
+  "liquidOutput": "lava",
+  "fluidLevelsConsumed": 1
+}
+
+
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:diamond_hoe"
+  },
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "result": {
+    "item": "minecraft:netherite_hoe"
   }
 }

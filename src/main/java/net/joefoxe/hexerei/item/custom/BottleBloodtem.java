@@ -1,5 +1,7 @@
 package net.joefoxe.hexerei.item.custom;
 
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Food;
@@ -9,12 +11,17 @@ import net.minecraft.item.Items;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 
 public class BottleBloodtem extends Item {
 
-    public static Food FOOD = new Food.Builder().saturation(1).hunger(1).effect(new EffectInstance(Effects.NAUSEA, 200), 1).setAlwaysEdible().build();
+    public static Food FOOD = new Food.Builder().saturation(1).hunger(1).effect(new EffectInstance(Effects.ABSORPTION, 200), 1).setAlwaysEdible().build();
 
     public BottleBloodtem(Properties properties) {
         super(properties.food(FOOD));
@@ -37,6 +44,18 @@ public class BottleBloodtem extends Item {
         }
 
         return super.onItemUseFinish(stack, world, entityLiving);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if(Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.bottle_blood_shift"));
+        } else {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.bottle_blood"));
+        }
+
+
+        super.addInformation(stack, world, tooltip, flagIn);
     }
 
 }

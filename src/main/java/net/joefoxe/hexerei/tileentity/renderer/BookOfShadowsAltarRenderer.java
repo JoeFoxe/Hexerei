@@ -38,7 +38,8 @@ public class BookOfShadowsAltarRenderer extends TileEntityRenderer<BookOfShadows
     public void render(BookOfShadowsAltarTile tileEntityIn, float partialTicks, MatrixStack matrixStackIn,
                        IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
 
-
+        if(!tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos()).hasTileEntity())
+            return;
 
         matrixStackIn.push();
         matrixStackIn.translate(8f / 16f, 18f / 16f, 8f / 16f);

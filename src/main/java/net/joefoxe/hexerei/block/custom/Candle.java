@@ -7,7 +7,10 @@ import net.joefoxe.hexerei.tileentity.CofferTile;
 import net.joefoxe.hexerei.tileentity.CrystalBallTile;
 import net.joefoxe.hexerei.tileentity.ModTileEntities;
 import net.minecraft.block.*;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.fluid.FluidState;
@@ -34,13 +37,13 @@ import net.minecraft.util.math.shapes.IBooleanFunction;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.*;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -82,7 +85,7 @@ public class Candle extends Block implements ITileEntity<CandleTile>, IWaterLogg
             candleType = 7;
         if(context.getItem().getItem() == ModBlocks.CANDLE_RED.get().asItem())
             candleType = 8;
-        if(context.getItem().getItem() == ModBlocks.CANDLE_TEAL.get().asItem())
+        if(context.getItem().getItem() == ModBlocks.CANDLE_CYAN.get().asItem())
             candleType = 9;
         if(context.getItem().getItem() == ModBlocks.CANDLE_YELLOW.get().asItem())
             candleType = 10;
@@ -94,7 +97,7 @@ public class Candle extends Block implements ITileEntity<CandleTile>, IWaterLogg
                 || blockstate.matchesBlock(ModBlocks.CANDLE_PINK.get())
                 || blockstate.matchesBlock(ModBlocks.CANDLE_PURPLE.get())
                 || blockstate.matchesBlock(ModBlocks.CANDLE_RED.get())
-                || blockstate.matchesBlock(ModBlocks.CANDLE_TEAL.get())
+                || blockstate.matchesBlock(ModBlocks.CANDLE_CYAN.get())
                 || blockstate.matchesBlock(ModBlocks.CANDLE_YELLOW.get())) {
 
 
@@ -138,9 +141,165 @@ public class Candle extends Block implements ITileEntity<CandleTile>, IWaterLogg
                 || useContext.getItem().getItem() == ModBlocks.CANDLE_PINK.get().asItem()
                 || useContext.getItem().getItem() == ModBlocks.CANDLE_PURPLE.get().asItem()
                 || useContext.getItem().getItem() == ModBlocks.CANDLE_RED.get().asItem()
-                || useContext.getItem().getItem() == ModBlocks.CANDLE_TEAL.get().asItem()
+                || useContext.getItem().getItem() == ModBlocks.CANDLE_CYAN.get().asItem()
                 || useContext.getItem().getItem() == ModBlocks.CANDLE_YELLOW.get().asItem())
                 && state.get(CANDLES) < 4 ? true : super.isReplaceable(state, useContext);
+    }
+
+    public void dropCandles(World world, BlockPos pos) {
+
+        TileEntity entity = world.getTileEntity(pos);
+        if(entity instanceof CandleTile && !world.isRemote()) {
+            CandleTile candleTile = (CandleTile) entity;
+            ItemStack itemStack = new ItemStack(ModBlocks.CANDLE.get());
+            if(7 - candleTile.candleHeight1 < 1) {
+                if (candleTile.candleType1 == 1) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType1 == 2) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_BLUE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType1 == 3) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_BLACK.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType1 == 4) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_LIME.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType1 == 5) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_ORANGE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType1 == 6) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_PINK.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType1 == 7) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_PURPLE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType1 == 8) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_RED.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType1 == 9) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_CYAN.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType1 == 10) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_YELLOW.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                }
+            }
+
+
+            if(7 - candleTile.candleHeight2 < 1) {
+                if (candleTile.candleType2 == 1) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType2 == 2) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_BLUE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType2 == 3) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_BLACK.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType2 == 4) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_LIME.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType2 == 5) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_ORANGE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType2 == 6) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_PINK.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType2 == 7) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_PURPLE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType2 == 8) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_RED.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType2 == 9) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_CYAN.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType2 == 10) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_YELLOW.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                }
+            }
+
+
+            if(7 - candleTile.candleHeight3 < 1) {
+                if (candleTile.candleType3 == 1) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType3 == 2) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_BLUE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType3 == 3) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_BLACK.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType3 == 4) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_LIME.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType3 == 5) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_ORANGE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType3 == 6) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_PINK.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType3 == 7) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_PURPLE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType3 == 8) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_RED.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType3 == 9) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_CYAN.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType3 == 10) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_YELLOW.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                }
+            }
+
+
+            if(7 - candleTile.candleHeight4 < 1) {
+                if (candleTile.candleType4 == 1) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType4 == 2) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_BLUE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType4 == 3) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_BLACK.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType4 == 4) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_LIME.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType4 == 5) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_ORANGE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType4 == 6) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_PINK.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType4 == 7) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_PURPLE.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType4 == 8) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_RED.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType4 == 9) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_CYAN.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                } else if (candleTile.candleType4 == 10) {
+                    itemStack = new ItemStack(ModBlocks.CANDLE_YELLOW.get());
+                    spawnAsEntity((ServerWorld) world, pos, itemStack);
+                }
+            }
+        }
+    }
+
+
+    @Override
+    public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+
+        dropCandles(world, pos);
+
+        super.onBlockHarvested(world, pos, state, player);
     }
 
     @Override
@@ -284,6 +443,14 @@ public class Candle extends Block implements ITileEntity<CandleTile>, IWaterLogg
     @SuppressWarnings("deprecation")
     @Override
     public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world, BlockPos pos, BlockPos facingPos) {
+
+        if(!state.isValidPosition(world, pos))
+        {
+            if(!world.isRemote()) {
+                dropCandles(((ServerWorld) world).getWorld(), pos);
+            }
+        }
+
         return !state.isValidPosition(world, pos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(state, facing, facingState, world, pos, facingPos);
     }
 
@@ -299,18 +466,30 @@ public class Candle extends Block implements ITileEntity<CandleTile>, IWaterLogg
     }
 
 
-//    @Override
-//    public void onBlockExploded(BlockState state, World world, BlockPos pos, Explosion explosion) {
-//        super.onBlockExploded(state, world, pos, explosion);
-//
-//        if (world instanceof ServerWorld) {
-//            ItemStack cloneItemStack = getItem(world, pos, state);
-//            if (world.getBlockState(pos) != state && !world.isRemote()) {
-//                world.addEntity(new ItemEntity(world, pos.getX() + 0.5f, pos.getY() - 0.5f, pos.getZ() + 0.5f, cloneItemStack));
-//            }
-//
-//        }
-//    }
+    @Override
+    public void onBlockExploded(BlockState state, World world, BlockPos pos, Explosion explosion) {
+        super.onBlockExploded(state, world, pos, explosion);
+
+        if (world instanceof ServerWorld) {
+            if (world.getBlockState(pos) != state && !world.isRemote()) {
+                dropCandles(world, pos);
+            }
+
+        }
+    }
+
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader world, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+
+        if(Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.candle_shift"));
+        } else {
+            tooltip.add(new TranslationTextComponent("tooltip.hexerei.candle"));
+        }
+        super.addInformation(stack, world, tooltip, flagIn);
+    }
+
 
 //    @Override
 //    @OnlyIn(Dist.CLIENT)
