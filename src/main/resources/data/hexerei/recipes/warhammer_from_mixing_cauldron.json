@@ -1,6 +1,5 @@
 {
   "type": "hexerei:mixingcauldron",
-  "weather": "clear",
   "liquid": "lava",
   "ingredients": [
     {
@@ -33,18 +32,4 @@
   },
   "liquidOutput": "lava",
   "fluidLevelsConsumed": 1
-}
-
-
-{
-  "type": "minecraft:smithing",
-  "base": {
-    "item": "minecraft:diamond_hoe"
-  },
-  "addition": {
-    "item": "minecraft:netherite_ingot"
-  },
-  "result": {
-    "item": "minecraft:netherite_hoe"
-  }
 }

@@ -156,6 +156,7 @@ public class Hexerei
             Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(MOD_ID, "witch_hut_leg_processor"), WITCH_HUT_LEG_PROCESSOR);
             Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(MOD_ID, "mangrove_tree_leg_processor"), MANGROVE_TREE_LEG_PROCESSOR);
 
+            HexereiPacketHandler.register();
 
         });
     }
@@ -216,9 +217,6 @@ public class Hexerei
             ClientRegistry.bindTileEntityRenderer(ModTileEntities.CANDLE_TILE.get(), CandleRenderer::new);
             ClientRegistry.bindTileEntityRenderer(ModTileEntities.CANDLE_DIPPER_TILE.get(), CandleDipperRenderer::new);
 
-
-
-            HexereiPacketHandler.register();
         });
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.BROOM.get(), BroomRenderer::new);

@@ -493,9 +493,6 @@ public class CandleDipperTile extends TileEntity implements ITickableTileEntity{
     @Override
     public void tick() {
 
-
-            PlayerList list = ServerLifecycleHooks.getCurrentServer().getPlayerList();
-
             closestPlayerPos = null;
             closestDist = maxDist;
             numberOfCandles = 0;
@@ -623,20 +620,6 @@ public class CandleDipperTile extends TileEntity implements ITickableTileEntity{
                         moveTo((float) candlePos3.y, (float) targetPos3.getY(), 0.75f * getSpeed((float) candlePos3.y, targetPos3.getY())),
                         moveTo((float) candlePos3.z, (float) targetPos3.getZ(), getSpeed((float) candlePos3.z, targetPos3.getZ())));
 
-
-                for (int i = 0; i < list.getPlayers().size(); i++) {
-                    ServerPlayerEntity player = list.getPlayers().get(i);
-
-                    if (Math.floor(getDistanceToEntity(player, this.pos)) < maxDist) {
-
-                        if (Math.floor(getDistanceToEntity(player, this.pos)) < closestDist) {
-                            closestDist = (getDistanceToEntity(player, this.pos));
-                            closestPlayerPos = player.getPositionVec();
-                        }
-
-                    }
-
-                }
             }
 
 

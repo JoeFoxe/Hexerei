@@ -26,31 +26,19 @@ import java.util.Objects;
 
 public class MixingCauldronRecipe implements IMixingCauldronRecipe{
 
-    //I didnt full implement weather yet, I had it in then took it out in replace for the liquid type. still debaiting on if I should add it back. maybe add another enum to the weather for ANY?
-    public enum Weather {
-        CLEAR,
-        RAIN,
-        THUNDERING;
-
-        public static Weather getWeatherByString(String s) {
-            return Objects.equals(s, "thundering") ? THUNDERING : Objects.equals(s, "rain") ? RAIN : CLEAR;
-        }
-    }
     private final ResourceLocation id;
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
-    private final Weather weather;
     private final LiquidType liquid;
     private final LiquidType liquidOutput;
     private final int fluidLevelsConsumed;
 
 
     public MixingCauldronRecipe(ResourceLocation id, ItemStack output,
-                                    NonNullList<Ingredient> recipeItems, Weather weather, LiquidType liquid, LiquidType liquidOutput, int fluidLevelsConsumed) {
+                                    NonNullList<Ingredient> recipeItems, LiquidType liquid, LiquidType liquidOutput, int fluidLevelsConsumed) {
         this.id = id;
         this.output = output;
         this.recipeItems = recipeItems;
-        this.weather = weather;
         this.liquid = liquid;
         this.liquidOutput = liquidOutput;
         this.fluidLevelsConsumed = fluidLevelsConsumed;
@@ -89,10 +77,6 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
         return output.copy();
     }
 
-    public Weather getWeather() {
-        return this.weather;
-    }
-
     public LiquidType getLiquid() { return this.liquid; }
 
     public LiquidType getLiquidOutput() { return this.liquidOutput; }
@@ -128,7 +112,6 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
         @Override
         public MixingCauldronRecipe read(ResourceLocation recipeId, JsonObject json) {
             ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
-            String weather = JSONUtils.getString(json, "weather");
             String liquid = JSONUtils.getString(json, "liquid");
             String liquidOutput = JSONUtils.getString(json, "liquidOutput");
             int fluidLevelsConsumed = JSONUtils.getInt(json, "fluidLevelsConsumed");
@@ -141,13 +124,13 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
             }
 
             return new MixingCauldronRecipe(recipeId, output,
-                    inputs, Weather.getWeatherByString(weather), LiquidType.valueOf(liquid.toUpperCase(Locale.ROOT)), LiquidType.valueOf(liquidOutput.toUpperCase(Locale.ROOT)), fluidLevelsConsumed);
+                    inputs, LiquidType.valueOf(liquid.toUpperCase(Locale.ROOT)), LiquidType.valueOf(liquidOutput.toUpperCase(Locale.ROOT)), fluidLevelsConsumed);
         }
 
         @Nullable
         @Override
         public MixingCauldronRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(8, Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = NonNullList.withSize(buffer.readInt(), Ingredient.EMPTY);
 
             for (int i = 0; i < inputs.size(); i++) {
                 inputs.set(i, Ingredient.read(buffer));
@@ -155,7 +138,7 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
 
             ItemStack output = buffer.readItemStack();
             return new MixingCauldronRecipe(recipeId, output,
-                    inputs, null, LiquidType.EMPTY, LiquidType.EMPTY, 1);
+                    inputs, buffer.readEnumValue(LiquidType.class), buffer.readEnumValue(LiquidType.class), buffer.readInt());
         }
 
         @Override
@@ -165,6 +148,9 @@ public class MixingCauldronRecipe implements IMixingCauldronRecipe{
                 ing.write(buffer);
             }
             buffer.writeItemStack(recipe.getRecipeOutput(), false);
+            buffer.writeEnumValue(recipe.getLiquid());
+            buffer.writeEnumValue(recipe.getLiquidOutput());
+            buffer.writeInt(recipe.getFluidLevelsConsumed());
         }
     }
 }

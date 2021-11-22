@@ -437,14 +437,14 @@ public class BroomEntity extends Entity {
         }
 
         Entity entityPassenger = this.getControllingPassenger();
-        if(entityPassenger instanceof LivingEntity && entityPassenger.equals(Minecraft.getInstance().player))
-        {
-            ClientPlayerEntity player = Minecraft.getInstance().player;
-            this.setNoGravity(true);
-            updateInputs(player.movementInput.leftKeyDown, player.movementInput.rightKeyDown, player.movementInput.forwardKeyDown, player.movementInput.backKeyDown, player.movementInput.jump, player.movementInput.sneaking);
-        } else if(entityPassenger == null)
-        {
-            this.setNoGravity(false);
+        if(this.world.isRemote()) {
+            if (entityPassenger instanceof LivingEntity && entityPassenger.equals(Minecraft.getInstance().player)) {
+                ClientPlayerEntity player = Minecraft.getInstance().player;
+                this.setNoGravity(true);
+                updateInputs(player.movementInput.leftKeyDown, player.movementInput.rightKeyDown, player.movementInput.forwardKeyDown, player.movementInput.backKeyDown, player.movementInput.jump, player.movementInput.sneaking);
+            } else if (entityPassenger == null) {
+                this.setNoGravity(false);
+            }
         }
 
 //        this.setBoundingBox(AxisAlignedBB); TODO make standing broom
@@ -510,10 +510,10 @@ public class BroomEntity extends Entity {
 
 //        updateSpeed();
 //        this.setSpeed(this.currentSpeed);
-        if(!this.world.isRemote)
-        {
-            this.onClientUpdate();
-        }
+//        if(this.world.isRemote)
+//        {
+//            this.onClientUpdate();
+//        }
 
 
     }

@@ -1,6 +1,7 @@
 package net.joefoxe.hexerei.tileentity;
 
 import net.joefoxe.hexerei.block.custom.CrystalBall;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.management.PlayerList;
@@ -13,6 +14,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import org.lwjgl.system.CallbackI;
+
+import java.util.Objects;
 
 public class BookOfShadowsAltarTile extends TileEntity implements ITickableTileEntity{
 
@@ -327,7 +330,7 @@ public class BookOfShadowsAltarTile extends TileEntity implements ITickableTileE
     public void tick() {
         if(world.isRemote) {
 
-            PlayerList list = ServerLifecycleHooks.getCurrentServer().getPlayerList();
+//            PlayerList list = Objects.requireNonNull(ServerLifecycleHooks.getCurrentServer().getPlayerList());
 
             closestPlayerPos = null;
             closestDist = maxDist;
@@ -597,21 +600,23 @@ public class BookOfShadowsAltarTile extends TileEntity implements ITickableTileE
 
 
 
-            for(int i = 0; i < list.getPlayers().size(); i++)
-            {
-                ServerPlayerEntity player = list.getPlayers().get(i);
+//            for(int i = 0; i < list.getPlayers().size(); i++)
+//            {
+//
+//
+//                ServerPlayerEntity player = list.getPlayers().get(i);
 
-                if(Math.floor(getDistanceToEntity(player, this.pos)) < maxDist)
-                {
+//                if(Math.floor(getDistanceToEntity(Minecraft.getInstance().player, this.pos)) < maxDist)
+//                {
+//
+//                    if(Math.floor(getDistanceToEntity(Minecraft.getInstance().player, this.pos)) < closestDist) {
+//                        closestDist = (getDistanceToEntity(Minecraft.getInstance().player, this.pos));
+//                        closestPlayerPos = Minecraft.getInstance().player.getPositionVec();
+//                    }
+//
+//                }
 
-                    if(Math.floor(getDistanceToEntity(player, this.pos)) < closestDist) {
-                        closestDist = (getDistanceToEntity(player, this.pos));
-                        closestPlayerPos = player.getPositionVec();
-                    }
-
-                }
-
-            }
+//            }
 
 
             if(closestPlayerPos != null) {
