@@ -1,6 +1,6 @@
 {
   "type": "hexerei:mixingcauldron",
-  "liquid": "water",
+  "liquid": "lava",
   "ingredients": [
     {
       "item": "minecraft:diamond"
@@ -30,6 +30,6 @@
   "output": {
     "item": "hexerei:crystal_ball"
   },
-  "liquidOutput": "water",
+  "liquidOutput": "lava",
   "fluidLevelsConsumed": 1
 }

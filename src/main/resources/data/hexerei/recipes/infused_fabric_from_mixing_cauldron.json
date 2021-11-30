@@ -1,6 +1,6 @@
 {
   "type": "hexerei:mixingcauldron",
-  "liquid": "lava",
+  "liquid": "water",
   "ingredients": [
     {
       "item": "minecraft:black_dye"
@@ -30,6 +30,6 @@
   "output": {
     "item": "hexerei:infused_fabric"
   },
-  "liquidOutput": "lava",
+  "liquidOutput": "water",
   "fluidLevelsConsumed": 1
 }

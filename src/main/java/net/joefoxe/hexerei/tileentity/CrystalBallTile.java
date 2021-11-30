@@ -292,7 +292,6 @@ public class CrystalBallTile extends TileEntity implements ITickableTileEntity{
                 smallRingOffset = moveTo(smallRingOffset, (float)Math.sin(Math.PI * (currentTime + 20) / 15) / 4f, 0.25f);
                 largeRingOffset = moveTo(largeRingOffset, (float)Math.sin(Math.PI * (currentTime + 40) / 20) / 4f, 0.35f);
 
-
             } else {
 
                 orbOffset = moveTo(orbOffset, -0.5f, 0.1f);

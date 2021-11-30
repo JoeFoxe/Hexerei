@@ -24,6 +24,7 @@ import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.template.*;
+import org.lwjgl.system.CallbackI;
 
 import java.util.*;
 
@@ -44,6 +45,12 @@ public class HexereiAbstractTreeFeature extends Feature<BaseTreeFeatureConfig>{
         });
     }
 
+    public static boolean isAirOrLeavesOrLogsAt(IWorldGenerationBaseReader reader, BlockPos pos) {
+        return reader.hasBlockState(pos, (state) -> {
+            return state.isAir() || state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.LOGS);
+        });
+    }
+
     private static boolean isDirtOrFarmlandAt(IWorldGenerationBaseReader reader, BlockPos pos) {
         return reader.hasBlockState(pos, (state) -> {
             Block block = state.getBlock();
@@ -59,13 +66,51 @@ public class HexereiAbstractTreeFeature extends Feature<BaseTreeFeatureConfig>{
         if (!isDirtOrFarmlandAt(reader, pos.down()))
             return false;
 
-        if (isAirOrLeavesAt(reader, pos.down().north()))
+        for(int j = 0; j < 8; j++) {
+
+            BlockPos upPos = new BlockPos(pos).up();
+            for(int k = 0; k < j; k++)
+            {
+                upPos = upPos.up();
+            }
+
+            if (!isAirOrLeavesOrLogsAt(reader, upPos)) {
+                return false;
+            }
+            if (!isAirOrLeavesOrLogsAt(reader, upPos.north())) {
+                return false;
+            }
+            if (!isAirOrLeavesOrLogsAt(reader, upPos.south())) {
+                return false;
+            }
+            if (!isAirOrLeavesOrLogsAt(reader, upPos.east())) {
+                return false;
+            }
+            if (!isAirOrLeavesOrLogsAt(reader, upPos.east().north())) {
+                return false;
+            }
+            if (!isAirOrLeavesOrLogsAt(reader, upPos.east().south())) {
+                return false;
+            }
+            if (!isAirOrLeavesOrLogsAt(reader, upPos.west())) {
+                return false;
+            }
+            if (!isAirOrLeavesOrLogsAt(reader, upPos.west().north())) {
+                return false;
+            }
+            if (!isAirOrLeavesOrLogsAt(reader, upPos.west().south())) {
+                return false;
+            }
+        }
+
+
+        if (isAirOrLeavesOrLogsAt(reader, pos.down().north()))
             return false;
-        if (isAirOrLeavesAt(reader, pos.down().south()))
+        if (isAirOrLeavesOrLogsAt(reader, pos.down().south()))
             return false;
-        if (isAirOrLeavesAt(reader, pos.down().east()))
+        if (isAirOrLeavesOrLogsAt(reader, pos.down().east()))
             return false;
-        if (isAirOrLeavesAt(reader, pos.down().west()))
+        if (isAirOrLeavesOrLogsAt(reader, pos.down().west()))
             return false;
 
         IntegrityProcessor integrityprocessor = new IntegrityProcessor(0.9F);
@@ -88,8 +133,9 @@ public class HexereiAbstractTreeFeature extends Feature<BaseTreeFeatureConfig>{
         BlockPos.Mutable mutable = new BlockPos.Mutable().setPos(pos);
 
         PlacementSettings placementsettings = (new PlacementSettings()).setRotation(rotation).setCenterOffset(halfLengths).setIgnoreEntities(false);
-//        Optional<StructureProcessorList> processor = reader.getWorld().getServer().getDynamicRegistries().getRegistry(Registry.STRUCTURE_PROCESSOR_LIST_KEY).getOptional(config.);
-//        processor.orElse(ProcessorLists.EMPTY).func_242919_a().forEach(placementsettings::addProcessor); // add all processors
+        Optional<StructureProcessorList> processor = reader.getWorld().getServer().getDynamicRegistries().getRegistry(Registry.STRUCTURE_PROCESSOR_LIST_KEY).getOptional(
+                new ResourceLocation(Hexerei.MOD_ID, "mangrove_tree/mangrove_tree_legs"));
+        processor.orElse(ProcessorLists.EMPTY).func_242919_a().forEach(placementsettings::addProcessor); // add all processors
 
         template.func_237152_b_(reader, mutable.setPos(pos).move(-halfLengths.getX(), 0, -halfLengths.getZ()), placementsettings, rand);
 

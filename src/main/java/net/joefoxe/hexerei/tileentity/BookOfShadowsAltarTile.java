@@ -3,6 +3,7 @@ package net.joefoxe.hexerei.tileentity;
 import net.joefoxe.hexerei.block.custom.CrystalBall;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -597,26 +598,15 @@ public class BookOfShadowsAltarTile extends TileEntity implements ITickableTileE
             }
 
 
-
-
-
-//            for(int i = 0; i < list.getPlayers().size(); i++)
-//            {
-//
-//
-//                ServerPlayerEntity player = list.getPlayers().get(i);
-
-//                if(Math.floor(getDistanceToEntity(Minecraft.getInstance().player, this.pos)) < maxDist)
-//                {
-//
-//                    if(Math.floor(getDistanceToEntity(Minecraft.getInstance().player, this.pos)) < closestDist) {
-//                        closestDist = (getDistanceToEntity(Minecraft.getInstance().player, this.pos));
-//                        closestPlayerPos = Minecraft.getInstance().player.getPositionVec();
-//                    }
-//
-//                }
-
-//            }
+            PlayerEntity playerEntity = this.world.getClosestPlayer(this.getPos().getX(),this.getPos().getY(),this.getPos().getZ(), maxDist, false);
+            if(this.world.isRemote() && playerEntity != null) {
+                if (Math.floor(getDistanceToEntity(playerEntity, this.pos)) < maxDist) {
+                    if (Math.floor(getDistanceToEntity(playerEntity, this.pos)) < closestDist) {
+                        closestDist = (getDistanceToEntity(playerEntity, this.pos));
+                        closestPlayerPos = playerEntity.getPositionVec();
+                    }
+                }
+            }
 
 
             if(closestPlayerPos != null) {

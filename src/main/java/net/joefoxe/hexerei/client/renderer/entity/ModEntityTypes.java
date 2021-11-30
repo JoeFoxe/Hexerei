@@ -5,6 +5,7 @@ import com.google.common.base.Predicates;
 import net.joefoxe.hexerei.Hexerei;
 import net.joefoxe.hexerei.client.renderer.entity.custom.BroomEntity;
 import net.joefoxe.hexerei.client.renderer.entity.custom.BuffZombieEntity;
+import net.joefoxe.hexerei.client.renderer.entity.custom.CrowEntity;
 import net.joefoxe.hexerei.client.renderer.entity.custom.PigeonEntity;
 import net.joefoxe.hexerei.util.PigeonAttributes;
 import net.minecraft.entity.*;
@@ -42,6 +43,15 @@ public class ModEntityTypes {
                     () -> EntityType.Builder.<BroomEntity>create(BroomEntity::new,
                                     EntityClassification.MISC).size(1.175F, 0.3625F).trackingRange(10)
                             .build(new ResourceLocation(Hexerei.MOD_ID, "broom").toString()));
+
+    public static final RegistryObject<EntityType<CrowEntity>> CROW =
+            ENTITY_TYPES.register("crow",
+                    () -> EntityType.Builder.<CrowEntity>create(CrowEntity::new,
+                                    EntityClassification.MISC).size(0.35F, 0.35F)
+                            .build(new ResourceLocation(Hexerei.MOD_ID, "crow").toString()));
+//
+//    public static final EntityType<EntityCrow> CROW = registerEntity(EntityType.Builder.create(EntityCrow::new, EntityClassification.CREATURE).size(0.45F, 0.45F), "crow");
+
 
 
     public static void register(IEventBus eventBus) {

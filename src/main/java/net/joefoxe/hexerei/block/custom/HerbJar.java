@@ -125,7 +125,7 @@ public class HerbJar extends Block implements ITileEntity<HerbJarTile>, IWaterLo
         TileEntity tileEntity = worldIn.getTileEntity(pos);
 
         if (tileEntity instanceof HerbJarTile) {
-            ((HerbJarTile)tileEntity).interactPutItemsIntoSlot(player);
+            ((HerbJarTile)tileEntity).interactPutItems(player);
         }
 
         return ActionResultType.SUCCESS;
@@ -160,25 +160,19 @@ public class HerbJar extends Block implements ITileEntity<HerbJarTile>, IWaterLo
 
         TileEntity tile = worldIn.getTileEntity(pos);
         HerbJarTile herbJarTile = null;
+        //System.out.println(worldIn.isRemote());
         if(tile instanceof  HerbJarTile)
             herbJarTile = (HerbJarTile) tile;
         if (state.get(HorizontalBlock.HORIZONTAL_FACING).getOpposite() != rayResult.getFace())
             return;
 
-        //if (herbJarTile.isSealed())
-        //    return;
-
-        //if (!SecurityManager.hasAccess(playerIn.getGameProfile(), herbJarTile))
-        //    return;
-
         ItemStack item;
-        GameSettings settings = Minecraft.getInstance().gameSettings;
-        boolean invertShift = settings.keyBindSneak.isKeyDown();
-
-        if (playerIn.isSneaking())
-            item = herbJarTile.takeItemsFromSlot(0, herbJarTile.itemHandler.getStackInSlot(0).getCount());
-        else
-            item = herbJarTile.takeItemsFromSlot(0, 1);
+        if (playerIn.isSneaking()) {
+            item = herbJarTile.takeItems(0, herbJarTile.itemHandler.getStackInSlot(0).getCount());
+        }
+        else {
+            item = herbJarTile.takeItems(0, 1);
+        }
 
         if (!item.isEmpty()) {
             if (!playerIn.inventory.addItemStackToInventory(item)) {
@@ -250,9 +244,9 @@ public class HerbJar extends Block implements ITileEntity<HerbJarTile>, IWaterLo
             for (int i = 0; i < tagList.size(); i++)
             {
                 CompoundNBT itemTags = tagList.getCompound(i);
-
+                itemTags.putInt("Count", 1);
                 TranslationTextComponent itemText = new TranslationTextComponent(ItemStack.read(itemTags).getTranslationKey());
-                int countText = ItemStack.read(itemTags).getCount();
+                int countText = Integer.parseInt(String.valueOf(itemTags.get("ExtendedCount")));
                 itemText.appendString(" x" + countText);
 
                 tooltip.add(itemText);
@@ -271,9 +265,9 @@ public class HerbJar extends Block implements ITileEntity<HerbJarTile>, IWaterLo
             for (int i = 0; i < Math.min(tagList.size(), 1); i++)
             {
                 CompoundNBT itemTags = tagList.getCompound(i);
-
+                itemTags.putInt("Count", 1);
                 TranslationTextComponent itemText = new TranslationTextComponent(ItemStack.read(itemTags).getTranslationKey());
-                int countText = ItemStack.read(itemTags).getCount();
+                int countText = Integer.parseInt(String.valueOf(itemTags.get("ExtendedCount")));
                 itemText.appendString(" x" + countText);
 
                 tooltip.add(itemText);

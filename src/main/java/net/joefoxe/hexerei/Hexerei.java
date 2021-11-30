@@ -26,6 +26,7 @@ import net.joefoxe.hexerei.util.*;
 import net.joefoxe.hexerei.world.biome.ModBiomes;
 import net.joefoxe.hexerei.world.gen.ModBiomeGeneration;
 import net.joefoxe.hexerei.world.gen.ModFeatures;
+import net.joefoxe.hexerei.world.processor.DarkCovenLegProcessor;
 import net.joefoxe.hexerei.world.processor.MangroveTreeLegProcessor;
 import net.joefoxe.hexerei.world.processor.WitchHutLegProcessor;
 import net.joefoxe.hexerei.world.structure.ModStructures;
@@ -85,6 +86,7 @@ public class Hexerei
             .simpleChannel();
 
     public static IStructureProcessorType<WitchHutLegProcessor> WITCH_HUT_LEG_PROCESSOR = () -> WitchHutLegProcessor.CODEC;
+    public static IStructureProcessorType<DarkCovenLegProcessor> DARK_COVEN_LEG_PROCESSOR = () -> DarkCovenLegProcessor.CODEC;
     public static IStructureProcessorType<MangroveTreeLegProcessor> MANGROVE_TREE_LEG_PROCESSOR = () -> MangroveTreeLegProcessor.CODEC;
 
     public Hexerei() {
@@ -134,8 +136,6 @@ public class Hexerei
     private void setup(final FMLCommonSetupEvent event)
     {
         // some preinit code
-//        LOGGER.info("HELLO FROM PREINIT");
-//        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 
         PigeonPacketHandler.init();
         FoodHandler.registerHandler(new SeedFoodHandler());
@@ -154,6 +154,7 @@ public class Hexerei
             ModStructures.setupStructures();
 
             Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(MOD_ID, "witch_hut_leg_processor"), WITCH_HUT_LEG_PROCESSOR);
+            Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(MOD_ID, "dark_coven_leg_processor"), DARK_COVEN_LEG_PROCESSOR);
             Registry.register(Registry.STRUCTURE_PROCESSOR, new ResourceLocation(MOD_ID, "mangrove_tree_leg_processor"), MANGROVE_TREE_LEG_PROCESSOR);
 
             HexereiPacketHandler.register();
@@ -187,7 +188,7 @@ public class Hexerei
             RenderTypeLookup.setRenderLayer(ModBlocks.MAHOGANY_TRAPDOOR.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.WILLOW_DOOR.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.WILLOW_TRAPDOOR.get(), RenderType.getTranslucent());
-            RenderTypeLookup.setRenderLayer(ModBlocks.WILLOW_TRAPDOOR.get(), RenderType.getTranslucent());
+            RenderTypeLookup.setRenderLayer(ModBlocks.WILLOW_LEAVES.get(), RenderType.getCutout());
 
             RenderTypeLookup.setRenderLayer(ModBlocks.CRYSTAL_BALL.get(), RenderType.getTranslucent());
             RenderTypeLookup.setRenderLayer(ModBlocks.CRYSTAL_BALL_ORB.get(), RenderType.getTranslucent());

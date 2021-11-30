@@ -646,7 +646,7 @@ public class CandleDipperTile extends TileEntity implements ITickableTileEntity{
         BlockState blockState = world.getBlockState(this.pos.down());
         Random random = new Random();
 
-        if(blockState.getBlock() instanceof MixingCauldron)
+        if(blockState.getBlock() instanceof MixingCauldron && !world.isRemote())
         {
             if(random.nextFloat() <= percent)
                 ((MixingCauldron)blockState.getBlock()).subtractLevel(world, this.pos.down());

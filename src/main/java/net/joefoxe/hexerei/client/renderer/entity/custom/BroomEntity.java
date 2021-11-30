@@ -2,6 +2,7 @@ package net.joefoxe.hexerei.client.renderer.entity.custom;
 
 import net.joefoxe.hexerei.client.renderer.entity.ModEntityTypes;
 import net.joefoxe.hexerei.item.ModItems;
+import net.joefoxe.hexerei.particle.ModParticleTypes;
 import net.joefoxe.hexerei.util.HexereiPacketHandler;
 import net.joefoxe.hexerei.util.message.MessageAccelerating;
 import net.minecraft.block.Block;
@@ -41,6 +42,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Random;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -134,10 +137,6 @@ public class BroomEntity extends Entity {
         this.dataManager.register(LEFT_PADDLE, false);
         this.dataManager.register(RIGHT_PADDLE, false);
         this.dataManager.register(ROCKING_TICKS, 0);
-//        this.dataManager.register(ACCELERATION_DIRECTION, AccelerationDirection.NONE.ordinal());
-//        this.dataManager.register(CURRENT_SPEED, 0F);
-//        this.dataManager.register(MAX_SPEED, 10F);
-//        this.dataManager.register(ACCELERATION_SPEED, 0.5F);
     }
 
     @Override
@@ -279,138 +278,6 @@ public class BroomEntity extends Entity {
         return this.getHorizontalFacing().rotateY();
     }
 
-//    public boolean isMoving()
-//    {
-//        return this.currentSpeed != 0;
-//    }
-//
-//    public void setMaxSpeed(float maxSpeed)
-//    {
-//        this.dataManager.set(MAX_SPEED, maxSpeed);
-//    }
-//
-//    public float getMaxSpeed()
-//    {
-//        return this.dataManager.get(MAX_SPEED);
-//    }
-//
-//    public float getActualMaxSpeed()
-//    {
-//        float maxSpeed = this.dataManager.get(MAX_SPEED);
-//        return maxSpeed;
-//    }
-//
-//    public float getRealSpeed()
-//    {
-//        return this.currentSpeed / (this.getActualMaxSpeed());
-//    }
-//
-//    public void setSpeed(float speed)
-//    {
-//        this.dataManager.set(CURRENT_SPEED, speed);
-//    }
-//
-//    public float getSpeed()
-//    {
-//        return this.currentSpeed;
-//    }
-//
-//    public float getNormalSpeed()
-//    {
-//        return this.currentSpeed / this.getMaxSpeed();
-//    }
-//
-//    public float getActualSpeed()
-//    {
-//        return (this.currentSpeed + this.currentSpeed) / this.getActualMaxSpeed();
-//    }
-//
-//    public void setAccelerationSpeed(float speed)
-//    {
-//        this.dataManager.set(ACCELERATION_SPEED, speed);
-//    }
-//
-//    public float getAccelerationSpeed()
-//    {
-//        return this.dataManager.get(ACCELERATION_SPEED);
-//    }
-//
-//    protected float getModifiedAccelerationSpeed()
-//    {
-//        return this.dataManager.get(ACCELERATION_SPEED);
-//    }
-//
-//    public void setAcceleration(AccelerationDirection direction)
-//    {
-//        this.dataManager.set(ACCELERATION_DIRECTION, direction.ordinal());
-//    }
-//
-//    public AccelerationDirection getAcceleration()
-//    {
-//        return AccelerationDirection.values()[this.dataManager.get(ACCELERATION_DIRECTION)];
-//    }
-//
-//    protected void updateSpeed()
-//    {
-//
-//        this.currentSpeed = this.getSpeed();
-//
-//        AccelerationDirection acceleration = this.getAcceleration();
-//
-//        /* Reset charging to false if acceleration is not charging */
-//        if(acceleration != AccelerationDirection.CHARGING)
-//        {
-//            this.charging = false;
-//        }
-//
-//        if(this.getControllingPassenger() != null)
-//        {
-//            if(acceleration == AccelerationDirection.FORWARD)
-//            {
-//                float maxSpeed = this.getActualMaxSpeed();
-//                if(this.currentSpeed < maxSpeed)
-//                {
-//                    this.currentSpeed += this.getModifiedAccelerationSpeed();
-//                    if(this.currentSpeed > maxSpeed)
-//                    {
-//                        this.currentSpeed = maxSpeed;
-//                    }
-//                }
-//                if(this.currentSpeed > maxSpeed)
-//                {
-//                    this.currentSpeed *= 0.975F;
-//                }
-//                return;
-//
-//            }
-//            else if(acceleration == AccelerationDirection.REVERSE)
-//            {
-//                    float maxSpeed = -(4.0F);
-//                    if(this.currentSpeed > maxSpeed)
-//                    {
-//                        this.currentSpeed -= this.getModifiedAccelerationSpeed();
-//                        if(this.currentSpeed < maxSpeed)
-//                        {
-//                            this.currentSpeed = maxSpeed;
-//                        }
-//                    }
-//                    if(this.currentSpeed < maxSpeed)
-//                    {
-//                        this.currentSpeed *= 0.975F;
-//                    }
-//                    return;
-//
-//            }
-//            this.currentSpeed *= 0.98;
-//
-//        }
-//
-//            this.currentSpeed *= 0.98;
-//
-//    }
-//
-
-
     /**
      * Called to update the entity's position/logic.
      */
@@ -466,6 +333,35 @@ public class BroomEntity extends Entity {
             }
 
             this.move(MoverType.SELF, this.getMotion());
+
+
+            Random random = new Random();
+            if(random.nextInt(50)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+            if(random.nextInt(20)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM_2.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+            if(random.nextInt(80)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM_3.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+            if(random.nextInt(500)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM_4.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+            if(random.nextInt(500)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM_5.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+            if(random.nextInt(500)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM_6.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+
+
         } else {
             this.setMotion(Vector3d.ZERO);
             floatingOffset = moveTo(floatingOffset, 0, 0.02f);
@@ -508,13 +404,34 @@ public class BroomEntity extends Entity {
             }
         }
 
-//        updateSpeed();
-//        this.setSpeed(this.currentSpeed);
-//        if(this.world.isRemote)
-//        {
-//            this.onClientUpdate();
-//        }
 
+        if(world.isRemote() && this.getMotion().length() >= 0.01d) {
+            Random random = new Random();
+            if(random.nextInt(5)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+            if(random.nextInt(2)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM_2.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+            if(random.nextInt(8)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM_3.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+            if(random.nextInt(50)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM_4.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+            if(random.nextInt(50)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM_5.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+            if(random.nextInt(50)==0) {
+                float rotOffset = random.nextFloat() * 10 - 5;
+                world.addParticle(ModParticleTypes.BROOM_6.get(), getPosX() - Math.sin(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), getPosY() + floatingOffset + 0.2f * random.nextFloat() - this.getMotion().getY(), getPosZ() + Math.cos(((this.rotationYaw - 90f + deltaRotation + rotOffset) / 180f) * (Math.PI)) * (1.25f + this.getMotion().length()/4), (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d, (random.nextDouble() - 0.5d) * 0.015d);
+            }
+        }
 
     }
 
@@ -1053,13 +970,7 @@ public class BroomEntity extends Entity {
                     if (!this.world.isRemote && !this.removed) {
                         this.remove();
                         if (this.world.getGameRules().getBoolean(GameRules.DO_ENTITY_DROPS)) {
-                            for(int i = 0; i < 3; ++i) {
-                                this.entityDropItem(ModItems.BROOM.get());
-                            }
-
-                            for(int j = 0; j < 2; ++j) {
-                                this.entityDropItem(Items.STICK);
-                            }
+                            this.entityDropItem(ModItems.BROOM.get());
                         }
                     }
                 }

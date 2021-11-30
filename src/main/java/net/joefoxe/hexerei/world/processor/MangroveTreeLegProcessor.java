@@ -6,7 +6,10 @@ import mcp.MethodsReturnNonnullByDefault;
 import net.joefoxe.hexerei.Hexerei;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -16,6 +19,7 @@ import net.minecraft.world.gen.feature.template.IStructureProcessorType;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.StructureProcessor;
 import net.minecraft.world.gen.feature.template.Template;
+import net.minecraftforge.common.Tags;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -33,10 +37,16 @@ public class MangroveTreeLegProcessor extends StructureProcessor {
     @ParametersAreNonnullByDefault
     @Override
     public Template.BlockInfo process(IWorldReader worldReader, BlockPos jigsawPiecePos, BlockPos jigsawPieceBottomCenterPos, Template.BlockInfo blockInfoLocal, Template.BlockInfo blockInfoGlobal, PlacementSettings structurePlacementData, @Nullable Template template) {
+        ChunkPos currentChunkPos = new ChunkPos(blockInfoGlobal.pos);
+        IChunk currentChunk = worldReader.getChunk(currentChunkPos.x, currentChunkPos.z);
+        Random random = structurePlacementData.getRandom(blockInfoGlobal.pos);
+
+        if(!(currentChunk.getBlockState(blockInfoGlobal.pos).getBlock() instanceof LeavesBlock || currentChunk.getBlockState(blockInfoGlobal.pos).getBlock() == Blocks.AIR))
+        {
+            return null;
+        }
+
         if (blockInfoGlobal.state.getBlock() == Blocks.YELLOW_STAINED_GLASS_PANE) {
-            ChunkPos currentChunkPos = new ChunkPos(blockInfoGlobal.pos);
-            IChunk currentChunk = worldReader.getChunk(currentChunkPos.x, currentChunkPos.z);
-            Random random = structurePlacementData.getRandom(blockInfoGlobal.pos);
 
             currentChunk.setBlockState(blockInfoGlobal.pos, Blocks.AIR.getDefaultState(), false);
             blockInfoGlobal = new Template.BlockInfo(blockInfoGlobal.pos, Blocks.AIR.getDefaultState(), blockInfoGlobal.nbt);
@@ -55,7 +65,7 @@ public class MangroveTreeLegProcessor extends StructureProcessor {
     }
 
     protected IStructureProcessorType<?> getType() {
-        return Hexerei.WITCH_HUT_LEG_PROCESSOR;
+        return Hexerei.MANGROVE_TREE_LEG_PROCESSOR;
     }
 }
 

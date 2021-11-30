@@ -84,7 +84,7 @@ public class ModBiomes {
         biomegenerationsettings$builder.withStructure(StructureFeatures.SWAMP_HUT);
 //        biomegenerationsettings$builder.withStructure(StructureFeatures.MINESHAFT);
         biomegenerationsettings$builder.withStructure(StructureFeatures.RUINED_PORTAL_SWAMP);
-        biomegenerationsettings$builder.withStructure(StructureFeatures.VILLAGE_TAIGA);
+//        biomegenerationsettings$builder.withStructure(StructureFeatures.VILLAGE_TAIGA);
         DefaultBiomeFeatures.withCavesAndCanyons(biomegenerationsettings$builder);
         DefaultBiomeFeatures.withFossils(biomegenerationsettings$builder);
 

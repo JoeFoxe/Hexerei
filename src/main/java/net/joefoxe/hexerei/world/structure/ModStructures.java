@@ -3,9 +3,13 @@ package net.joefoxe.hexerei.world.structure;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.joefoxe.hexerei.Hexerei;
+import net.joefoxe.hexerei.world.structure.structures.DarkCovenStructure;
+import net.joefoxe.hexerei.world.structure.structures.GenericJigsawStructure;
 import net.joefoxe.hexerei.world.structure.structures.MangroveTreeStructure;
 import net.joefoxe.hexerei.world.structure.structures.WitchHutStructure;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
@@ -16,16 +20,28 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.Supplier;
 
 public class ModStructures {
     public static final DeferredRegister<Structure<?>> STRUCTURES =
             DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, Hexerei.MOD_ID);
+    public static final Set<ResourceLocation> HEXEREI_STRUCTURE_START_PIECES = new HashSet<>();
 
     public static final RegistryObject<Structure<NoFeatureConfig>> WITCH_HUT =
             STRUCTURES.register("witch_hut", WitchHutStructure::new);
     public static final RegistryObject<Structure<NoFeatureConfig>> MANGROVE_TREE =
             STRUCTURES.register("mangrove_tree", MangroveTreeStructure::new);
+    public static final RegistryObject<Structure<NoFeatureConfig>> DARK_COVEN =
+            STRUCTURES.register("dark_coven", DarkCovenStructure::new);
+
+//    public static final RegistryObject<Structure<NoFeatureConfig>> DARK_COVEN = addToStructureMaps("dark_coven", () -> (new GenericJigsawStructure.Builder<>(new ResourceLocation(Hexerei.MOD_ID, "coven/dark_coven/town_centers")).setStructureSize(6).setBiomeRange(1).setStructureBlacklistRange(6).build()));
+
+    private static <T extends Structure<?>> RegistryObject<T> addToStructureMaps(String name, Supplier<T> structure) {
+        return STRUCTURES.register(name, structure);
+    }
 
     /* average distance apart in chunks between spawn attempts */
     /* minimum distance apart in chunks between spawn attempts. MUST BE LESS THAN ABOVE VALUE*/
@@ -37,6 +53,9 @@ public class ModStructures {
                 false);
         setupMapSpacingAndLand(MANGROVE_TREE.get(),
                 new StructureSeparationSettings(3,1, 1234567890),
+                false);
+        setupMapSpacingAndLand(DARK_COVEN.get(),
+                new StructureSeparationSettings(29,11, 1418987890),
                 false);
     }
 

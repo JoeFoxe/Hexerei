@@ -267,7 +267,8 @@ public class CandleTile extends TileEntity implements ITickableTileEntity{
                     candlesLit++;
             }
 
-            world.setBlockState(pos, world.getBlockState(pos).with(Candle.CANDLES_LIT, candlesLit), 3);
+            if(world.getBlockState(pos).hasProperty(Candle.CANDLES_LIT))
+                world.setBlockState(pos, world.getBlockState(pos).with(Candle.CANDLES_LIT, candlesLit), 3);
 
 
         if(world.isRemote) {

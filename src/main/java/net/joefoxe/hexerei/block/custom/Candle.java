@@ -446,7 +446,7 @@ public class Candle extends Block implements ITileEntity<CandleTile>, IWaterLogg
 
         if(!state.isValidPosition(world, pos))
         {
-            if(!world.isRemote()) {
+            if(!world.isRemote() && world instanceof ServerWorld) {
                 dropCandles(((ServerWorld) world).getWorld(), pos);
             }
         }

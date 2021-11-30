@@ -238,7 +238,7 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
     }
 
     @Nonnull
-    public ItemStack takeItemsFromSlot (int slot, int count) {
+    public ItemStack takeItems (int slot, int count) {
 
         ItemStack stack = this.itemHandler.getStackInSlot(slot).copy();
         stack.setCount(Math.min(count, this.itemHandler.getStackInSlot(slot).getMaxStackSize()));
@@ -247,16 +247,13 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
         return stack;
     }
 
-    public int putItemsIntoSlot (int slot, @Nonnull ItemStack stack, int count) {
-//        if(!world.isRemote)
-//        System.out.println(HexConfig.JARS_ONLY_HOLD_HERBS.get());
+    public int putItems (int slot, @Nonnull ItemStack stack, int count) {
         if(HexConfig.JARS_ONLY_HOLD_HERBS.get())
             if(!stack.getItem().isIn(HexereiTags.Items.HERB_ITEM))
                 return 0;
 
         if (this.itemHandler.getContents().get(0).isEmpty()) {
             this.itemHandler.insertItem(0, stack.copy(), false);
-//            this.itemHandler.getStackInSlot(0).setCount(count);
             markDirty();
             stack.shrink(count);
             return count;
@@ -287,17 +284,10 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
 
     @OnlyIn(Dist.CLIENT)
     private void clientUpdateCountAsync (int slot, int count) {
-//        System.out.println("Message received. " + this.itemHandler.getStackInSlot(0).getCount() + " : " + count);
         if (this.itemHandler.getStackInSlot(0).getCount() != count){
             ItemStack newStack = this.itemHandler.getStackInSlot(0).copy();
-//            newStack.setCount(count);
-//            System.out.println(newStack);
             this.itemHandler.setStackInSlot(0, newStack);
-
         }
-
-//        System.out.println("Message received. " + this.itemHandler.getStackInSlot(0).getCount() + " : " + count);
-
     }
 
     protected void syncClientCount (int slot, int count) {
@@ -311,12 +301,12 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
 
 
 
-    public int interactPutItemsIntoSlot (PlayerEntity player) {
+    public int interactPutItems (PlayerEntity player) {
         int count;
         if (Objects.requireNonNull(getWorld()).getGameTime() - lastClickTime < 10 && player.getUniqueID().equals(lastClickUUID))
-            count = interactPutCurrentInventoryIntoSlot(0, player);
+            count = interactPutCurrentInventory(0, player);
         else
-            count = interactPutCurrentItemIntoSlot(0, player);
+            count = interactPutCurrentItem(0, player);
 
         lastClickTime = getWorld().getGameTime();
         lastClickUUID = player.getUniqueID();
@@ -326,24 +316,24 @@ public class HerbJarTile extends LockableLootTileEntity implements ITickableTile
         return count;
     }
 
-    public int interactPutCurrentItemIntoSlot (int slot, PlayerEntity player) {
+    public int interactPutCurrentItem (int slot, PlayerEntity player) {
 
         int count = 0;
         ItemStack playerStack = player.inventory.getCurrentItem();
         if (!playerStack.isEmpty())
-            count = putItemsIntoSlot(slot, playerStack, playerStack.getCount());
+            count = putItems(slot, playerStack, playerStack.getCount());
 
         return count;
     }
 
 
-    public int interactPutCurrentInventoryIntoSlot (int slot, PlayerEntity player) {
+    public int interactPutCurrentInventory (int slot, PlayerEntity player) {
         int count = 0;
         if (!this.itemHandler.getContents().get(0).isEmpty()) {
             for (int i = 0, n = player.inventory.getSizeInventory(); i < n; i++) {
                 ItemStack subStack = player.inventory.getStackInSlot(i);
                 if (!subStack.isEmpty()) {
-                    int subCount = putItemsIntoSlot(slot, subStack, subStack.getCount());
+                    int subCount = putItems(slot, subStack, subStack.getCount());
                     if (subCount > 0 && subStack.getCount() == 0)
                         player.inventory.setInventorySlotContents(i, ItemStack.EMPTY);
 

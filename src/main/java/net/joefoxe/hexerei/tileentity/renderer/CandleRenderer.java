@@ -62,7 +62,6 @@ public class CandleRenderer extends TileEntityRenderer<CandleTile> {
                     matrixStackIn.translate(3f / 16f, 0f / 16f, -2f / 16f);
             }
 
-
             if(tileEntityIn.candleHeight1 == 0)
                 renderBlock(matrixStackIn, bufferIn, combinedLightIn, ModBlocks.CANDLE_0_OF_7.get().getDefaultState().with(Candle.SLOT_ONE_TYPE, tileEntityIn.candleType1));
             if(tileEntityIn.candleHeight1 == 1)

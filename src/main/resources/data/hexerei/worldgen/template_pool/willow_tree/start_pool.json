@@ -6,7 +6,7 @@
       "weight": 1,
       "element": {
         "location": "hexerei:willow_tree1",
-        "processors": "hexerei:willow_tree/willow_tree_legs",
+        "processors": "hexerei:mangrove_tree/mangrove_tree_legs",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

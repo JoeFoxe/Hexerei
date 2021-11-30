@@ -14,7 +14,7 @@ apply plugin: 'maven-publish'
 
 
 def mc_version = "1.16.5"
-version = "0.1.1"
+version = "0.1.3"
 group = 'net.joefoxe.hexerei' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'hexerei'
 

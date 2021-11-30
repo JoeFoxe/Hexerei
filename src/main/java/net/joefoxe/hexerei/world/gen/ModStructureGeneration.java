@@ -23,6 +23,7 @@ public class ModStructureGeneration {
 
             structures.add(() -> ModStructures.WITCH_HUT.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
             structures.add(() -> ModStructures.MANGROVE_TREE.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
+            structures.add(() -> ModStructures.DARK_COVEN.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
         }
     }
 }

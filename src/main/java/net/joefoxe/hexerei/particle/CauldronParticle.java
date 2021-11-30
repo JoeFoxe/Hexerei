@@ -98,7 +98,6 @@ public class CauldronParticle extends SpriteTexturedParticle {
             RenderSystem.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
             RenderSystem.enableLighting();
             RenderSystem.enableColorMaterial();
-
             // opaque
 //			RenderSystem.depthMask(true);
 //			RenderSystem.disableBlend();
@@ -120,7 +119,6 @@ public class CauldronParticle extends SpriteTexturedParticle {
     };
 
     protected float scale;
-    protected boolean hot;
     protected float rotationDirection;
     protected float rotation;
 
@@ -142,51 +140,19 @@ public class CauldronParticle extends SpriteTexturedParticle {
         this.setSize(scale * 0.5f, scale * 0.5f);
     }
 
-    public void averageAge(int age) {
-        Random random = new Random();
-        this.maxAge = (int) (age + (random.nextDouble() * 2D - 1D) * 8);
-    }
-
-    public void setHot(boolean hot) {
-        this.hot = hot;
-    }
-
     public void setRotationDirection(float rotationDirection) {
         this.rotationDirection = rotationDirection;
     }
 
-
-    private boolean billowing = false;
-
     @Override
     public void tick() {
         // motion for the particle
-        if (this.hot && this.age > 0) {
-            if (this.prevPosY == this.posY) {
-                billowing = true;
-                this.canCollide = false; // Prevent motion being ignored due to vertical collision
-                if (this.motionX == 0 && this.motionZ == 0) {
-                    Vector3d diff = Vector3d.copyCenteredHorizontally(new BlockPos(this.posX, this.posY, this.posZ)).add(0.5, 0.5, 0.5).subtract(this.posX, this.posY, this.posZ);
-                    this.motionX = -diff.x * 0.1;
-                    this.motionZ = -diff.z * 0.1;
-                }
-                this.motionX *= 1.1;
-                this.motionY *= 0.9;
-                this.motionZ *= 1.1;
-            } else if (billowing) {
-                this.motionY *= 1.2;
-            }
-        }
         this.rotation = (this.rotationDirection * 0.1f) + this.rotation;
-
-
-
         super.tick();
     }
 
     @Override
     public void renderParticle(IVertexBuilder buffer, ActiveRenderInfo renderInfo, float partialTicks) {
-
 
         Vector3d projectedView = renderInfo.getProjectedView();
         float lerpedX = (float) (MathHelper.lerp(partialTicks, this.prevPosX, this.posX) - projectedView.getX());

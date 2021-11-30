@@ -30,5 +30,11 @@ public class ModParticleTypes {
 
     public static final RegistryObject<BasicParticleType> CAULDRON = PARTICLES.register("cauldron_particle", () -> new BasicParticleType(true));
     public static final RegistryObject<BasicParticleType> BLOOD = PARTICLES.register("blood_particle", () -> new BasicParticleType(true));
+    public static final RegistryObject<BasicParticleType> BROOM = PARTICLES.register("broom_particle_1", () -> new BasicParticleType(true));
+    public static final RegistryObject<BasicParticleType> BROOM_2 = PARTICLES.register("broom_particle_2", () -> new BasicParticleType(true));
+    public static final RegistryObject<BasicParticleType> BROOM_3 = PARTICLES.register("broom_particle_3", () -> new BasicParticleType(true));
+    public static final RegistryObject<BasicParticleType> BROOM_4 = PARTICLES.register("broom_particle_4", () -> new BasicParticleType(true));
+    public static final RegistryObject<BasicParticleType> BROOM_5 = PARTICLES.register("broom_particle_5", () -> new BasicParticleType(true));
+    public static final RegistryObject<BasicParticleType> BROOM_6 = PARTICLES.register("broom_particle_6", () -> new BasicParticleType(true));
 
 }

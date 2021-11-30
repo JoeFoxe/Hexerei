@@ -53,8 +53,9 @@ public class ModConfiguredFeatures {
                             SimpleBlockPlacer.PLACER)).tries(1).build())
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3);
 
-    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> WILLOW = register("willow_tree", ModFeatures.WILLOW_TREE.get().withConfiguration((
-            new BaseTreeFeatureConfig.Builder(
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> WILLOW =
+            register("willow_tree", ModFeatures.WILLOW_TREE.get().withConfiguration((
+                new BaseTreeFeatureConfig.Builder(
                     new SimpleBlockStateProvider(ModBlocks.MAHOGANY_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(ModBlocks.MAHOGANY_LEAVES.get().getDefaultState()),
                     new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 3),

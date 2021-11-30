@@ -93,7 +93,9 @@ public class CofferTile extends LockableLootTileEntity implements ITickableTileE
     @Override
     public void markDirty() {
         super.markDirty();
-        this.world.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(),
+
+        if(this.world != null)
+            this.world.notifyBlockUpdate(this.pos, this.getBlockState(), this.getBlockState(),
                 Constants.BlockFlags.BLOCK_UPDATE);
     }
 

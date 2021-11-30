@@ -128,7 +128,8 @@ public class CandleDipper extends Block implements ITileEntity<CandleDipperTile>
         TileEntity tileEntity = worldIn.getTileEntity(pos);
 
         if (tileEntity instanceof CandleDipperTile) {
-            ((CandleDipperTile)tileEntity).interactDipper(player, hit);
+            int check = ((CandleDipperTile)tileEntity).interactDipper(player, hit);
+            System.out.println(check);
             return ActionResultType.SUCCESS;
         }
 
