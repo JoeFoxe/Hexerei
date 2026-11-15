@@ -5,6 +5,12 @@
       "file": "1x1/test_1x1.png",
       "title": "Test 1x1",
       "author": "JoeFoxe"
+    },
+    {
+      "size": "2x1",
+      "file": "2x1/test_2x1.png",
+      "title": "Test 2x1",
+      "author": "JoeFoxe"
     }
   ]
 }
