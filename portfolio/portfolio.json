@@ -1,0 +1,10 @@
+{
+  "paintings": [
+    {
+      "size": "1x1",
+      "file": "1x1/test_1x1.png",
+      "title": "Test 1x1",
+      "author": "JoeFoxe"
+    }
+  ]
+}
