@@ -2,14 +2,32 @@
   "paintings": [
     {
       "size": "1x1",
-      "file": "1x1/test_1x1.png",
-      "title": "Test 1x1",
+      "file": "1x1/hexerei_icon.png",
+      "title": "Hexerei",
+      "author": "JoeFoxe"
+    },
+    {
+      "size": "1x2",
+      "file": "1x2/lantern.png",
+      "title": "Lantern",
       "author": "JoeFoxe"
     },
     {
       "size": "2x1",
-      "file": "2x1/test_2x1.png",
-      "title": "Test 2x1",
+      "file": "2x1/northern_lights.png",
+      "title": "Northern Lights",
+      "author": "JoeFoxe"
+    },
+    {
+      "size": "2x2",
+      "file": "2x2/cute_ghost.png",
+      "title": "Cute Ghost",
+      "author": "JoeFoxe"
+    },
+    {
+      "size": "2x2",
+      "file": "2x2/winter_night.png",
+      "title": "Winter Night",
       "author": "JoeFoxe"
     }
   ]
